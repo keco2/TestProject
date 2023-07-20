@@ -16,6 +16,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfService", "WcfService\Wc
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMgmt.UI", "TaskMgmt.UI\TaskMgmt.UI.csproj", "{060B29ED-F841-4D21-B9F3-BBB278B167B8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{28E3454D-5DC1-449A-A952-F7ED4AF3949C} = {28E3454D-5DC1-449A-A952-F7ED4AF3949C}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
