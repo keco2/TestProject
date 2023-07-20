@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfService", "WcfService\Wc
 		{64E4FB18-B595-48EA-9602-5044928E82BE} = {64E4FB18-B595-48EA-9602-5044928E82BE}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMgmt.UI", "TaskMgmt.UI\TaskMgmt.UI.csproj", "{060B29ED-F841-4D21-B9F3-BBB278B167B8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{28E3454D-5DC1-449A-A952-F7ED4AF3949C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28E3454D-5DC1-449A-A952-F7ED4AF3949C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28E3454D-5DC1-449A-A952-F7ED4AF3949C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{060B29ED-F841-4D21-B9F3-BBB278B167B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{060B29ED-F841-4D21-B9F3-BBB278B167B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{060B29ED-F841-4D21-B9F3-BBB278B167B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{060B29ED-F841-4D21-B9F3-BBB278B167B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
