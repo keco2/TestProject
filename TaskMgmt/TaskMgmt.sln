@@ -4,8 +4,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMgmt.Service", "TaskMgmt.Service\TaskMgmt.Service.csproj", "{7F94F2EF-FA7A-4A94-AB6A-479D0E448B2C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{64E4FB18-B595-48EA-9602-5044928E82BE} = {64E4FB18-B595-48EA-9602-5044928E82BE}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMgmt.Model", "TaskMgmt.Model\TaskMgmt.Model.csproj", "{64E4FB18-B595-48EA-9602-5044928E82BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfService", "WcfService\WcfService.csproj", "{28E3454D-5DC1-449A-A952-F7ED4AF3949C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{64E4FB18-B595-48EA-9602-5044928E82BE} = {64E4FB18-B595-48EA-9602-5044928E82BE}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +29,10 @@ Global
 		{64E4FB18-B595-48EA-9602-5044928E82BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64E4FB18-B595-48EA-9602-5044928E82BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64E4FB18-B595-48EA-9602-5044928E82BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28E3454D-5DC1-449A-A952-F7ED4AF3949C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28E3454D-5DC1-449A-A952-F7ED4AF3949C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28E3454D-5DC1-449A-A952-F7ED4AF3949C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28E3454D-5DC1-449A-A952-F7ED4AF3949C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
