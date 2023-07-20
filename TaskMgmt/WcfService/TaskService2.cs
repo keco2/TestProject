@@ -6,10 +6,10 @@ using System.ServiceModel;
 using System.Text;
 using TaskMgmt.Model;
 
-namespace WcfService
+namespace TaskMgmt.WcfService
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in both code and config file together.
-    public class TaskService: ITaskService
+    public class TaskService2: ITaskService2
     {
         public string GetData(int value)
         {
