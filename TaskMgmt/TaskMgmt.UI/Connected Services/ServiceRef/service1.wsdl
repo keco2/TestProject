@@ -109,7 +109,7 @@
   </wsdl:binding>
   <wsdl:service name="TaskService">
     <wsdl:port name="BasicHttpBinding_ITaskService" binding="tns:BasicHttpBinding_ITaskService">
-      <soap:address location="http://localhost:8733/Design_Time_Addresses/TaskMgmtWcfService/TaskService/" />
+      <soap:address location="http://localhost:8000/TaskMgmt.WcfService/TaskService/" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

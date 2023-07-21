@@ -13,12 +13,11 @@ namespace TaskMgmt.WcfService
     {
 
 
-
         private List<Task> tasks = new List<Task>
         {
-            new Task { ID = new Guid("1"), Name = "Task 1" },
-            new Task { ID = new Guid("2"), Name = "Task 2" },
-            new Task { ID = new Guid("3"), Name = "Task 3" }
+            new Task { ID = new Guid("00000000-0000-0000-0000-000000000001"), Name = "Task 1" },
+            new Task { ID = new Guid("00000000-0000-0000-0000-000000000002"), Name = "Task 2" },
+            new Task { ID = new Guid("00000000-0000-0000-0000-000000000003"), Name = "Task 3" }
         };
 
 

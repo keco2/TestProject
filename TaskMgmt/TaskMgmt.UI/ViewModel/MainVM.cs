@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using TaskMgmt.UI.ServiceRef;
 
 namespace TaskMgmt.UI.ViewModel
 {
@@ -20,14 +22,21 @@ namespace TaskMgmt.UI.ViewModel
 
         private void GetWcf()
         {
-            //string baseAddress = "http://localhost:8733/TaskService.svc"; // 8080 Replace with the actual address of your service.
-            //string baseAddress = "http://localhost:8733/Design_Time_Addresses/TaskMgmt.WcfService/TaskService/";
-            string baseAddress = "http://localhost:8733/TaskMgmt.WcfService/TaskService/";
+            string baseAddress = "http://localhost:8000/TaskMgmt.WcfService/TaskService";
 
+            //TaskName = GetData_v1(baseAddress);
+            TaskName = GetData_v2(baseAddress);
+
+        }
+
+        private string GetData_v1(string baseAddress)
+        {
             HttpClient httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(baseAddress);
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            return httpClient.GetAsync("tasks").Result.ToString();
 
             //HttpResponseMessage response = httpClient.GetAsync("tasks").Result;
             //
@@ -36,7 +45,14 @@ namespace TaskMgmt.UI.ViewModel
             //    //List<TaskMgmt.Model.Task> tasks = response.Content.ReadAsStringAsync<TaskMgmt.Model.Task>().Result; // ReadAsAsync
             //    //TaskName = tasks.First().Name;
             //}
+        }
 
+        private string GetData_v2(string baseAddress)
+        {
+            ChannelFactory<ITaskService> factory = new ChannelFactory<ITaskService>(new BasicHttpBinding(), new EndpointAddress(baseAddress));
+            ITaskService service = factory.CreateChannel();
+
+            return service.GetTasks().First().Name;
         }
 
         private void HookUpUICommands()

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ServiceModel;
 using TaskMgmt.WcfService;
+using System.ServiceModel.Description;
 
 namespace TaskMgmt.Server
 {
@@ -14,6 +15,14 @@ namespace TaskMgmt.Server
         {
             Console.Title = "Server";
 
+            //string baseAddress = "http://localhost:8000/TaskMgmt.WcfService/TaskService/";
+            string baseAddress = "http://localhost:8000/TaskMgmt.WcfService/";
+            RunHost_MsHowToHostAndRunABasicWcfService(baseAddress);
+            //RunHost_Uknown(baseAddress);
+        }
+
+        private static void RunHost_Uknown(string baseAddress)
+        {
             using (ServiceHost serviceHost = new ServiceHost(typeof(TaskService), new Uri("http://localhost:8000/TaskMgmt.WcfService/TaskService/")))
             {
                 serviceHost.AddServiceEndpoint(typeof(ITaskService), new BasicHttpBinding(), "");
@@ -41,6 +50,37 @@ namespace TaskMgmt.Server
                     Console.WriteLine(commProblem.Message);
                     Console.ReadLine();
                 }
+            }
+        }
+
+        private static void RunHost_MsHowToHostAndRunABasicWcfService(string baseAddress)
+        {
+            ServiceHost selfHost = new ServiceHost(typeof(TaskService), new Uri(baseAddress));
+
+            try
+            {
+                // Step 3: Add a service endpoint.
+                selfHost.AddServiceEndpoint(typeof(ITaskService), new WSHttpBinding(), "TaskService");
+
+                // Step 4: Enable metadata exchange.
+                ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
+                smb.HttpGetEnabled = true;
+                selfHost.Description.Behaviors.Add(smb);
+
+                // Step 5: Start the service.
+                selfHost.Open();
+                Console.WriteLine("The service is ready.");
+
+                // Close the ServiceHost to stop the service.
+                Console.WriteLine("Press <Enter> to terminate the service.");
+                Console.WriteLine();
+                Console.ReadLine();
+                selfHost.Close();
+            }
+            catch (CommunicationException ce)
+            {
+                Console.WriteLine("An exception occurred: {0}", ce.Message);
+                selfHost.Abort();
             }
         }
     }

@@ -94,14 +94,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Connected Services\ServiceRef\service.wsdl" />
-    <None Include="Connected Services\ServiceRef\service.xsd">
+    <None Include="Connected Services\ServiceRef\service1.wsdl" />
+    <None Include="Connected Services\ServiceRef\service2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\ServiceRef\service1.xsd">
+    <None Include="Connected Services\ServiceRef\service21.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\ServiceRef\TaskMgmt.Model.xsd">
+    <None Include="Connected Services\ServiceRef\TaskMgmt.Model1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\DataSources\TaskMgmt.Model.Task.datasource" />

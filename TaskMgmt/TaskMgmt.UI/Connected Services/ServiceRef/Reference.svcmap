@@ -19,13 +19,13 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:8733/Design_Time_Addresses/TaskMgmtWcfService/TaskService/mex" Protocol="mex" SourceId="1" />
+    <MetadataSource Address="http://localhost:8000/TaskMgmt.WcfService/TaskService/mex" Protocol="mex" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="516a4463-30fe-46e5-9e90-4033a4e28403" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/TaskMgmtWcfService/TaskService/mex" />
-    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="9bf2ab48-fda7-4d10-9800-460367988e08" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/TaskMgmtWcfService/TaskService/mex" />
-    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="7f9e41b7-e750-4193-ace7-b3040f01a51a" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/TaskMgmtWcfService/TaskService/mex" />
-    <MetadataFile FileName="TaskMgmt.Model.xsd" MetadataType="Schema" ID="241fea25-e704-4d0d-921d-c12712fb20e7" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/TaskMgmtWcfService/TaskService/mex" />
+    <MetadataFile FileName="service1.wsdl" MetadataType="Wsdl" ID="f29e1f12-0c47-4b9c-add1-1279f131c3ee" SourceId="1" SourceUrl="http://localhost:8000/TaskMgmt.WcfService/TaskService/mex" />
+    <MetadataFile FileName="service2.xsd" MetadataType="Schema" ID="91b82cc1-6774-4d0d-afef-70c87d2b8d7e" SourceId="1" SourceUrl="http://localhost:8000/TaskMgmt.WcfService/TaskService/mex" />
+    <MetadataFile FileName="service21.xsd" MetadataType="Schema" ID="fdbc1fb3-d97f-4082-a279-6ccf6d30d4d4" SourceId="1" SourceUrl="http://localhost:8000/TaskMgmt.WcfService/TaskService/mex" />
+    <MetadataFile FileName="TaskMgmt.Model1.xsd" MetadataType="Schema" ID="5e3240ce-2932-48ec-9df6-97de6f9e8e78" SourceId="1" SourceUrl="http://localhost:8000/TaskMgmt.WcfService/TaskService/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
