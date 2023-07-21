@@ -10,7 +10,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMgmt.Service", "TaskMgm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMgmt.Model", "TaskMgmt.Model\TaskMgmt.Model.csproj", "{64E4FB18-B595-48EA-9602-5044928E82BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfService", "WcfService\WcfService.csproj", "{28E3454D-5DC1-449A-A952-F7ED4AF3949C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMgmt.WcfService", "WcfService\TaskMgmt.WcfService.csproj", "{28E3454D-5DC1-449A-A952-F7ED4AF3949C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{64E4FB18-B595-48EA-9602-5044928E82BE} = {64E4FB18-B595-48EA-9602-5044928E82BE}
 	EndProjectSection
