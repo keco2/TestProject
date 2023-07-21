@@ -28,17 +28,15 @@ namespace TaskMgmt.UI.ViewModel
             httpClient.BaseAddress = new Uri(baseAddress);
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            //TaskService x = new TaskService();
-            
-            // Get all books
-            HttpResponseMessage response = httpClient.GetAsync("tasks").Result;
-            /*
-            if (response.IsSuccessStatusCode)
-            {
-                //List<TaskMgmt.Model.Task> tasks = response.Content.ReadAsStringAsync<TaskMgmt.Model.Task>().Result; // ReadAsAsync
-                //TaskName = tasks.First().Name;
-            }
-            */
+
+            //HttpResponseMessage response = httpClient.GetAsync("tasks").Result;
+            //
+            //if (response.IsSuccessStatusCode)
+            //{
+            //    //List<TaskMgmt.Model.Task> tasks = response.Content.ReadAsStringAsync<TaskMgmt.Model.Task>().Result; // ReadAsAsync
+            //    //TaskName = tasks.First().Name;
+            //}
+
         }
 
         private void HookUpUICommands()

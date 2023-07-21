@@ -9,25 +9,8 @@ using TaskMgmt.Model;
 namespace TaskMgmt.WcfService
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in both code and config file together.
-    public class TaskService2: ITaskService2
+    public class TaskService: ITaskService
     {
-        public string GetData(int value)
-        {
-            return string.Format("You entered: {0}", value);
-        }
-
-        public CompositeType GetDataUsingDataContract(CompositeType composite)
-        {
-            if (composite == null)
-            {
-                throw new ArgumentNullException("composite");
-            }
-            if (composite.BoolValue)
-            {
-                composite.StringValue += "Suffix";
-            }
-            return composite;
-        }
 
 
 
@@ -37,6 +20,9 @@ namespace TaskMgmt.WcfService
             new Task { ID = new Guid("2"), Name = "Task 2" },
             new Task { ID = new Guid("3"), Name = "Task 3" }
         };
+
+
+
 
         public List<Task> GetTasks()
         {
