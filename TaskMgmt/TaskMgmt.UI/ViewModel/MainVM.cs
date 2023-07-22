@@ -24,9 +24,6 @@ namespace TaskMgmt.UI.ViewModel
         {
             Proxy proxy = new Proxy();
             TaskName = proxy.GetTasks();
-
-
-            ChannelFactory<ITaskService> factory = new ChannelFactory<ITaskService>("BasicHttpBinding_ITaskService");
         }
 
         private void HookUpUICommands()

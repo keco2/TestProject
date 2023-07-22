@@ -11,7 +11,7 @@ namespace TaskMgmt.UI.ViewModel
 
         internal Proxy()
         {
-            ChannelFactory<ITaskService> factory = new ChannelFactory<ITaskService>("BasicHttpBinding_ITaskService");
+            ChannelFactory<ITaskService> factory = new ChannelFactory<ITaskService>("WsHttpBinding_ITaskService");
             _service = factory.CreateChannel();
         }
 
