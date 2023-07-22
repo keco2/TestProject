@@ -3,11 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMgmt.Service", "TaskMgmt.Service\TaskMgmt.Service.csproj", "{7F94F2EF-FA7A-4A94-AB6A-479D0E448B2C}"
-	ProjectSection(ProjectDependencies) = postProject
-		{64E4FB18-B595-48EA-9602-5044928E82BE} = {64E4FB18-B595-48EA-9602-5044928E82BE}
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMgmt.Model", "TaskMgmt.Model\TaskMgmt.Model.csproj", "{64E4FB18-B595-48EA-9602-5044928E82BE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMgmt.WcfService", "TaskMgmt.WcfService\TaskMgmt.WcfService.csproj", "{28E3454D-5DC1-449A-A952-F7ED4AF3949C}"
@@ -18,7 +13,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMgmt.UI", "TaskMgmt.UI\TaskMgmt.UI.csproj", "{060B29ED-F841-4D21-B9F3-BBB278B167B8}"
 	ProjectSection(ProjectDependencies) = postProject
 		{28E3454D-5DC1-449A-A952-F7ED4AF3949C} = {28E3454D-5DC1-449A-A952-F7ED4AF3949C}
-		{7F94F2EF-FA7A-4A94-AB6A-479D0E448B2C} = {7F94F2EF-FA7A-4A94-AB6A-479D0E448B2C}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMgmt.Server", "TaskMgmt.Server\TaskMgmt.Server.csproj", "{F075B43C-03CC-4D9B-8F1A-865C818EA386}"
@@ -31,10 +25,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7F94F2EF-FA7A-4A94-AB6A-479D0E448B2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7F94F2EF-FA7A-4A94-AB6A-479D0E448B2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7F94F2EF-FA7A-4A94-AB6A-479D0E448B2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7F94F2EF-FA7A-4A94-AB6A-479D0E448B2C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{64E4FB18-B595-48EA-9602-5044928E82BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{64E4FB18-B595-48EA-9602-5044928E82BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64E4FB18-B595-48EA-9602-5044928E82BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
