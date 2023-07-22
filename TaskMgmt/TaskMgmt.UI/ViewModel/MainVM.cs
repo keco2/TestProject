@@ -22,41 +22,11 @@ namespace TaskMgmt.UI.ViewModel
 
         private void GetWcf()
         {
-            //string baseAddress = "http://localhost:8000/TaskMgmt.WcfService/TaskService/mex";     BAD REQUEST
-            //string baseAddress = "http://localhost:8000/TaskMgmt.WcfService/TaskService/";        NOT ALLOWED
-            //string baseAddress = "http://localhost:8000/TaskMgmt.WcfService_xxX/TaskService/";    NOT FOUND
-            string baseAddress = "http://localhost:8000/TaskMgmt.WcfService/TaskService";
+            Proxy proxy = new Proxy();
+            TaskName = proxy.GetTasks();
 
-            //TaskName = GetData_v1(baseAddress);
-            TaskName = GetData_v2(baseAddress);
 
-        }
-
-        private string GetData_v1(string baseAddress)
-        {
-            HttpClient httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri(baseAddress);
-            httpClient.DefaultRequestHeaders.Accept.Clear();
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            //return httpClient.GetAsync("tasks").Result.ToString();
-            return httpClient.GetStringAsync("tasks").Result.ToString();
-
-            //HttpResponseMessage response = httpClient.GetAsync("tasks").Result;
-            //
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    //List<TaskMgmt.Model.Task> tasks = response.Content.ReadAsStringAsync<TaskMgmt.Model.Task>().Result; // ReadAsAsync
-            //    //TaskName = tasks.First().Name;
-            //}
-        }
-
-        private string GetData_v2(string baseAddress)
-        {
-            ChannelFactory<ITaskService> factory = new ChannelFactory<ITaskService>(new BasicHttpBinding(), new EndpointAddress(baseAddress));
-            ITaskService service = factory.CreateChannel();
-
-            return service.GetTasks().First().Name;
+            ChannelFactory<ITaskService> factory = new ChannelFactory<ITaskService>("BasicHttpBinding_ITaskService");
         }
 
         private void HookUpUICommands()

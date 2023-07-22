@@ -8,8 +8,7 @@ using TaskMgmt.Model;
 
 namespace TaskMgmt.WcfService
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in both code and config file together.
-    public class TaskService: ITaskService
+    public sealed class TaskService : ITaskService
     {
 
 
@@ -48,7 +47,6 @@ namespace TaskMgmt.WcfService
             if (existingTask != null)
             {
                 existingTask.Name = book.Name;
-                // todo
                 // todo
             }
         }
