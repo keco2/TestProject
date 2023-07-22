@@ -17,13 +17,13 @@ namespace TaskMgmt.Server
 
             //string baseAddress = "http://localhost:8000/TaskMgmt.WcfService/TaskService/";
             string baseAddress = "http://localhost:8000/TaskMgmt.WcfService/";
-            RunHost_MsHowToHostAndRunABasicWcfService(baseAddress);
-            //RunHost_Uknown(baseAddress);
+            //RunHost_MsHowToHostAndRunABasicWcfService(baseAddress);
+            RunHost_githubVanHakobyanWCFprojectsHostingServiceWCF(baseAddress);
         }
 
-        private static void RunHost_Uknown(string baseAddress)
+        private static void RunHost_githubVanHakobyanWCFprojectsHostingServiceWCF(string baseAddress)
         {
-            using (ServiceHost serviceHost = new ServiceHost(typeof(TaskService), new Uri("http://localhost:8000/TaskMgmt.WcfService/TaskService/")))
+            using (ServiceHost serviceHost = new ServiceHost(typeof(TaskService), new Uri("http://localhost:8000/TaskMgmt.WcfService/TaskService")))
             {
                 serviceHost.AddServiceEndpoint(typeof(ITaskService), new BasicHttpBinding(), "");
 

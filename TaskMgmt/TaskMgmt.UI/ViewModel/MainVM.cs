@@ -22,6 +22,9 @@ namespace TaskMgmt.UI.ViewModel
 
         private void GetWcf()
         {
+            //string baseAddress = "http://localhost:8000/TaskMgmt.WcfService/TaskService/mex";     BAD REQUEST
+            //string baseAddress = "http://localhost:8000/TaskMgmt.WcfService/TaskService/";        NOT ALLOWED
+            //string baseAddress = "http://localhost:8000/TaskMgmt.WcfService_xxX/TaskService/";    NOT FOUND
             string baseAddress = "http://localhost:8000/TaskMgmt.WcfService/TaskService";
 
             //TaskName = GetData_v1(baseAddress);
@@ -36,7 +39,8 @@ namespace TaskMgmt.UI.ViewModel
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            return httpClient.GetAsync("tasks").Result.ToString();
+            //return httpClient.GetAsync("tasks").Result.ToString();
+            return httpClient.GetStringAsync("tasks").Result.ToString();
 
             //HttpResponseMessage response = httpClient.GetAsync("tasks").Result;
             //
