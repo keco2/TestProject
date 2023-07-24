@@ -3,11 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TaskMgmt.UI"
+        xmlns:local="clr-namespace:TaskMgmt.UI.View"
         mc:Ignorable="d"
-        Title="Task Management Software" Height="450" Width="800">
-    <Grid>
-        <Label Content="{Binding TaskName}" />
-
+        Title="Task Management Software" Height="450" Width="800" Background="Beige">
+    <Grid Margin="40" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <local:TaskControl />
+        <!--<Label Grid.Row="2" Content="{Binding TaskName}" />-->
     </Grid>
 </Window>

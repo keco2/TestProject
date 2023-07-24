@@ -1,36 +1,80 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.ServiceModel;
 using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Input;
+using TaskMgmt.Model;
 using TaskMgmt.UI.ServiceRef;
+
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using TaskMgmt.UI.ViewHelper;
 
 namespace TaskMgmt.UI.ViewModel
 {
-    class MainVM
+    class MainVM : ViewModelBase
     {
-        private string taskName = "TEST";
+        private string message = "TEST";
+        public string Message
+        {
+            get => message;
+            set => SetProperty(ref message, value);
+        }
+
+        private ObservableCollection<Task> tasklist;
+        public ObservableCollection<Task> TaskList
+        {
+            get => tasklist;
+            set => SetProperty(ref tasklist, value);
+        }
+
+        private Task selectedTask;
+
+        public Task SelectedTask
+        {
+            get { return selectedTask; }
+            set { selectedTask = value; }
+        }
+
+        public ICommand DeleteTaskCmd { get; private set; }
 
         public MainVM()
         {
             HookUpUICommands();
-            GetWcf();
+            LoadData();
         }
 
-        private void GetWcf()
+        private void LoadData()
         {
-            Proxy proxy = new Proxy();
-            TaskName = proxy.GetTasks();
+            var proxy = new Proxy();
+            TaskList = proxy.GetTasks().ToObservableCollection();
+            Message = "Records found: " + TaskList.Count;
         }
 
         private void HookUpUICommands()
         {
-            //throw new NotImplementedException();
+            DeleteTaskCmd = new DelegateCommand(_ => DeleteRecord(), _ => true); // SelectedTask != null);
         }
 
-        public string TaskName { get => taskName; set => taskName = value; }
+        public void DeleteRecord()
+        {
+            if (SelectedTask != null)
+            {
+                var taskName = SelectedTask.Name;
+                var proxy = new Proxy();
+                proxy.DeleteTask(SelectedTask.ID);
+                var count = proxy.GetTasks().Count();
+                LoadData();
+                Message = taskName + " deleted / DB.count = " + count;
+            }
+            else
+            {
+                Message = "No task is selected";
+            }
+        }
     }
 }

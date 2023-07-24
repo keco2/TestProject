@@ -2,33 +2,35 @@
 using System.ServiceModel;
 using System.Linq;
 using TaskMgmt.UI.ServiceRef;
+using TaskMgmt.Model;
+using System.Collections.Generic;
 
 namespace TaskMgmt.UI.ViewModel
 {
-    internal sealed class Proxy
+    public class Proxy
     {
         readonly ITaskService _service;
+        private bool disposedValue;
 
-        internal Proxy()
+        public Proxy()
         {
             ChannelFactory<ITaskService> factory = new ChannelFactory<ITaskService>("WsHttpBinding_ITaskService");
             _service = factory.CreateChannel();
         }
 
-        internal string GetTasks()
-        {
-            return _service.GetTasks().First().Name;
-        }
+        public IEnumerable<Task> GetTasks() => _service.GetTasks();
+
+        public Task GetTaskById(string id) => _service.GetTaskById(id);
 
 
-        //List<Task> GetTasks();
+        //public List<Task> GetTasks();
 
-        //Task GetTaskById(string id);
+        //public Task GetTaskById(string id);
 
-        //void AddTask(Task task);
+        //public void AddTask(Task task);
 
-        //void UpdateTask(string id, Task task);
+        //public void UpdateTask(string id, Task task);
 
-        //void DeleteTask(string id);
+        public void DeleteTask(Guid id) => _service.DeleteTask(id.ToString());
     }
 }
