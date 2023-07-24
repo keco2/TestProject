@@ -4,57 +4,50 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using TaskMgmt.DAL;
+using TaskMgmt.DAL.Repositories;
 using TaskMgmt.Model;
 
 namespace TaskMgmt.WcfService
 {
-    public sealed class TaskService : ITaskService
+    public class TaskService : ITaskService
     {
+        private ITaskRepository repo;
 
-
-        private List<Task> tasks = new List<Task>
+        public TaskService()
         {
-            new Task { ID = new Guid("00000000-0000-0000-0000-000000000001"), Name = "Task 1" },
-            new Task { ID = new Guid("00000000-0000-0000-0000-000000000002"), Name = "Task 2" },
-            new Task { ID = new Guid("00000000-0000-0000-0000-000000000003"), Name = "Task 3" }
-        };
-
-
-
-
-        public List<Task> GetTasks()
-        {
-            return tasks;
+            this.repo = new TaskRepository(new DbContext());
         }
 
-        public Task GetTaskById(string id)
+        public IEnumerable<Task> GetTasks()
         {
-            Guid bookId = Guid.Parse(id);
-            return tasks.FirstOrDefault(b => b.ID == bookId);
+            return repo.GetTasks();
         }
 
-        public void AddTask(Task book)
+        public Task GetTaskById(string taskId)
+        {
+            Guid taskGuid = Guid.Parse(taskId);
+            return repo.GetTaskByID(taskGuid);
+        }
+
+        public void AddTask(Task task)
         {
             Guid newId = new Guid();
-            book.ID = newId;
-            tasks.Add(book);
+            task.ID = newId;
+            repo.InsertTask(task);
         }
 
-        public void UpdateTask(string id, Task book)
+        public void UpdateTask(string id, Task task)
+        //public void UpdateTask(Task task)
         {
-            Guid bookId = Guid.Parse(id);
-            Task existingTask = tasks.FirstOrDefault(b => b.ID == bookId);
-            if (existingTask != null)
-            {
-                existingTask.Name = book.Name;
-                // todo
-            }
+            Guid taskGuid = Guid.Parse(id);
+            repo.UpdateTask(taskGuid, task);
         }
 
         public void DeleteTask(string id)
         {
-            Guid bookId = Guid.Parse(id);
-            tasks.RemoveAll(b => b.ID == bookId);
+            Guid taskId = Guid.Parse(id);
+            repo.DeleteTask(taskId);
         }
     }
 }

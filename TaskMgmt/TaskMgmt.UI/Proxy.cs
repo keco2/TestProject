@@ -19,5 +19,16 @@ namespace TaskMgmt.UI.ViewModel
         {
             return _service.GetTasks().First().Name;
         }
+
+
+        //List<Task> GetTasks();
+
+        //Task GetTaskById(string id);
+
+        //void AddTask(Task task);
+
+        //void UpdateTask(string id, Task task);
+
+        //void DeleteTask(string id);
     }
 }

@@ -61,6 +61,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TaskMgmt.DAL\TaskMgmt.DAL.csproj">
+      <Project>{2f580a23-e872-4dda-9678-54a2f12b160c}</Project>
+      <Name>TaskMgmt.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TaskMgmt.Model\TaskMgmt.Model.csproj">
       <Project>{64e4fb18-b595-48ea-9602-5044928e82be}</Project>
       <Name>TaskMgmt.Model</Name>

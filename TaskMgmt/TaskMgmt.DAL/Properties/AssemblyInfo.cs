@@ -5,15 +5,16 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TaskMgmt.WcfService")]
+[assembly: AssemblyTitle("TaskMgmt.DAL")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TaskMgmt.WcfService")]
+[assembly: AssemblyProduct("TaskMgmt.DAL")]
 [assembly: AssemblyCopyright("Copyright ©  2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: InternalsVisibleTo("TaskMgmt.DAL")]
+
+[assembly: InternalsVisibleTo("TaskMgmt.WcfService")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
 // to COM components.  If you need to access a type in this assembly from
@@ -21,7 +22,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("28e3454d-5dc1-449a-a952-f7ed4af3949c")]
+[assembly: Guid("2f580a23-e872-4dda-9678-54a2f12b160c")]
 
 // Version information for an assembly consists of the following four values:
 //
