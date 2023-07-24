@@ -20,15 +20,30 @@ namespace TaskMgmt.UI
         public App()
         {
             Logging.LoggingSetUp();
+            AppDomain currentDomain = AppDomain.CurrentDomain;
+            currentDomain.UnhandledException += CurrentDomain_UnhandledException;
         }
 
+        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            if (e.ExceptionObject is Exception)
+            {
+                HandleException(e.ExceptionObject as Exception);
+            }
+        }
 
-        void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            e.Handled = true;
+            HandleException(e.Exception as Exception);
+        }
+
+        private void HandleException(Exception exception)
         {
             try
             {
-                e.Handled = true;
-                logger.Error(e.Exception);
+                logger.Error(exception);
+                MessageBox.Show(exception.ToString());
                 Shutdown(-1);
             }
             catch

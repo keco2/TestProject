@@ -8,7 +8,7 @@ namespace TaskMgmt.Server
     {
         static void Main(string[] args)
         {
-            Console.Title = "Server";
+            Console.Title = "Task Management Server";
 
             using (ServiceHost serviceHost = new ServiceHost(typeof(TaskService)))
             {
