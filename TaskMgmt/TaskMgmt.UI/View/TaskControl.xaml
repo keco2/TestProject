@@ -46,6 +46,10 @@
                       SelectionMode="Single"
                       AutoGenerateColumns="True"
                       GridLinesVisibility="None"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      IsManipulationEnabled="False"
+                      IsReadOnly="True"
                       CanUserResizeRows="False"
                       ItemsSource="{Binding TaskList}">
             </DataGrid>

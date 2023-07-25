@@ -63,6 +63,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TaskMgmt.Common\TaskMgmt.Common.csproj">
+      <Project>{fe898a27-209a-4210-9964-cd23498b5574}</Project>
+      <Name>TaskMgmt.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TaskMgmt.WcfService\TaskMgmt.WcfService.csproj">
       <Project>{28e3454d-5dc1-449a-a952-f7ed4af3949c}</Project>
       <Name>TaskMgmt.WcfService</Name>

@@ -31,8 +31,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.7.2\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,12 +53,23 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ITaskRepository.cs" />
     <Compile Include="Repositories\TaskRepository.cs" />
+    <Compile Include="StaticData.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TaskMgmt.Common\TaskMgmt.Common.csproj">
+      <Project>{fe898a27-209a-4210-9964-cd23498b5574}</Project>
+      <Name>TaskMgmt.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TaskMgmt.Model\TaskMgmt.Model.csproj">
       <Project>{64e4fb18-b595-48ea-9602-5044928e82be}</Project>
       <Name>TaskMgmt.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

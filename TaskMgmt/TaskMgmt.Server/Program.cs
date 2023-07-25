@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ServiceModel;
+using TaskMgmt.Common;
 using TaskMgmt.WcfService;
 
 namespace TaskMgmt.Server
@@ -8,6 +9,7 @@ namespace TaskMgmt.Server
     {
         static void Main(string[] args)
         {
+            Logging.LoggingSetUp();
             Console.Title = "Task Management Server";
 
             using (ServiceHost serviceHost = new ServiceHost(typeof(TaskService)))
