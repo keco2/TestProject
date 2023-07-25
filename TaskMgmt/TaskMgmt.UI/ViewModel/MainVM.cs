@@ -18,7 +18,7 @@ namespace TaskMgmt.UI.ViewModel
 {
     class MainVM : ViewModelBase
     {
-        private string message = "TEST";
+        private string message;
         public string Message
         {
             get => message;
@@ -62,9 +62,16 @@ namespace TaskMgmt.UI.ViewModel
 
         private void LoadData()
         {
-            var proxy = new Proxy();
-            TaskList = proxy.GetTasks().ToObservableCollection();
-            Message = "Records found: " + TaskList.Count;
+            try
+            {
+                var proxy = new Proxy();
+                TaskList = proxy.GetTasks().ToObservableCollection();
+                Message = "Records found: " + TaskList.Count;
+            }
+            catch (EndpointNotFoundException)
+            {
+                Message = "ERROR: EndpointNotFoundException";
+            }
         }
 
         private void HookUpUICommands()
