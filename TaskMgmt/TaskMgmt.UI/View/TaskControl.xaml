@@ -5,24 +5,61 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:TaskMgmt.UI.View"
              mc:Ignorable="d"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="LightGreen">
+    <!--xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"-->
+    <UserControl.Resources>
+        <Style x:Key="recDetailLabel" TargetType="Label">
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+    </UserControl.Resources>
+    <Grid>
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
                 <RowDefinition />
                 <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition />
                 <RowDefinition Height="30" />
             </Grid.RowDefinitions>
-            <DataGrid Background="BurlyWood"
-                      SelectedItem="{Binding SelectedTask, Mode=TwoWay}"
+            <Label Grid.Row="0" Content="Tasks" HorizontalAlignment="Left"/>
+            <DataGrid Grid.Row="1"
+                      SelectedItem="{Binding SelectedTask, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectionMode="Single"
+                      AutoGenerateColumns="True"
+                      GridLinesVisibility="None"
+                      CanUserResizeRows="False"
                       ItemsSource="{Binding TaskList}">
-
+                <!-- NUGET Microsoft.Xaml.Behaviour
+                    <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="" />
+                </i:Interaction.Triggers>-->
             </DataGrid>
-            <Label Grid.Row="1" Content="{Binding Message}" HorizontalAlignment="Center"/>
-            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" >
-                <Button Content="Add new" Width="150" />
-                <Button Content="Update selected" Width="150" />
-                <Button Content="Delete selected" Width="150" Command="{Binding DeleteTaskCmd}" />
+            <Label Grid.Row="2" Content="{Binding Message}" HorizontalAlignment="Center"/>
+            <Label Grid.Row="3" Content="Task details" HorizontalAlignment="Left"/>
+            <Grid Grid.Row="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Content="ID" Style="{StaticResource recDetailLabel}"  HorizontalAlignment="Left"/>
+                <Label Grid.Row="1" Content="Taskname" Style="{StaticResource recDetailLabel}"  HorizontalAlignment="Left"/>
+                <Label Grid.Row="2" Content="Description" Style="{StaticResource recDetailLabel}"  HorizontalAlignment="Left"/>
+                <Label Grid.Row="3" Content="Duration" Style="{StaticResource recDetailLabel}"  HorizontalAlignment="Left"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SelectedTask.ID}" IsReadOnly="True" TextWrapping="NoWrap" TextAlignment="Left" BorderThickness="0" Background="Transparent" Margin="2"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SelectedTask.Name}" TextWrapping="NoWrap" AcceptsReturn="False" AcceptsTab="False" TextAlignment="Left" BorderThickness="0" Background="Transparent" Margin="2"/>
+            </Grid>
+            <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="Add new" Width="150" Margin="5" />
+                <Button Content="Update selected" Width="150" Margin="5" />
+                <Button Content="Delete selected" Width="150" Command="{Binding DeleteTaskCmd}" Margin="5" />
             </StackPanel>
         </Grid>
     </Grid>

@@ -10,7 +10,6 @@ namespace TaskMgmt.UI.ViewModel
     public class Proxy
     {
         readonly ITaskService _service;
-        private bool disposedValue;
 
         public Proxy()
         {

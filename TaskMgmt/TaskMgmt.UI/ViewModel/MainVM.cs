@@ -37,7 +37,7 @@ namespace TaskMgmt.UI.ViewModel
         public Task SelectedTask
         {
             get { return selectedTask; }
-            set { selectedTask = value; }
+            set { SetProperty(ref selectedTask, value); }
         }
 
         public ICommand DeleteTaskCmd { get; private set; }

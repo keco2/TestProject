@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TaskMgmt.UI.View"
         mc:Ignorable="d"
         Title="Task Management Software" Height="450" Width="800" Background="Beige">
-    <Grid Margin="40" >
+    <Grid Margin="20" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
