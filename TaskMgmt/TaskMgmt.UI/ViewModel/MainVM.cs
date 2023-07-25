@@ -37,10 +37,22 @@ namespace TaskMgmt.UI.ViewModel
         public Task SelectedTask
         {
             get { return selectedTask; }
-            set { SetProperty(ref selectedTask, value); }
+            set {
+                SetProperty(ref selectedTask, value);
+                RecordChanged = false;
+            }
         }
 
+        private bool recordChanged = false;
+        public bool RecordChanged
+        {
+            get => recordChanged;
+            set => SetProperty(ref recordChanged, value);
+        }
+
+        public ICommand UpdateTaskCmd { get; private set; }
         public ICommand DeleteTaskCmd { get; private set; }
+        public ICommand RecordChangedCmd { get; private set; }
 
         public MainVM()
         {
@@ -57,24 +69,44 @@ namespace TaskMgmt.UI.ViewModel
 
         private void HookUpUICommands()
         {
-            DeleteTaskCmd = new DelegateCommand(_ => DeleteRecord(), _ => true); // SelectedTask != null);
+            UpdateTaskCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(UpdateRecord));
+            DeleteTaskCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(DeleteRecord));
+            RecordChangedCmd = new DelegateCommand(_ => RecordChanged = true);
         }
 
-        public void DeleteRecord()
+        private void InvokeOnSelectedRecord(Action<Proxy> action)
         {
             if (SelectedTask != null)
             {
-                var taskName = SelectedTask.Name;
                 var proxy = new Proxy();
-                proxy.DeleteTask(SelectedTask.ID);
-                var count = proxy.GetTasks().Count();
-                LoadData();
-                Message = taskName + " deleted / DB.count = " + count;
+                action.Invoke(proxy);
             }
             else
             {
                 Message = "No task is selected";
             }
+        }
+
+        private void UpdateRecord(Proxy proxy)
+        {
+            if (RecordChanged)
+            {
+                proxy.UpdateTask(SelectedTask.ID, SelectedTask);
+                Message = SelectedTask.Name + " updated";
+            }
+            else
+            {
+                Message = "No change found";
+            }
+        }
+
+        public void DeleteRecord(Proxy proxy)
+        {
+            var taskName = SelectedTask.Name;
+            proxy.DeleteTask(SelectedTask.ID);
+            var count = proxy.GetTasks().Count();
+            LoadData();
+            Message = taskName + " deleted / DB.count = " + count;
         }
     }
 }
