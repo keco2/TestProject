@@ -48,17 +48,8 @@
                       GridLinesVisibility="None"
                       CanUserResizeRows="False"
                       ItemsSource="{Binding TaskList}">
-                <!-- NUGET Microsoft.Xaml.Behaviour
-                    <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="" />
-                </i:Interaction.Triggers>-->
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="OnTextInput">
-                        <i:InvokeCommandAction Command="{Binding RecordChangedCmd}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
             </DataGrid>
-            <Label Grid.Row="2" Content="{Binding Message}" HorizontalAlignment="Center"/>
+            <Label Grid.Row="2" Content="{Binding Message}" Foreground="DarkGray" HorizontalAlignment="Center"/>
             <Label Grid.Row="3" Content="Task details" HorizontalAlignment="Left"/>
             <Grid Grid.Row="4">
                 <Grid.RowDefinitions>
@@ -81,8 +72,9 @@
                 <!--<TextBoxWithEvent />-->
             </Grid>
             <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="Add new" Width="150" Margin="5" />
-                <Button Content="Update selected" Width="150" Command="{Binding UpdateTaskCmd}" IsEnabled="{Binding RecordChanged}" Margin="5" />
+                <Button Content="Add new" Width="150" Command="{Binding NewTaskCmd}" Margin="5" />
+                <Button Content="Save new record" Width="150" Command="{Binding AddTaskCmd}" IsEnabled="{Binding IsRecordNew}" Margin="5" />
+                <Button Content="Update selected" Width="150" Command="{Binding UpdateTaskCmd}" IsEnabled="{Binding IsRecordChanged}" Margin="5" />
                 <Button Content="Delete selected" Width="150" Command="{Binding DeleteTaskCmd}" Margin="5" />
             </StackPanel>
         </Grid>

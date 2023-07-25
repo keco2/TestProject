@@ -9,7 +9,6 @@ using System.Text;
 using System.Windows.Input;
 using TaskMgmt.Model;
 using TaskMgmt.UI.ServiceRef;
-
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using TaskMgmt.UI.ViewHelper;
@@ -33,23 +32,33 @@ namespace TaskMgmt.UI.ViewModel
         }
 
         private Task selectedTask;
-
         public Task SelectedTask
         {
             get { return selectedTask; }
-            set {
+            set
+            {
                 SetProperty(ref selectedTask, value);
-                RecordChanged = false;
+                IsRecordChanged = false;
+                IsRecordNew = false;
             }
         }
 
-        private bool recordChanged = false;
-        public bool RecordChanged
+        private bool isRecordNew = false;
+        public bool IsRecordNew
         {
-            get => recordChanged;
-            set => SetProperty(ref recordChanged, value);
+            get => isRecordNew;
+            set => SetProperty(ref isRecordNew, value);
         }
 
+        private bool isRecordChanged = false;
+        public bool IsRecordChanged
+        {
+            get => isRecordChanged;
+            set => SetProperty(ref isRecordChanged, value);
+        }
+
+        public ICommand NewTaskCmd { get; private set; }
+        public ICommand AddTaskCmd { get; private set; }
         public ICommand UpdateTaskCmd { get; private set; }
         public ICommand DeleteTaskCmd { get; private set; }
         public ICommand RecordChangedCmd { get; private set; }
@@ -76,9 +85,17 @@ namespace TaskMgmt.UI.ViewModel
 
         private void HookUpUICommands()
         {
+            NewTaskCmd = new DelegateCommand(_ => PrepareNewRecord());
+            AddTaskCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(AddRecord));
             UpdateTaskCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(UpdateRecord));
             DeleteTaskCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(DeleteRecord));
-            RecordChangedCmd = new DelegateCommand(_ => RecordChanged = true);
+            RecordChangedCmd = new DelegateCommand(_ => IsRecordChanged = IsRecordNew ? false : true);
+        }
+
+        private void PrepareNewRecord()
+        {
+            SelectedTask = new Task();
+            IsRecordNew = true;
         }
 
         private void InvokeOnSelectedRecord(Action<Proxy> action)
@@ -94,9 +111,20 @@ namespace TaskMgmt.UI.ViewModel
             }
         }
 
+        private void AddRecord(Proxy proxy)
+        {
+            if (IsRecordNew && SelectedTask != null && !TaskList.Contains(SelectedTask))
+            {
+                proxy.AddTask(SelectedTask);
+                Message = "Task " + SelectedTask.Name + " added";
+                TaskList.Add(SelectedTask);
+                IsRecordNew = false;
+            }
+        }
+
         private void UpdateRecord(Proxy proxy)
         {
-            if (RecordChanged)
+            if (IsRecordChanged)
             {
                 proxy.UpdateTask(SelectedTask.ID, SelectedTask);
                 Message = SelectedTask.Name + " updated";
@@ -107,12 +135,12 @@ namespace TaskMgmt.UI.ViewModel
             }
         }
 
-        public void DeleteRecord(Proxy proxy)
+        private void DeleteRecord(Proxy proxy)
         {
             var taskName = SelectedTask.Name;
             proxy.DeleteTask(SelectedTask.ID);
-            var count = proxy.GetTasks().Count();
-            LoadData();
+            TaskList.Remove(SelectedTask);
+            var count = TaskList.Count();
             Message = taskName + " deleted / DB.count = " + count;
         }
     }

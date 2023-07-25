@@ -21,12 +21,7 @@ namespace TaskMgmt.UI.ViewModel
 
         public Task GetTaskById(Guid id) => _service.GetTaskById(id.ToString());
 
-
-        //public List<Task> GetTasks();
-
-        //public Task GetTaskById(string id);
-
-        //public void AddTask(Task task);
+        public void AddTask(Task task) => _service.AddTask(task);
 
         public void UpdateTask(Guid id, Task task) => _service.UpdateTask(id.ToString(), task);
 

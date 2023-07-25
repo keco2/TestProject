@@ -13,6 +13,11 @@ namespace TaskMgmt.Model
         private string name;
         private Guid id;
 
+        public Task()
+        {
+            ID = Guid.NewGuid();
+        }
+
         [DataMember]
         public string Name { get => name; set => name = value; }
 
