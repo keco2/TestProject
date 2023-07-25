@@ -16,7 +16,8 @@ namespace TaskMgmt.WcfService
 
         public TaskService()
         {
-            this.repo = new TaskRepository(new DbContext());
+            var dbcontext = new DbContext();
+            this.repo = new TaskRepository(dbcontext);
         }
 
         public IEnumerable<Task> GetTasks()

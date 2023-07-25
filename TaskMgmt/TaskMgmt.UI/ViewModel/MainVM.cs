@@ -8,7 +8,6 @@ using System.ServiceModel;
 using System.Text;
 using System.Windows.Input;
 using TaskMgmt.Model;
-using TaskMgmt.UI.ServiceRef;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using TaskMgmt.UI.ViewHelper;
@@ -29,6 +28,13 @@ namespace TaskMgmt.UI.ViewModel
         {
             get => tasklist;
             set => SetProperty(ref tasklist, value);
+        }
+
+        private ObservableCollection<Material> materiallist;
+        public ObservableCollection<Material> MaterialList
+        {
+            get => materiallist;
+            set => SetProperty(ref materiallist, value);
         }
 
         private Task selectedTask;
@@ -75,6 +81,7 @@ namespace TaskMgmt.UI.ViewModel
             {
                 var proxy = new Proxy();
                 TaskList = proxy.GetTasks().ToObservableCollection();
+                MaterialList = proxy.GetMaterials().ToObservableCollection();
                 Message = "Records found: " + TaskList.Count;
             }
             catch (EndpointNotFoundException)

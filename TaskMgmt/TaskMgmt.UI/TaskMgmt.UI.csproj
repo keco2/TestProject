@@ -66,11 +66,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Connected Services\MaterialServiceRef\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\TaskServiceRef\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="ViewHelper\ViewExtensions.cs" />
     <Compile Include="ViewHelper\DelegateCommand.cs" />
     <Compile Include="ViewHelper\ViewModelBase.cs" />
     <Compile Include="View\TaskControl.xaml.cs">
       <DependentUpon>TaskControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UsageControl.xaml.cs">
+      <DependentUpon>UsageControl.xaml</DependentUpon>
     </Compile>
     <Page Include="View\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -80,11 +93,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Connected Services\ServiceRef\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="ViewModel\MainVM.cs" />
     <Compile Include="Proxy.cs" />
     <Compile Include="View\MainView.xaml.cs">
@@ -92,6 +100,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\TaskControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\UsageControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -114,17 +126,28 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Connected Services\ServiceRef\service1.wsdl" />
-    <None Include="Connected Services\ServiceRef\service2.xsd">
+    <None Include="Connected Services\MaterialServiceRef\item.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\ServiceRef\service21.xsd">
+    <None Include="Connected Services\MaterialServiceRef\item1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\ServiceRef\TaskMgmt.Model1.xsd">
+    <None Include="Connected Services\MaterialServiceRef\item2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\MaterialServiceRef\MaterialService.wsdl" />
+    <None Include="Connected Services\TaskServiceRef\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\TaskServiceRef\item1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\TaskServiceRef\item2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\TaskServiceRef\TaskService.wsdl" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\TaskMgmt.Model.Material.datasource" />
     <None Include="Properties\DataSources\TaskMgmt.Model.Task.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -148,16 +171,35 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\ServiceRef\" />
+    <WCFMetadataStorage Include="Connected Services\MaterialServiceRef\" />
+    <WCFMetadataStorage Include="Connected Services\TaskServiceRef\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\ServiceRef\configuration91.svcinfo" />
+    <None Include="Connected Services\MaterialServiceRef\item.disco" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\ServiceRef\configuration.svcinfo" />
+    <None Include="Connected Services\MaterialServiceRef\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\ServiceRef\Reference.svcmap">
+    <None Include="Connected Services\MaterialServiceRef\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\MaterialServiceRef\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\TaskServiceRef\item.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\TaskServiceRef\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\TaskServiceRef\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\TaskServiceRef\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

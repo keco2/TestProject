@@ -8,11 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TaskMgmt.UI.ServiceRef {
+namespace TaskMgmt.UI.TaskServiceRef {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceRef.ITaskService")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="TaskServiceRef.ITaskService")]
     public interface ITaskService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITaskService/GetTasks", ReplyAction="http://tempuri.org/ITaskService/GetTasksResponse")]
@@ -47,12 +47,12 @@ namespace TaskMgmt.UI.ServiceRef {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface ITaskServiceChannel : TaskMgmt.UI.ServiceRef.ITaskService, System.ServiceModel.IClientChannel {
+    public interface ITaskServiceChannel : TaskMgmt.UI.TaskServiceRef.ITaskService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class TaskServiceClient : System.ServiceModel.ClientBase<TaskMgmt.UI.ServiceRef.ITaskService>, TaskMgmt.UI.ServiceRef.ITaskService {
+    public partial class TaskServiceClient : System.ServiceModel.ClientBase<TaskMgmt.UI.TaskServiceRef.ITaskService>, TaskMgmt.UI.TaskServiceRef.ITaskService {
         
         public TaskServiceClient() {
         }

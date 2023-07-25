@@ -1,7 +1,8 @@
 ﻿using System;
 using System.ServiceModel;
 using System.Linq;
-using TaskMgmt.UI.ServiceRef;
+using TaskMgmt.UI.TaskServiceRef;
+using TaskMgmt.UI.MaterialServiceRef;
 using TaskMgmt.Model;
 using System.Collections.Generic;
 
@@ -9,22 +10,28 @@ namespace TaskMgmt.UI.ViewModel
 {
     public class Proxy
     {
-        readonly ITaskService _service;
+        readonly ITaskService _taskService;
+        readonly IMaterialService _materialService;
 
         public Proxy()
         {
-            ChannelFactory<ITaskService> factory = new ChannelFactory<ITaskService>("WsHttpBinding_ITaskService");
-            _service = factory.CreateChannel();
+            ChannelFactory<ITaskService> taskFactory = new ChannelFactory<ITaskService>("WSHttpBinding_ITaskService");
+            ChannelFactory<IMaterialService> materialFactory = new ChannelFactory<IMaterialService>("WSHttpBinding_IMaterialService");
+
+            _taskService = taskFactory.CreateChannel();
+            _materialService = materialFactory.CreateChannel();
         }
 
-        public IEnumerable<Task> GetTasks() => _service.GetTasks();
+        public IEnumerable<Material> GetMaterials() => _materialService.GetMaterials();
 
-        public Task GetTaskById(Guid id) => _service.GetTaskById(id.ToString());
+        public IEnumerable<Task> GetTasks() => _taskService.GetTasks();
 
-        public void AddTask(Task task) => _service.AddTask(task);
+        public Task GetTaskById(Guid id) => _taskService.GetTaskById(id.ToString());
 
-        public void UpdateTask(Guid id, Task task) => _service.UpdateTask(id.ToString(), task);
+        public void AddTask(Task task) => _taskService.AddTask(task);
 
-        public void DeleteTask(Guid id) => _service.DeleteTask(id.ToString());
+        public void UpdateTask(Guid id, Task task) => _taskService.UpdateTask(id.ToString(), task);
+
+        public void DeleteTask(Guid id) => _taskService.DeleteTask(id.ToString());
     }
 }

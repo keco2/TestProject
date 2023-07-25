@@ -10,7 +10,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <local:TaskControl />
+        <local:UsageControl />
         <!--<Label Grid.Row="2" Content="{Binding TaskName}" />-->
     </Grid>
 </Window>

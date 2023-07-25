@@ -13,10 +13,12 @@ namespace TaskMgmt.Server
             Console.Title = "Task Management Server";
 
             using (ServiceHost serviceHost = new ServiceHost(typeof(TaskService)))
+            using (ServiceHost serviceHost2 = new ServiceHost(typeof(MaterialService)))
             {
                 try
                 {
                     serviceHost.Open();
+                    serviceHost2.Open();
 
                     Console.WriteLine("The service is ready.");
                     Console.WriteLine("Press <ENTER> to terminate service.");

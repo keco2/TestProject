@@ -10,6 +10,7 @@ namespace TaskMgmt.DAL
     public class DbContext : IDisposable
     {
         public List<Task> Tasks = StaticData.Tasks;
+        public List<Material> DbSetMaterials = StaticData.Materials;
 
         public DbContext()
         {

@@ -1,65 +1,65 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import namespace="http://schemas.datacontract.org/2004/07/TaskMgmt.Model" />
-  <xs:element name="GetTasks">
+  <xs:import schemaLocation="http://localhost:8000/TaskMgmt.WcfService/MaterialService/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/TaskMgmt.Model" />
+  <xs:element name="GetMaterials">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetTasksResponse">
+  <xs:element name="GetMaterialsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/TaskMgmt.Model" minOccurs="0" name="GetTasksResult" nillable="true" type="q1:ArrayOfTask" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/TaskMgmt.Model" minOccurs="0" name="GetMaterialsResult" nillable="true" type="q1:ArrayOfMaterial" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetTaskById">
+  <xs:element name="GetMaterialById">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="id" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetTaskByIdResponse">
+  <xs:element name="GetMaterialByIdResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/TaskMgmt.Model" minOccurs="0" name="GetTaskByIdResult" nillable="true" type="q2:Task" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/TaskMgmt.Model" minOccurs="0" name="GetMaterialByIdResult" nillable="true" type="q2:Material" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="AddTask">
+  <xs:element name="AddMaterial">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/TaskMgmt.Model" minOccurs="0" name="task" nillable="true" type="q3:Task" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/TaskMgmt.Model" minOccurs="0" name="material" nillable="true" type="q3:Material" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="AddTaskResponse">
+  <xs:element name="AddMaterialResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="UpdateTask">
+  <xs:element name="UpdateMaterial">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="id" nillable="true" type="xs:string" />
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/TaskMgmt.Model" minOccurs="0" name="task" nillable="true" type="q4:Task" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/TaskMgmt.Model" minOccurs="0" name="material" nillable="true" type="q4:Material" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="UpdateTaskResponse">
+  <xs:element name="UpdateMaterialResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="DeleteTask">
+  <xs:element name="DeleteMaterial">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="id" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="DeleteTaskResponse">
+  <xs:element name="DeleteMaterialResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>

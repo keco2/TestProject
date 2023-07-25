@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="1df01080-cee6-42e6-8542-3db22643d238" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8000/TaskMgmt.WcfService/TaskService/" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="b867cc2a-5c92-4e3d-90d2-94d8f9994552" SourceId="1" SourceUrl="http://localhost:8000/TaskMgmt.WcfService/TaskService/?xsd=xsd1" />
+    <MetadataFile FileName="TaskService.wsdl" MetadataType="Wsdl" ID="09b6ecd7-d262-4e7f-b6b2-f74b5b3869b0" SourceId="1" SourceUrl="http://localhost:8000/TaskMgmt.WcfService/TaskService/?wsdl" />
+    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="328e8b03-a924-4f88-9638-98511656cdf5" SourceId="1" SourceUrl="http://localhost:8000/TaskMgmt.WcfService/TaskService/?disco" />
+    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="3c9a6650-7891-4121-8a9d-1b36fb3d6d3b" SourceId="1" SourceUrl="http://localhost:8000/TaskMgmt.WcfService/TaskService/?xsd=xsd2" />
+    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="24b8dd4e-5d80-4ec7-b82f-188e0e68518a" SourceId="1" SourceUrl="http://localhost:8000/TaskMgmt.WcfService/TaskService/?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
