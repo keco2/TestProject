@@ -6,13 +6,13 @@ using TaskMgmt.Model;
 
 namespace TaskMgmt.DAL.Repositories
 {
-    public interface IGenericRepository<T> : IDisposable where T : class
+    public interface IGenericRepository<T> where T : class
     {
         IEnumerable<T> GetItems();
-        T GetItemByID(Guid taskId);
-        void InsertItem(T Ttask);
-        void UpdateItem(Guid taskId, T task);
-        void DeleteItem(Guid taskId);
+        T GetItemByID(params Guid[] guids);
+        void InsertItem(T item);
+        void UpdateItem(T item);
+        void DeleteItem(params Guid[] guids);
         void Save();
     }
 }

@@ -39,7 +39,6 @@ namespace TaskMgmt.WcfService
         }
 
         public void UpdateTask(string id, Task task)
-        //public void UpdateTask(Task task)
         {
             Guid taskGuid = Guid.Parse(id);
             repo.UpdateTask(taskGuid, task);

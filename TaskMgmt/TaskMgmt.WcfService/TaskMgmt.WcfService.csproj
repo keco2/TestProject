@@ -53,7 +53,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IMaterialService.cs" />
+    <Compile Include="ITaskMaterialUsageService.cs" />
     <Compile Include="ITaskService.cs" />
+    <Compile Include="TaskMaterialUsageService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MaterialService.cs" />
     <Compile Include="TaskService.cs" />

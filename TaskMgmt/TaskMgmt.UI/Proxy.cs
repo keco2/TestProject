@@ -3,6 +3,7 @@ using System.ServiceModel;
 using System.Linq;
 using TaskMgmt.UI.TaskServiceRef;
 using TaskMgmt.UI.MaterialServiceRef;
+using TaskMgmt.UI.TaskMaterialUsageServiceRef;
 using TaskMgmt.Model;
 using System.Collections.Generic;
 
@@ -12,17 +13,27 @@ namespace TaskMgmt.UI.ViewModel
     {
         readonly ITaskService _taskService;
         readonly IMaterialService _materialService;
+        readonly ITaskMaterialUsageService _taskMaterialUsageService;
 
         public Proxy()
         {
             ChannelFactory<ITaskService> taskFactory = new ChannelFactory<ITaskService>("WSHttpBinding_ITaskService");
             ChannelFactory<IMaterialService> materialFactory = new ChannelFactory<IMaterialService>("WSHttpBinding_IMaterialService");
+            ChannelFactory<ITaskMaterialUsageService> taskMaterialUsageFactory = new ChannelFactory<ITaskMaterialUsageService>("WSHttpBinding_ITaskMaterialUsageService");
 
             _taskService = taskFactory.CreateChannel();
             _materialService = materialFactory.CreateChannel();
+            _taskMaterialUsageService = taskMaterialUsageFactory.CreateChannel();
         }
 
         public IEnumerable<Material> GetMaterials() => _materialService.GetMaterials();
+
+        // ...
+
+        public IEnumerable<TaskMaterialUsage> GetUsages() => _taskMaterialUsageService.GetTaskMaterialUsages();
+
+        // ...
+
 
         public IEnumerable<Task> GetTasks() => _taskService.GetTasks();
 

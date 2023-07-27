@@ -6,11 +6,12 @@
         xmlns:local="clr-namespace:TaskMgmt.UI.View"
         mc:Ignorable="d"
         Title="Task Management Software" Height="450" Width="800" Background="Beige">
-    <Grid Margin="20" >
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <local:UsageControl />
-        <!--<Label Grid.Row="2" Content="{Binding TaskName}" />-->
-    </Grid>
+    <TabControl Margin="10">
+        <TabItem Header="Usages">
+            <local:UsageControl />
+        </TabItem>
+        <TabItem Header="Tasks">
+            <local:TaskControl />
+        </TabItem>
+    </TabControl>
 </Window>

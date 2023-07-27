@@ -6,7 +6,7 @@ using TaskMgmt.Model;
 
 namespace TaskMgmt.DAL.Repositories
 {
-    public class MaterialRepository : IGenericRepository<Material>
+    public class MaterialRepository : IGenericRepository<Material>, IDisposable
     {
         private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         private bool disposedValue = false;
@@ -17,46 +17,49 @@ namespace TaskMgmt.DAL.Repositories
             this.context = context;
         }
 
-        void IGenericRepository<Material>.DeleteItem(Guid guid)
+        public void DeleteItem(params Guid[] guids)
         {
-            logger.Info("IGenericRepository<Material>.DeleteItem ID={0}", guid);
-            context.DbSetMaterials.RemoveAll(t => t.ID == guid);
+            logger.Info("DeleteItem ID={0}", guids);
+
+            var item = context.Materials.Where(t => t.ID == guids[0]).Single();
+            context.Materials.Remove(item);
         }
 
-        Material IGenericRepository<Material>.GetItemByID(Guid guid)
+        public Material GetItemByID(params Guid[] guids)
         {
-            logger.Info("IGenericRepository<Material>.GetItemByID ID={0}", guid);
-            return context.DbSetMaterials.Where(t => t.ID == guid).Single();
+            logger.Info("GetItemByID ID={0}", guids);
+            return context.Materials.Where(t => t.ID == guids[0]).Single();
         }
 
-        IEnumerable<Material> IGenericRepository<Material>.GetItems()
+        public IEnumerable<Material> GetItems()
         {
-            logger.Info("IGenericRepository<Material>.GetItems");
-            return context.DbSetMaterials.ToList();
+            logger.Info("GetItems");
+            return context.Materials.ToList();
         }
 
-        void IGenericRepository<Material>.InsertItem(Material item)
+        public void InsertItem(Material item)
         {
-            logger.Info("IGenericRepository<Material>.InsertItem ID={0}", item.ID);
-            context.DbSetMaterials.Add(item);
+            logger.Info("InsertItem ID={0}", item.ID);
+            context.Materials.ToList().Add(item);
         }
 
-        void IGenericRepository<Material>.Save()
+        public void Save()
         {
-            logger.Info("IGenericRepository<Material>.Save");
+            logger.Info("Save");
             throw new NotImplementedException();
             // Todo - Implement repo.Save - only if real DB provider added
         }
 
-        void IGenericRepository<Material>.UpdateItem(Guid guid, Material item)
+        public void UpdateItem(Material item)
         {
-            logger.Info("IGenericRepository<Material>.UpdateItem ID={0}", guid);
-            Material existingItem = context.DbSetMaterials.Where(b => b.ID == guid).Single();
+            logger.Info("UpdateItem ID={0}", item.ID);
+            Material existingItem = context.Materials.Where(i => i.ID == item.ID).Single();
             if (existingItem != null)
             {
+                existingItem.Partnumber = item.Partnumber;
                 existingItem.ManufacturerCode = item.ManufacturerCode;
-                existingItem.ManufacturerCode = item.ManufacturerCode;
-                // Todo - Include all fields - ITaskRepository.UpdateTask
+                existingItem.Price = item.Price;
+                existingItem.UniteOfIssue = item.UniteOfIssue;
             }
         }
 

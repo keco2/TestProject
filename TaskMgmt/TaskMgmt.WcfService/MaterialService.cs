@@ -38,10 +38,9 @@ namespace TaskMgmt.WcfService
         }
 
         public void UpdateMaterial(string id, Material material)
-        //public void UpdateMaterial(Material material)
         {
             Guid materialGuid = Guid.Parse(id);
-            repo.UpdateItem(materialGuid, material);
+            repo.UpdateItem(material);
         }
 
         public void DeleteMaterial(string id)

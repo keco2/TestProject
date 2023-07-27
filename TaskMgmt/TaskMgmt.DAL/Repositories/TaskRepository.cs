@@ -20,7 +20,7 @@ namespace TaskMgmt.DAL.Repositories
         void ITaskRepository.DeleteTask(Guid taskId)
         {
             logger.Info("TaskRepository.DeleteTask ID={0}", taskId);
-            context.Tasks.RemoveAll(t => t.ID == taskId);
+            context.Tasks.Remove(context.Tasks.Where(t => t.ID == taskId).Single());
         }
 
         Task ITaskRepository.GetTaskByID(Guid taskId)
@@ -32,7 +32,7 @@ namespace TaskMgmt.DAL.Repositories
         IEnumerable<Task> ITaskRepository.GetTasks()
         {
             logger.Info("TaskRepository.GetTasks");
-            return context.Tasks.ToList();
+            return context.Tasks;
         }
 
         void ITaskRepository.InsertTask(Task task)

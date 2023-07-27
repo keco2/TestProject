@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/TaskMgmt.Model" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/TaskMgmt.Model" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8000/TaskMgmt.WcfService/TaskMaterialUsageService/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="ArrayOfTaskMaterialUsage">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TaskMaterialUsage" nillable="true" type="tns:TaskMaterialUsage" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTaskMaterialUsage" nillable="true" type="tns:ArrayOfTaskMaterialUsage" />
+  <xs:complexType name="TaskMaterialUsage">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Amount" type="xs:int" />
+      <xs:element minOccurs="0" name="MaterialID" type="ser:guid" />
+      <xs:element minOccurs="0" name="Task" nillable="true" type="tns:Task" />
+      <xs:element minOccurs="0" name="TaskID" type="ser:guid" />
+      <xs:element minOccurs="0" name="UniteOfMeasurement" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TaskMaterialUsage" nillable="true" type="tns:TaskMaterialUsage" />
+  <xs:complexType name="Task">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID" type="ser:guid" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Task" nillable="true" type="tns:Task" />
+</xs:schema>

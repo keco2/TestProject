@@ -71,6 +71,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Connected Services\TaskMaterialUsageServiceRef\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\TaskServiceRef\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -136,6 +141,16 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\MaterialServiceRef\MaterialService.wsdl" />
+    <None Include="Connected Services\TaskMaterialUsageServiceRef\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\TaskMaterialUsageServiceRef\item1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\TaskMaterialUsageServiceRef\item2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\TaskMaterialUsageServiceRef\TaskMaterialUsageService.wsdl" />
     <None Include="Connected Services\TaskServiceRef\item.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -149,6 +164,7 @@
     <None Include="packages.config" />
     <None Include="Properties\DataSources\TaskMgmt.Model.Material.datasource" />
     <None Include="Properties\DataSources\TaskMgmt.Model.Task.datasource" />
+    <None Include="Properties\DataSources\TaskMgmt.Model.TaskMaterialUsage.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -172,6 +188,7 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\MaterialServiceRef\" />
+    <WCFMetadataStorage Include="Connected Services\TaskMaterialUsageServiceRef\" />
     <WCFMetadataStorage Include="Connected Services\TaskServiceRef\" />
   </ItemGroup>
   <ItemGroup>
@@ -200,6 +217,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\TaskServiceRef\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\TaskMaterialUsageServiceRef\item.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\TaskMaterialUsageServiceRef\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\TaskMaterialUsageServiceRef\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\TaskMaterialUsageServiceRef\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

@@ -37,6 +37,13 @@ namespace TaskMgmt.UI.ViewModel
             set => SetProperty(ref materiallist, value);
         }
 
+        private ObservableCollection<TaskMaterialUsage> taskmaterialUsageList;
+        public ObservableCollection<TaskMaterialUsage> TaskMaterialUsageList
+        {
+            get => taskmaterialUsageList;
+            set => SetProperty(ref taskmaterialUsageList, value);
+        }
+
         private Task selectedTask;
         public Task SelectedTask
         {
@@ -81,7 +88,7 @@ namespace TaskMgmt.UI.ViewModel
             {
                 var proxy = new Proxy();
                 TaskList = proxy.GetTasks().ToObservableCollection();
-                MaterialList = proxy.GetMaterials().ToObservableCollection();
+                TaskMaterialUsageList = proxy.GetUsages().ToObservableCollection();
                 Message = "Records found: " + TaskList.Count;
             }
             catch (EndpointNotFoundException)

@@ -12,19 +12,23 @@ namespace TaskMgmt.Server
             Logging.LoggingSetUp();
             Console.Title = "Task Management Server";
 
-            using (ServiceHost serviceHost = new ServiceHost(typeof(TaskService)))
-            using (ServiceHost serviceHost2 = new ServiceHost(typeof(MaterialService)))
+            using (ServiceHost taskServiceHost = new ServiceHost(typeof(TaskService)))
+            using (ServiceHost materialServiceHost = new ServiceHost(typeof(MaterialService)))
+            using (ServiceHost taskMaterialUsageServiceHost = new ServiceHost(typeof(TaskMaterialUsageService)))
             {
                 try
                 {
-                    serviceHost.Open();
-                    serviceHost2.Open();
+                    taskServiceHost.Open();
+                    materialServiceHost.Open();
+                    taskMaterialUsageServiceHost.Open();
 
                     Console.WriteLine("The service is ready.");
                     Console.WriteLine("Press <ENTER> to terminate service.");
                     Console.ReadLine();
 
-                    serviceHost.Close();
+                    taskServiceHost.Close();
+                    materialServiceHost.Close();
+                    taskMaterialUsageServiceHost.Close();
                 }
                 catch (TimeoutException timeProblem)
                 {
