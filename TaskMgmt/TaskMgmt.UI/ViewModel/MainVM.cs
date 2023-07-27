@@ -23,22 +23,22 @@ namespace TaskMgmt.UI.ViewModel
             set => SetProperty(ref message, value);
         }
 
-        private ObservableCollection<Task> tasklist;
-        public ObservableCollection<Task> TaskList
+        private IEnumerable<Task> tasklist;
+        public IEnumerable<Task> TaskList
         {
             get => tasklist;
             set => SetProperty(ref tasklist, value);
         }
 
-        private ObservableCollection<Material> materiallist;
-        public ObservableCollection<Material> MaterialList
+        private IEnumerable<Material> materiallist;
+        public IEnumerable<Material> MaterialList
         {
             get => materiallist;
             set => SetProperty(ref materiallist, value);
         }
 
-        private ObservableCollection<TaskMaterialUsage> taskmaterialUsageList;
-        public ObservableCollection<TaskMaterialUsage> TaskMaterialUsageList
+        private IEnumerable<TaskMaterialUsage> taskmaterialUsageList;
+        public IEnumerable<TaskMaterialUsage> TaskMaterialUsageList
         {
             get => taskmaterialUsageList;
             set => SetProperty(ref taskmaterialUsageList, value);
@@ -87,9 +87,9 @@ namespace TaskMgmt.UI.ViewModel
             try
             {
                 var proxy = new Proxy();
-                TaskList = proxy.GetTasks().ToObservableCollection();
-                TaskMaterialUsageList = proxy.GetUsages().ToObservableCollection();
-                Message = "Records found: " + TaskList.Count;
+                TaskList = proxy.GetTasks();
+                TaskMaterialUsageList = proxy.GetUsages();
+                Message = "Records found: " + TaskList.Count();
             }
             catch (EndpointNotFoundException)
             {
@@ -130,8 +130,8 @@ namespace TaskMgmt.UI.ViewModel
             if (IsRecordNew && SelectedTask != null && !TaskList.Contains(SelectedTask))
             {
                 proxy.AddTask(SelectedTask);
+                LoadData();
                 Message = "Task " + SelectedTask.Name + " added";
-                TaskList.Add(SelectedTask);
                 IsRecordNew = false;
             }
         }
@@ -153,7 +153,7 @@ namespace TaskMgmt.UI.ViewModel
         {
             var taskName = SelectedTask.Name;
             proxy.DeleteTask(SelectedTask.ID);
-            TaskList.Remove(SelectedTask);
+            LoadData();
             var count = TaskList.Count();
             Message = taskName + " deleted / DB.count = " + count;
         }
