@@ -33,8 +33,6 @@ namespace TaskMgmt.WcfService
 
         public void AddTask(Task task)
         {
-            Guid newId = new Guid();
-            task.ID = newId;
             repo.InsertTask(task);
         }
 

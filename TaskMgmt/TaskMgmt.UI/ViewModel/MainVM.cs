@@ -129,8 +129,10 @@ namespace TaskMgmt.UI.ViewModel
         {
             if (IsRecordNew && SelectedTask != null && !TaskList.Contains(SelectedTask))
             {
+                var newtaskId = SelectedTask.ID;
                 proxy.AddTask(SelectedTask);
                 LoadData();
+                SelectedTask = TaskList.Single(t => t.ID == newtaskId);
                 Message = "Task " + SelectedTask.Name + " added";
                 IsRecordNew = false;
             }
