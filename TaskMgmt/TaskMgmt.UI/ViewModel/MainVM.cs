@@ -59,8 +59,15 @@ namespace TaskMgmt.UI.ViewModel
             }
         }
 
-        private Task selectedTaskmaterialusage;
-        public Task SelectedTaskMaterialUsage
+        private Material selectedMaterial;
+        public Material SelectedMaterial
+        {
+            get { return selectedMaterial; }
+            set { SetProperty(ref selectedMaterial, value); }
+        }
+
+        private TaskMaterialUsage selectedTaskmaterialusage;
+        public TaskMaterialUsage SelectedTaskMaterialUsage
         {
             get { return selectedTaskmaterialusage; }
             set
@@ -96,6 +103,7 @@ namespace TaskMgmt.UI.ViewModel
         public ICommand DeleteTaskCmd { get; private set; }
         public ICommand RecordChangedCmd { get; private set; }
         public ICommand NewUsageCmd { get; private set; }
+        public ICommand AddUsageCmd { get; private set; }
 
         public MainVM()
         {
@@ -126,6 +134,7 @@ namespace TaskMgmt.UI.ViewModel
             RecordChangedCmd = new DelegateCommand(_ => IsRecordChanged = IsRecordNew ? false : true);
 
             NewUsageCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(PrepareNewUsage));
+            AddUsageCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(AddUsage));
         }
 
         private void PrepareNewRecord()
@@ -183,9 +192,33 @@ namespace TaskMgmt.UI.ViewModel
 
         private void PrepareNewUsage(Proxy proxy)
         {
+            LoadMaterial();
+            SelectedTaskMaterialUsage = new TaskMaterialUsage();
             IsRecordChanged = false;
             IsRecordNew = true;
-            LoadMaterial();
+        }
+
+        private void AddUsage(Proxy proxy)
+        {
+            if (IsRecordNew && !TaskMaterialUsageList.Contains(SelectedTaskMaterialUsage))
+            {
+                if (SelectedTaskMaterialUsage == null ||  SelectedMaterial == null || String.IsNullOrEmpty(SelectedTaskMaterialUsage.UniteOfMeasurement))
+                {
+                    Message = "Missing information";
+                }
+                else
+                {
+                    SelectedTaskMaterialUsage.Task = SelectedTask;
+                    SelectedTaskMaterialUsage.Material = SelectedMaterial;
+                    var taskId = SelectedTaskMaterialUsage.Task.ID;
+                    var materialId = SelectedTaskMaterialUsage.Material.ID;
+                    proxy.AddUsage(SelectedTaskMaterialUsage);
+                    LoadUsages();
+                    SelectedTaskMaterialUsage = TaskMaterialUsageList.Single(u => u.Task.ID == taskId && u.Material.ID == materialId);
+                    Message = "Material " + SelectedTaskMaterialUsage.Material.ManufacturerCode + " assigned to task " + SelectedTaskMaterialUsage.Task.Name;
+                    IsRecordNew = false;
+                }
+            }
         }
     }
 }

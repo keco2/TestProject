@@ -17,7 +17,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type TextBox}">
-                        <TextBox x:Name="root" Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}" Background="Transparent" BorderThickness="0">
+                        <TextBox x:Name="root" Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}" Background="Transparent">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="TextChanged">
                                     <i:InvokeCommandAction Command="{Binding RecordChangedCmd}" />
