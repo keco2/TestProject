@@ -12,7 +12,7 @@ namespace TaskMgmt.WcfService
 {
     public class TaskMaterialUsageService : ITaskMaterialUsageService
     {
-        private IGenericRepository<TaskMaterialUsage> repo;
+        private TaskMaterialUsageRepository repo;
 
         public TaskMaterialUsageService()
         {
@@ -24,10 +24,10 @@ namespace TaskMgmt.WcfService
             return repo.GetItems();
         }
 
-        public TaskMaterialUsage GetTaskMaterialUsageByTaskId(string taskId)
+        public IEnumerable<TaskMaterialUsage> GetTaskMaterialUsagesByTaskId(string taskId)
         {
             Guid taskGuid = Guid.Parse(taskId);
-            return repo.GetItemByID(taskGuid);
+            return repo.GetItemsByTaskID(taskGuid);
         }
 
         public void AddTaskMaterialUsage(TaskMaterialUsage usage)

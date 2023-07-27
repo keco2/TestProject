@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="D/jqxknYfrM8VWxdCFGKsuJLQMJZNxpx94lLz5HCiYo=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="kVkZU2GDFg2LJzr9p+h4hbfZZO1I5VqxXTN5NOZW11Q=">
   <bindingConfigurations>
-    <bindingConfiguration bindingType="wsHttpBinding" name="WSHttpBinding_IMaterialService1">
+    <bindingConfiguration bindingType="wsHttpBinding" name="WSHttpBinding_IMaterialService">
       <properties>
         <property path="/name" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>WSHttpBinding_IMaterialService1</serializedValue>
+          <serializedValue>WSHttpBinding_IMaterialService</serializedValue>
         </property>
         <property path="/closeTimeout" isComplexType="false" isExplicitlyDefined="true" clrType="System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -127,7 +127,7 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="WSHttpBinding_IMaterialService1" contract="MaterialServiceRef.IMaterialService" bindingType="wsHttpBinding" address="http://localhost:8000/TaskMgmt.WcfService/MaterialService/" bindingConfiguration="WSHttpBinding_IMaterialService1">
+    <endpoint name="WSHttpBinding_IMaterialService" contract="MaterialServiceRef.IMaterialService" bindingType="wsHttpBinding" address="http://localhost:8000/TaskMgmt.WcfService/MaterialService/" bindingConfiguration="WSHttpBinding_IMaterialService">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>http://localhost:8000/TaskMgmt.WcfService/MaterialService/</serializedValue>
@@ -139,7 +139,7 @@
           <serializedValue>wsHttpBinding</serializedValue>
         </property>
         <property path="/bindingConfiguration" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>WSHttpBinding_IMaterialService1</serializedValue>
+          <serializedValue>WSHttpBinding_IMaterialService</serializedValue>
         </property>
         <property path="/contract" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>MaterialServiceRef.IMaterialService</serializedValue>
@@ -202,7 +202,7 @@
           <serializedValue>False</serializedValue>
         </property>
         <property path="/name" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>WSHttpBinding_IMaterialService1</serializedValue>
+          <serializedValue>WSHttpBinding_IMaterialService</serializedValue>
         </property>
         <property path="/kind" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

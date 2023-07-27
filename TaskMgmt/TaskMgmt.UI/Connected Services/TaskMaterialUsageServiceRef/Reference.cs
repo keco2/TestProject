@@ -21,13 +21,13 @@ namespace TaskMgmt.UI.TaskMaterialUsageServiceRef {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITaskMaterialUsageService/GetTaskMaterialUsages", ReplyAction="http://tempuri.org/ITaskMaterialUsageService/GetTaskMaterialUsagesResponse")]
         System.Threading.Tasks.Task<TaskMgmt.Model.TaskMaterialUsage[]> GetTaskMaterialUsagesAsync();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITaskMaterialUsageService/GetTaskMaterialUsageByTaskId", ReplyAction="http://tempuri.org/ITaskMaterialUsageService/GetTaskMaterialUsageByTaskIdResponse" +
-            "")]
-        TaskMgmt.Model.TaskMaterialUsage GetTaskMaterialUsageByTaskId(string taskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITaskMaterialUsageService/GetTaskMaterialUsagesByTaskId", ReplyAction="http://tempuri.org/ITaskMaterialUsageService/GetTaskMaterialUsagesByTaskIdRespons" +
+            "e")]
+        TaskMgmt.Model.TaskMaterialUsage[] GetTaskMaterialUsagesByTaskId(string taskId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITaskMaterialUsageService/GetTaskMaterialUsageByTaskId", ReplyAction="http://tempuri.org/ITaskMaterialUsageService/GetTaskMaterialUsageByTaskIdResponse" +
-            "")]
-        System.Threading.Tasks.Task<TaskMgmt.Model.TaskMaterialUsage> GetTaskMaterialUsageByTaskIdAsync(string taskId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITaskMaterialUsageService/GetTaskMaterialUsagesByTaskId", ReplyAction="http://tempuri.org/ITaskMaterialUsageService/GetTaskMaterialUsagesByTaskIdRespons" +
+            "e")]
+        System.Threading.Tasks.Task<TaskMgmt.Model.TaskMaterialUsage[]> GetTaskMaterialUsagesByTaskIdAsync(string taskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITaskMaterialUsageService/AddTaskMaterialUsage", ReplyAction="http://tempuri.org/ITaskMaterialUsageService/AddTaskMaterialUsageResponse")]
         void AddTaskMaterialUsage(TaskMgmt.Model.TaskMaterialUsage taskMaterialUsage);
@@ -83,12 +83,12 @@ namespace TaskMgmt.UI.TaskMaterialUsageServiceRef {
             return base.Channel.GetTaskMaterialUsagesAsync();
         }
         
-        public TaskMgmt.Model.TaskMaterialUsage GetTaskMaterialUsageByTaskId(string taskId) {
-            return base.Channel.GetTaskMaterialUsageByTaskId(taskId);
+        public TaskMgmt.Model.TaskMaterialUsage[] GetTaskMaterialUsagesByTaskId(string taskId) {
+            return base.Channel.GetTaskMaterialUsagesByTaskId(taskId);
         }
         
-        public System.Threading.Tasks.Task<TaskMgmt.Model.TaskMaterialUsage> GetTaskMaterialUsageByTaskIdAsync(string taskId) {
-            return base.Channel.GetTaskMaterialUsageByTaskIdAsync(taskId);
+        public System.Threading.Tasks.Task<TaskMgmt.Model.TaskMaterialUsage[]> GetTaskMaterialUsagesByTaskIdAsync(string taskId) {
+            return base.Channel.GetTaskMaterialUsagesByTaskIdAsync(taskId);
         }
         
         public void AddTaskMaterialUsage(TaskMgmt.Model.TaskMaterialUsage taskMaterialUsage) {

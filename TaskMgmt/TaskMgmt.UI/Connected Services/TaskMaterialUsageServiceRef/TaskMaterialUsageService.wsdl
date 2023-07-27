@@ -134,7 +134,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSHttpBinding_ITaskMaterialUsageService_GetTaskMaterialUsageByTaskId_Input_policy">
+  <wsp:Policy wsu:Id="WSHttpBinding_ITaskMaterialUsageService_GetTaskMaterialUsagesByTaskId_Input_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -153,7 +153,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSHttpBinding_ITaskMaterialUsageService_GetTaskMaterialUsageByTaskId_output_policy">
+  <wsp:Policy wsu:Id="WSHttpBinding_ITaskMaterialUsageService_GetTaskMaterialUsagesByTaskId_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -299,11 +299,11 @@
   <wsdl:message name="ITaskMaterialUsageService_GetTaskMaterialUsages_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetTaskMaterialUsagesResponse" />
   </wsdl:message>
-  <wsdl:message name="ITaskMaterialUsageService_GetTaskMaterialUsageByTaskId_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetTaskMaterialUsageByTaskId" />
+  <wsdl:message name="ITaskMaterialUsageService_GetTaskMaterialUsagesByTaskId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTaskMaterialUsagesByTaskId" />
   </wsdl:message>
-  <wsdl:message name="ITaskMaterialUsageService_GetTaskMaterialUsageByTaskId_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetTaskMaterialUsageByTaskIdResponse" />
+  <wsdl:message name="ITaskMaterialUsageService_GetTaskMaterialUsagesByTaskId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTaskMaterialUsagesByTaskIdResponse" />
   </wsdl:message>
   <wsdl:message name="ITaskMaterialUsageService_AddTaskMaterialUsage_InputMessage">
     <wsdl:part name="parameters" element="tns:AddTaskMaterialUsage" />
@@ -328,9 +328,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ITaskMaterialUsageService/GetTaskMaterialUsages" message="tns:ITaskMaterialUsageService_GetTaskMaterialUsages_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITaskMaterialUsageService/GetTaskMaterialUsagesResponse" message="tns:ITaskMaterialUsageService_GetTaskMaterialUsages_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetTaskMaterialUsageByTaskId">
-      <wsdl:input wsaw:Action="http://tempuri.org/ITaskMaterialUsageService/GetTaskMaterialUsageByTaskId" message="tns:ITaskMaterialUsageService_GetTaskMaterialUsageByTaskId_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ITaskMaterialUsageService/GetTaskMaterialUsageByTaskIdResponse" message="tns:ITaskMaterialUsageService_GetTaskMaterialUsageByTaskId_OutputMessage" />
+    <wsdl:operation name="GetTaskMaterialUsagesByTaskId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITaskMaterialUsageService/GetTaskMaterialUsagesByTaskId" message="tns:ITaskMaterialUsageService_GetTaskMaterialUsagesByTaskId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITaskMaterialUsageService/GetTaskMaterialUsagesByTaskIdResponse" message="tns:ITaskMaterialUsageService_GetTaskMaterialUsagesByTaskId_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="AddTaskMaterialUsage">
       <wsdl:input wsaw:Action="http://tempuri.org/ITaskMaterialUsageService/AddTaskMaterialUsage" message="tns:ITaskMaterialUsageService_AddTaskMaterialUsage_InputMessage" />
@@ -359,14 +359,14 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetTaskMaterialUsageByTaskId">
-      <soap12:operation soapAction="http://tempuri.org/ITaskMaterialUsageService/GetTaskMaterialUsageByTaskId" style="document" />
+    <wsdl:operation name="GetTaskMaterialUsagesByTaskId">
+      <soap12:operation soapAction="http://tempuri.org/ITaskMaterialUsageService/GetTaskMaterialUsagesByTaskId" style="document" />
       <wsdl:input>
-        <wsp:PolicyReference URI="#WSHttpBinding_ITaskMaterialUsageService_GetTaskMaterialUsageByTaskId_Input_policy" />
+        <wsp:PolicyReference URI="#WSHttpBinding_ITaskMaterialUsageService_GetTaskMaterialUsagesByTaskId_Input_policy" />
         <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <wsp:PolicyReference URI="#WSHttpBinding_ITaskMaterialUsageService_GetTaskMaterialUsageByTaskId_output_policy" />
+        <wsp:PolicyReference URI="#WSHttpBinding_ITaskMaterialUsageService_GetTaskMaterialUsagesByTaskId_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>

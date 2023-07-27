@@ -53,7 +53,14 @@ namespace TaskMgmt.UI.ViewModel
                 SetProperty(ref selectedTask, value);
                 IsRecordChanged = false;
                 IsRecordNew = false;
+                LoadUsages();
             }
+        }
+
+        private void LoadUsages()
+        {
+            var proxy = new Proxy();
+            TaskMaterialUsageList = proxy.GetUsagesByTaskId(SelectedTask.ID);
         }
 
         private bool isRecordNew = false;
@@ -88,7 +95,6 @@ namespace TaskMgmt.UI.ViewModel
             {
                 var proxy = new Proxy();
                 TaskList = proxy.GetTasks();
-                TaskMaterialUsageList = proxy.GetUsages();
                 Message = "Records found: " + TaskList.Count();
             }
             catch (EndpointNotFoundException)

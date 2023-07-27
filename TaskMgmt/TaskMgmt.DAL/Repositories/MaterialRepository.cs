@@ -34,13 +34,13 @@ namespace TaskMgmt.DAL.Repositories
         public IEnumerable<Material> GetItems()
         {
             logger.Info("GetItems");
-            return context.Materials.ToList();
+            return context.Materials;
         }
 
         public void InsertItem(Material item)
         {
             logger.Info("InsertItem ID={0}", item.ID);
-            context.Materials.ToList().Add(item);
+            context.Materials.Add(item);
         }
 
         public void Save()

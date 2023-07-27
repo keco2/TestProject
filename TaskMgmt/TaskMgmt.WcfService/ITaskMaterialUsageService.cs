@@ -17,7 +17,7 @@ namespace TaskMgmt.WcfService
 
         [OperationContract]
         [WebInvoke(Method = "GET", UriTemplate = "taskmaterialusage/{taskId}", ResponseFormat = WebMessageFormat.Json)]
-        TaskMaterialUsage GetTaskMaterialUsageByTaskId(string taskId);
+        IEnumerable<TaskMaterialUsage> GetTaskMaterialUsagesByTaskId(string taskId);
 
         [OperationContract]
         [WebInvoke(Method = "POST", UriTemplate = "taskmaterialusage", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]

@@ -22,7 +22,7 @@ namespace TaskMgmt.DAL.Repositories
             Guid taskGuid = guids[0];
             Guid materialGuid = guids[1];
             logger.Info("{0} {1}={2} {3}={4}", nameof(DeleteItem), nameof(taskGuid), taskGuid, nameof(materialGuid), materialGuid);
-            var item = context.TaskMaterialUsages.Where(t => t.TaskID == taskGuid && t.MaterialID == materialGuid).Single();
+            var item = context.TaskMaterialUsages.Where(t => t.Task.ID == taskGuid && t.Material.ID == materialGuid).Single();
             context.TaskMaterialUsages.Remove(item);
         }
 
@@ -31,31 +31,31 @@ namespace TaskMgmt.DAL.Repositories
             Guid taskGuid = guids[0];
             Guid materialGuid = guids[1];
             logger.Info("{0} {1}={2} {3}={4}", nameof(GetItemByID), nameof(taskGuid), taskGuid, nameof(materialGuid), materialGuid);
-            return context.TaskMaterialUsages.Where(t => t.TaskID == taskGuid && t.MaterialID == materialGuid).Single();
+            return context.TaskMaterialUsages.Where(t => t.Task.ID == taskGuid && t.Material.ID == materialGuid).Single();
         }
 
         public IEnumerable<TaskMaterialUsage> GetItemsByTaskID(Guid taskGuid)
         {
             logger.Info("{0} {1}={2}", nameof(GetItemsByTaskID), nameof(taskGuid), taskGuid);
-            return context.TaskMaterialUsages.Where(t => t.TaskID == taskGuid);
+            return context.TaskMaterialUsages.Where(t => t.Task.ID == taskGuid);
         }
 
         public IEnumerable<TaskMaterialUsage> GetItems()
         {
             logger.Info("{0}", nameof(GetItems));
-            return context.TaskMaterialUsages.ToList();
+            return context.TaskMaterialUsages;
         }
 
         public void InsertItem(TaskMaterialUsage item)
         {
-            logger.Info("{0} {1}={2}", nameof(InsertItem), nameof(item.MaterialID), item.MaterialID);
+            logger.Info("{0} {1}={2}", nameof(InsertItem), nameof(item.Material.ID), item.Material.ID);
             context.TaskMaterialUsages.Add(item);
         }
 
         public void UpdateItem(TaskMaterialUsage item)
         {
-            logger.Info("{0} {1}={2} {3}={4}", nameof(UpdateItem), nameof(item.TaskID), item.TaskID, nameof(item.MaterialID), item.MaterialID);
-            TaskMaterialUsage existingItem = context.TaskMaterialUsages.Where(t => t.TaskID == item.TaskID && t.MaterialID == item.MaterialID).Single();
+            logger.Info("{0} {1}={2} {3}={4}", nameof(UpdateItem), nameof(item.Task.ID), item.Task.ID, nameof(item.Material.ID), item.Material.ID);
+            TaskMaterialUsage existingItem = context.TaskMaterialUsages.Where(t => t.Task.ID == item.Task.ID && t.Material.ID == item.Material.ID).Single();
             if (existingItem != null)
             {
                 existingItem.Amount = item.Amount;

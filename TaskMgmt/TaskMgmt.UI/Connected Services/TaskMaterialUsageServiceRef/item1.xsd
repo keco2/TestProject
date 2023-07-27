@@ -13,17 +13,17 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetTaskMaterialUsageByTaskId">
+  <xs:element name="GetTaskMaterialUsagesByTaskId">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="taskId" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetTaskMaterialUsageByTaskIdResponse">
+  <xs:element name="GetTaskMaterialUsagesByTaskIdResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/TaskMgmt.Model" minOccurs="0" name="GetTaskMaterialUsageByTaskIdResult" nillable="true" type="q2:TaskMaterialUsage" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/TaskMgmt.Model" minOccurs="0" name="GetTaskMaterialUsagesByTaskIdResult" nillable="true" type="q2:ArrayOfTaskMaterialUsage" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
