@@ -60,7 +60,7 @@
                     <DataGrid Grid.Column="1"
                       SelectedItem="{Binding SelectedTaskMaterialUsage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectionMode="Single"
-                      AutoGenerateColumns="True"
+                      AutoGenerateColumns="False"
                       GridLinesVisibility="None"
                       CanUserAddRows="False"
                       CanUserDeleteRows="False"
@@ -68,6 +68,14 @@
                       IsReadOnly="True"
                       CanUserResizeRows="False"
                       ItemsSource="{Binding TaskMaterialUsageList}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Material.Partnumber}" Header="Partnumber" />
+                        <DataGridTextColumn Binding="{Binding Material.ManufacturerCode}" Header="ManufacturerCode" />
+                        <DataGridTextColumn Binding="{Binding Material.Price}" Header="Price" />
+                        <DataGridTextColumn Binding="{Binding Material.UniteOfIssue}" Header="UniteOfIssue" />
+                        <DataGridTextColumn Binding="{Binding Amount}" Header="Amount" />
+                        <DataGridTextColumn Binding="{Binding UniteOfMeasurement}" Header="UniteOfMeasurement" />
+                    </DataGrid.Columns>
                     </DataGrid>
             </Grid>
             <Label Grid.Row="2" Content="{Binding Message}" Foreground="DarkGray" HorizontalAlignment="Center"/>

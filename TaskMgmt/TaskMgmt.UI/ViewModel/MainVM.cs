@@ -57,6 +57,19 @@ namespace TaskMgmt.UI.ViewModel
             }
         }
 
+        private Task selectedTaskmaterialusage;
+        public Task SelectedTaskMaterialUsage
+        {
+            get { return selectedTaskmaterialusage; }
+            set
+            {
+                SetProperty(ref selectedTaskmaterialusage, value);
+                IsRecordChanged = false;
+                IsRecordNew = false;
+                LoadUsages();
+            }
+        }
+
         private void LoadUsages()
         {
             var proxy = new Proxy();
