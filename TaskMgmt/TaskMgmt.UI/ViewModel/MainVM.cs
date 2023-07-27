@@ -16,6 +16,8 @@ namespace TaskMgmt.UI.ViewModel
 {
     class MainVM : ViewModelBase
     {
+        private readonly Proxy _proxy;
+
         private string message;
         public string Message
         {
@@ -66,15 +68,12 @@ namespace TaskMgmt.UI.ViewModel
                 SetProperty(ref selectedTaskmaterialusage, value);
                 IsRecordChanged = false;
                 IsRecordNew = false;
-                LoadUsages();
             }
         }
 
-        private void LoadUsages()
-        {
-            var proxy = new Proxy();
-            TaskMaterialUsageList = proxy.GetUsagesByTaskId(SelectedTask.ID);
-        }
+        private void LoadMaterial() => MaterialList = _proxy.GetMaterials();
+
+        private void LoadUsages() => TaskMaterialUsageList = _proxy.GetUsagesByTaskId(SelectedTask.ID);
 
         private bool isRecordNew = false;
         public bool IsRecordNew
@@ -84,6 +83,7 @@ namespace TaskMgmt.UI.ViewModel
         }
 
         private bool isRecordChanged = false;
+
         public bool IsRecordChanged
         {
             get => isRecordChanged;
@@ -95,10 +95,12 @@ namespace TaskMgmt.UI.ViewModel
         public ICommand UpdateTaskCmd { get; private set; }
         public ICommand DeleteTaskCmd { get; private set; }
         public ICommand RecordChangedCmd { get; private set; }
+        public ICommand NewUsageCmd { get; private set; }
 
         public MainVM()
         {
             HookUpUICommands();
+            _proxy = new Proxy();
             LoadData();
         }
 
@@ -106,8 +108,7 @@ namespace TaskMgmt.UI.ViewModel
         {
             try
             {
-                var proxy = new Proxy();
-                TaskList = proxy.GetTasks();
+                TaskList = _proxy.GetTasks();
                 Message = "Records found: " + TaskList.Count();
             }
             catch (EndpointNotFoundException)
@@ -123,6 +124,8 @@ namespace TaskMgmt.UI.ViewModel
             UpdateTaskCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(UpdateRecord));
             DeleteTaskCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(DeleteRecord));
             RecordChangedCmd = new DelegateCommand(_ => IsRecordChanged = IsRecordNew ? false : true);
+
+            NewUsageCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(PrepareNewUsage));
         }
 
         private void PrepareNewRecord()
@@ -135,8 +138,7 @@ namespace TaskMgmt.UI.ViewModel
         {
             if (SelectedTask != null)
             {
-                var proxy = new Proxy();
-                action.Invoke(proxy);
+                action.Invoke(_proxy);
             }
             else
             {
@@ -177,6 +179,13 @@ namespace TaskMgmt.UI.ViewModel
             LoadData();
             var count = TaskList.Count();
             Message = taskName + " deleted / DB.count = " + count;
+        }
+
+        private void PrepareNewUsage(Proxy proxy)
+        {
+            IsRecordChanged = false;
+            IsRecordNew = true;
+            LoadMaterial();
         }
     }
 }

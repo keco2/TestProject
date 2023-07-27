@@ -28,7 +28,10 @@ namespace TaskMgmt.DAL
         {
             material1,
             material2,
-            material3
+            material3,
+            material4,
+            material5,
+            material6
         };
 
         public static ICollection<TaskMaterialUsage> TaskMaterialUsages = new List<TaskMaterialUsage>
