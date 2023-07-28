@@ -100,7 +100,7 @@
                     <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SelectedTask.ID}" IsReadOnly="True" TextWrapping="NoWrap" TextAlignment="Left" BorderThickness="0" Background="Transparent" Margin="2"/>
                     <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SelectedTask.Name}" TextWrapping="NoWrap" AcceptsReturn="False" AcceptsTab="False" TextAlignment="Left" BorderThickness="0" Background="Transparent" Margin="2"/>
                     <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding SelectedTaskMaterialUsage.Amount}" Style="{StaticResource textboxTrigger}" TextWrapping="NoWrap" AcceptsReturn="False" AcceptsTab="False" TextAlignment="Left" BorderThickness="0" Background="Transparent" Margin="2"/>
-                    <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding CurrentUnitVariations}" SelectedItem="{Binding SelectedUnit}" />
+                    <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding CurrentUnitVariations}" SelectedItem="{Binding SelectedUnit}" Background="Transparent" Margin="2" />
                 </Grid>
                 <DataGrid Name="Usages" Grid.Row="3" Grid.Column="1"
                           ItemsSource="{Binding MaterialList}"
@@ -123,7 +123,7 @@
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Content="New usage" Width="150" Command="{Binding NewUsageCmd}" Margin="5" />
                 <Button Content="Add new usage" Width="150" Command="{Binding AddUsageCmd}" IsEnabled="{Binding IsRecordNew}" Margin="5" />
-                <Button Content="Update usage" Width="150" Command="{Binding UpdateTaskCmd}" IsEnabled="{Binding IsRecordChanged}" Margin="5" />
+                <Button Content="Update usage" Width="150" Command="{Binding UpdateUsageCmd}" IsEnabled="{Binding IsRecordChanged}" Margin="5" />
                 <Button Content="Delete usage" Width="150" Command="{Binding DeleteTaskCmd}" Margin="5" />
             </StackPanel>
         </Grid>

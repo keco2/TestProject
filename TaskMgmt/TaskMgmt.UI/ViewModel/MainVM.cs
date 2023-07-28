@@ -139,6 +139,7 @@ namespace TaskMgmt.UI.ViewModel
         public ICommand RecordChangedCmd { get; private set; }
         public ICommand NewUsageCmd { get; private set; }
         public ICommand AddUsageCmd { get; private set; }
+        public ICommand UpdateUsageCmd { get; private set; }
 
         public MainVM()
         {
@@ -170,6 +171,7 @@ namespace TaskMgmt.UI.ViewModel
 
             NewUsageCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(PrepareNewUsage));
             AddUsageCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(AddUsage));
+            UpdateUsageCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(UpdateUsage));
         }
 
         private void PrepareNewRecord()
@@ -253,7 +255,23 @@ namespace TaskMgmt.UI.ViewModel
                     SelectedTaskMaterialUsage = TaskMaterialUsageList.Single(u => u.Task.ID == taskId && u.Material.ID == materialId);
                     Message = "Material " + SelectedTaskMaterialUsage.Material.ManufacturerCode + " assigned to task " + SelectedTaskMaterialUsage.Task.Name;
                     IsRecordNew = false;
+                    isRecordChanged = false;
                 }
+            }
+        }
+
+        private void UpdateUsage(Proxy proxy)
+        {
+            if (IsRecordChanged)
+            {
+                SelectedTaskMaterialUsage.UniteOfMeasurement = SelectedUnit;
+                proxy.UpdateUsage(SelectedTaskMaterialUsage);
+                LoadUsages();
+                Message = "Usage on " + SelectedTask.Name + " updated";
+            }
+            else
+            {
+                Message = "No change found";
             }
         }
     }
