@@ -68,6 +68,7 @@ namespace TaskMgmt.UI.ViewModel
             set {
                 SetProperty(ref selectedMaterial, value);
                 CurrentUnitVariations = _unitVariation.GetVariations(selectedMaterial.UniteOfIssue);
+                Message = "";
             }
         }
 
@@ -82,6 +83,7 @@ namespace TaskMgmt.UI.ViewModel
                 SelectedUnit = selectedTaskmaterialusage.UniteOfMeasurement;
                 IsRecordChanged = false;
                 IsRecordNew = false;
+                Message = "";
             }
         }
 
@@ -93,6 +95,7 @@ namespace TaskMgmt.UI.ViewModel
             {
                 SetProperty(ref selectedUnitvariation, value);
                 IsRecordChanged = true;
+                Message = "";
             }
         }
 

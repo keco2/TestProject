@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:TaskMgmt.UI.View"
+             xmlns:conv="clr-namespace:TaskMgmt.UI.Converters"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -27,6 +28,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <conv:BoolVisibilityConverter x:Key="boolVisibilityConverter" />
     </UserControl.Resources>
     <Grid>
         <Grid>
@@ -81,7 +83,7 @@
                     </DataGrid>
                 <Label Grid.Row="1" Content="{Binding Message}" Foreground="DarkGray" HorizontalAlignment="Center"/>
                 <Label Grid.Row="2" Content="Task details" HorizontalAlignment="Left"/>
-                <Label Grid.Row="2" Content="Available materials" Grid.Column="1" HorizontalAlignment="Left"/>
+                <Label Grid.Row="2" Content="Available materials" Visibility="{Binding IsRecordNew, Converter={StaticResource boolVisibilityConverter}}" Grid.Column="1" HorizontalAlignment="Left"/>
                 <Grid Name="Textboxes" Grid.Row="3">
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -107,6 +109,7 @@
                           IsEnabled="{Binding IsRecordNew}"
                           SelectedItem="{Binding SelectedMaterial}"
                           SelectionMode="Single"
+                          Visibility="{Binding IsRecordNew, Converter={StaticResource boolVisibilityConverter}}"
                           AutoGenerateColumns="True"
                           GridLinesVisibility="None"
                           CanUserAddRows="False"
@@ -115,9 +118,6 @@
                           IsReadOnly="True"
                           CanUserResizeRows="False"
                           >
-
-
-
                 </DataGrid>
             </Grid>
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">

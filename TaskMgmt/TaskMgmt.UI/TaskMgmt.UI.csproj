@@ -81,6 +81,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Converters\BoolVisibilityConverter.cs" />
     <Compile Include="ViewHelper\ViewExtensions.cs" />
     <Compile Include="ViewHelper\DelegateCommand.cs" />
     <Compile Include="ViewHelper\ViewModelBase.cs" />
@@ -240,8 +241,6 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Converters\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

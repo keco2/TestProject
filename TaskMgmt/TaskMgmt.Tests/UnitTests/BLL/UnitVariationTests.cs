@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System;
 using System.Linq;
 using TaskMgmt.BLL;
 
@@ -23,7 +24,7 @@ namespace TaskMgmt.Tests.UnitTests.BLL
         }
 
         [Test]
-        public void GetVariations_ForKg_Returns3()
+        public void GetVariations_ForKg_ReturnsCorrectResult()
         {
             // Setup
             var unitSetup = new UnitVariation();
@@ -37,7 +38,7 @@ namespace TaskMgmt.Tests.UnitTests.BLL
         }
 
         [Test]
-        public void GetVariations_ForMeter_Returns4()
+        public void GetVariations_ForMeter_ReturnsCorrectResult()
         {
             // Setup
             var unitSetup = new UnitVariation();
@@ -51,7 +52,7 @@ namespace TaskMgmt.Tests.UnitTests.BLL
         }
 
         [Test]
-        public void GetVariations_ForLiter_Returns2()
+        public void GetVariations_ForLiter_ReturnsCorrectResult()
         {
             // Setup
             var unitSetup = new UnitVariation();
@@ -65,7 +66,7 @@ namespace TaskMgmt.Tests.UnitTests.BLL
         }
 
         [Test]
-        public void GetVariations_ForPieces_Returns1()
+        public void GetVariations_ForPieces_ReturnsPcs()
         {
             // Setup
             var unitSetup = new UnitVariation();
@@ -86,7 +87,7 @@ namespace TaskMgmt.Tests.UnitTests.BLL
 
             //Act
             var result = unitSetup.GetVariations(null);
-            var expected = new string[] { string.Empty };
+            var expected = new string[] { String.Empty };
 
             //Assert
             Assert.AreEqual(expected, result);
@@ -100,7 +101,7 @@ namespace TaskMgmt.Tests.UnitTests.BLL
 
             //Act
             var result = unitSetup.GetVariations("");
-            var expected = new string[] { string.Empty };
+            var expected = new string[] { String.Empty };
 
             //Assert
             Assert.AreEqual(expected, result);
