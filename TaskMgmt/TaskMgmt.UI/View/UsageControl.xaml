@@ -71,11 +71,10 @@
                       IsReadOnly="True"
                       CanUserResizeRows="False">
                     <DataGrid.Columns>
-                          <!--, Converter={StaticResource taskMaterialUsageConverter} -->
                         <DataGridTextColumn Binding="{Binding Material.Partnumber}" Header="Partnumber" />
                         <DataGridTextColumn Binding="{Binding Material.ManufacturerCode}" Header="ManufacturerCode" />
                         <DataGridTextColumn Binding="{Binding Material.Price}" Header="Price" />
-                        <DataGridTextColumn Binding="{Binding Material.UniteOfIssue}" Header="UniteOfIssue" />
+                        <DataGridTextColumn Binding="{Binding UniteOfMeasurement}" Header="UniteOfIssue" />
                         <DataGridTextColumn Binding="{Binding Amount}" Header="Amount" />
                         <DataGridTextColumn Binding="{Binding UniteOfMeasurement}" Header="UniteOfMeasurement" />
                     </DataGrid.Columns>
@@ -101,7 +100,7 @@
                     <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SelectedTask.ID}" IsReadOnly="True" TextWrapping="NoWrap" TextAlignment="Left" BorderThickness="0" Background="Transparent" Margin="2"/>
                     <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SelectedTask.Name}" TextWrapping="NoWrap" AcceptsReturn="False" AcceptsTab="False" TextAlignment="Left" BorderThickness="0" Background="Transparent" Margin="2"/>
                     <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding SelectedTaskMaterialUsage.Amount}" Style="{StaticResource textboxTrigger}" TextWrapping="NoWrap" AcceptsReturn="False" AcceptsTab="False" TextAlignment="Left" BorderThickness="0" Background="Transparent" Margin="2"/>
-                    <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding SelectedTaskMaterialUsage.UniteOfMeasurement}" Style="{StaticResource textboxTrigger}" TextWrapping="NoWrap" AcceptsReturn="False" AcceptsTab="False" TextAlignment="Left" BorderThickness="0" Background="Transparent" Margin="2"/>
+                    <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding CurrentUnitVariations}" SelectedItem="{Binding SelectedUnit}" />
                 </Grid>
                 <DataGrid Name="Usages" Grid.Row="3" Grid.Column="1"
                           ItemsSource="{Binding MaterialList}"

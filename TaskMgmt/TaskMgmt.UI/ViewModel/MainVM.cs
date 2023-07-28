@@ -11,6 +11,7 @@ using TaskMgmt.Model;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using TaskMgmt.UI.ViewHelper;
+using TaskMgmt.BLL;
 
 namespace TaskMgmt.UI.ViewModel
 {
@@ -55,6 +56,7 @@ namespace TaskMgmt.UI.ViewModel
                 SetProperty(ref selectedTask, value);
                 IsRecordChanged = false;
                 IsRecordNew = false;
+                SelectedUnit = null;
                 LoadUsages();
             }
         }
@@ -63,7 +65,10 @@ namespace TaskMgmt.UI.ViewModel
         public Material SelectedMaterial
         {
             get { return selectedMaterial; }
-            set { SetProperty(ref selectedMaterial, value); }
+            set {
+                SetProperty(ref selectedMaterial, value);
+                CurrentUnitVariations = _unitVariation.GetVariations(selectedMaterial.UniteOfIssue);
+            }
         }
 
         private TaskMaterialUsage selectedTaskmaterialusage;
@@ -73,10 +78,24 @@ namespace TaskMgmt.UI.ViewModel
             set
             {
                 SetProperty(ref selectedTaskmaterialusage, value);
+                CurrentUnitVariations = _unitVariation.GetVariations(selectedTaskmaterialusage.Material?.UniteOfIssue);
+                SelectedUnit = selectedTaskmaterialusage.UniteOfMeasurement;
                 IsRecordChanged = false;
                 IsRecordNew = false;
             }
         }
+
+        private string selectedUnitvariation;
+        public string SelectedUnit
+        {
+            get => selectedUnitvariation;
+            set
+            {
+                SetProperty(ref selectedUnitvariation, value);
+                IsRecordChanged = true;
+            }
+        }
+
 
         private void LoadMaterial() => MaterialList = _proxy.GetMaterials();
 
@@ -96,6 +115,22 @@ namespace TaskMgmt.UI.ViewModel
             get => isRecordChanged;
             set => SetProperty(ref isRecordChanged, value);
         }
+
+        private string[] baseunits;
+        public string[] BaseUnits
+        {
+            get => baseunits;
+            set => SetProperty(ref baseunits, value);
+        }
+
+        private string[] currentUnitvariations;
+        public string[] CurrentUnitVariations
+        {
+            get => currentUnitvariations;
+            set => SetProperty(ref currentUnitvariations, value);
+        }
+
+        private readonly UnitVariation _unitVariation = new UnitVariation();
 
         public ICommand NewTaskCmd { get; private set; }
         public ICommand AddTaskCmd { get; private set; }
@@ -212,6 +247,7 @@ namespace TaskMgmt.UI.ViewModel
                     SelectedTaskMaterialUsage.Material = SelectedMaterial;
                     var taskId = SelectedTaskMaterialUsage.Task.ID;
                     var materialId = SelectedTaskMaterialUsage.Material.ID;
+                    //SelectedTaskMaterialUsage.UniteOfMeasurement = CurrentUnitVariations.
                     proxy.AddUsage(SelectedTaskMaterialUsage);
                     LoadUsages();
                     SelectedTaskMaterialUsage = TaskMaterialUsageList.Single(u => u.Task.ID == taskId && u.Material.ID == materialId);
