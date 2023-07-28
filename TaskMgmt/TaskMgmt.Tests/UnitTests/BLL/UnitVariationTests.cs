@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using TaskMgmt.BLL;
+using TaskMgmt.Model;
 
 namespace TaskMgmt.Tests.UnitTests.BLL
 {
@@ -30,7 +31,7 @@ namespace TaskMgmt.Tests.UnitTests.BLL
             var unitSetup = new UnitVariation();
 
             //Act
-            var result = unitSetup.GetVariations("g");
+            var result = unitSetup.GetVariations(new Unit("g"));
             var expected = new string[] { "g", "mg", "kg", "t", "oz", "lb" };
 
             //Assert
@@ -44,7 +45,7 @@ namespace TaskMgmt.Tests.UnitTests.BLL
             var unitSetup = new UnitVariation();
 
             //Act
-            var result = unitSetup.GetVariations("m");
+            var result = unitSetup.GetVariations(new Unit("m"));
             var expected = new string[] { "mm", "cm", "m", "km", "inch", "ft" };
 
             //Assert
@@ -58,7 +59,7 @@ namespace TaskMgmt.Tests.UnitTests.BLL
             var unitSetup = new UnitVariation();
 
             //Act
-            var result = unitSetup.GetVariations("l");
+            var result = unitSetup.GetVariations(new Unit("l"));
             var expected = new string[] { "ml", "l", "cm3", "m3", "gal" };
 
             //Assert
@@ -72,7 +73,7 @@ namespace TaskMgmt.Tests.UnitTests.BLL
             var unitSetup = new UnitVariation();
 
             //Act
-            var result = unitSetup.GetVariations("pcs");
+            var result = unitSetup.GetVariations(new Unit("pcs"));
             var expected = new string[] { "pcs" };
 
             //Assert
@@ -100,7 +101,7 @@ namespace TaskMgmt.Tests.UnitTests.BLL
             var unitSetup = new UnitVariation();
 
             //Act
-            var result = unitSetup.GetVariations("");
+            var result = unitSetup.GetVariations(new Unit(null));
             var expected = new string[] { String.Empty };
 
             //Assert

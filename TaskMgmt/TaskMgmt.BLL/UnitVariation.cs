@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using TaskMgmt.Common;
+using TaskMgmt.Model;
 
 namespace TaskMgmt.BLL
 {
-    public enum UnitEnum { mg, g, kg, t, oz, lb, mm, cm, m, km, l, ml, cm3, m3, gal, pcs, inch, ft };
-
     public class UnitVariation
     {
+        enum UnitEnum { mg, g, kg, t, oz, lb, mm, cm, m, km, l, ml, cm3, m3, gal, pcs, inch, ft };
+
         private readonly Dictionary<UnitEnum, UnitEnum[]> _unitVariationSetup = new Dictionary<UnitEnum, UnitEnum[]>()
         {
             { UnitEnum.pcs, new UnitEnum[] { UnitEnum.pcs } },
@@ -25,14 +26,14 @@ namespace TaskMgmt.BLL
                 .ToArray();
         }
 
-        public string[] GetVariations(string baseUnit)
+        public string[] GetVariations(Unit baseUnit)
         {
-            if (String.IsNullOrEmpty(baseUnit))
+            if (String.IsNullOrEmpty(baseUnit?.Value))
             {
                 return new string[] { String.Empty };
             }
 
-            UnitEnum unitEnum = baseUnit.ToEnum<UnitEnum>();
+            UnitEnum unitEnum = baseUnit.Value.ToEnum<UnitEnum>();
             return _unitVariationSetup[unitEnum]
                 .Select(u => u.ToString())
                 .ToArray();

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="714c3760-28e9-47e6-9a88-5926a530195b" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="407ecf30-3224-4cd3-9d94-614cfa9bf7e6" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,11 +22,11 @@
     <MetadataSource Address="http://localhost:8000/TaskMgmt.WcfService/TaskMaterialUsageService/" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="7879dbe8-381b-44e7-9c35-5aef7d115cf2" SourceId="1" SourceUrl="http://localhost:8000/TaskMgmt.WcfService/TaskMaterialUsageService/?disco" />
-    <MetadataFile FileName="TaskMaterialUsageService.wsdl" MetadataType="Wsdl" ID="083b5632-269b-47a8-a212-67ce7e1c8a8a" SourceId="1" SourceUrl="http://localhost:8000/TaskMgmt.WcfService/TaskMaterialUsageService/?wsdl" />
-    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="1fcbc27f-8d8c-476f-b882-476da40c3469" SourceId="1" SourceUrl="http://localhost:8000/TaskMgmt.WcfService/TaskMaterialUsageService/?xsd=xsd2" />
-    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="6329682c-dd8d-40e5-a652-7af9578333e9" SourceId="1" SourceUrl="http://localhost:8000/TaskMgmt.WcfService/TaskMaterialUsageService/?xsd=xsd0" />
-    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="a9242872-6021-4790-9a36-e7545fae3855" SourceId="1" SourceUrl="http://localhost:8000/TaskMgmt.WcfService/TaskMaterialUsageService/?xsd=xsd1" />
+    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="d9403175-82c7-4f40-b506-2c1bcaf8b87e" SourceId="1" SourceUrl="http://localhost:8000/TaskMgmt.WcfService/TaskMaterialUsageService/?disco" />
+    <MetadataFile FileName="TaskMaterialUsageService.wsdl" MetadataType="Wsdl" ID="78879d86-e86d-41d4-862e-0195fda5b319" SourceId="1" SourceUrl="http://localhost:8000/TaskMgmt.WcfService/TaskMaterialUsageService/?wsdl" />
+    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="d0253143-c669-45a2-a976-d17b346c61cc" SourceId="1" SourceUrl="http://localhost:8000/TaskMgmt.WcfService/TaskMaterialUsageService/?xsd=xsd2" />
+    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="54c77466-e22e-45d3-aced-ea0261225849" SourceId="1" SourceUrl="http://localhost:8000/TaskMgmt.WcfService/TaskMaterialUsageService/?xsd=xsd0" />
+    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="a3477e53-36a1-4b25-aad4-e625f1c4d284" SourceId="1" SourceUrl="http://localhost:8000/TaskMgmt.WcfService/TaskMaterialUsageService/?xsd=xsd1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

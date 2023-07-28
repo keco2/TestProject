@@ -10,7 +10,7 @@ namespace TaskMgmt.Model
         private string partnumber;
         private int manufacturerCode;
         private int price;
-        private string uniteOfIssue;
+        private Unit uniteOfIssue;
 
         public Material()
         {
@@ -30,7 +30,7 @@ namespace TaskMgmt.Model
         public int Price { get => price; set => price = value; }
 
         [DataMember]
-        public string UniteOfIssue { get => uniteOfIssue; set => uniteOfIssue = value; }
+        public Unit UniteOfIssue { get => uniteOfIssue; set => uniteOfIssue = value; }
 
     }
 }

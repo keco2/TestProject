@@ -197,21 +197,6 @@
     <WCFMetadataStorage Include="Connected Services\TaskServiceRef\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\MaterialServiceRef\item.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\MaterialServiceRef\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\MaterialServiceRef\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\MaterialServiceRef\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Connected Services\TaskServiceRef\item.disco" />
   </ItemGroup>
   <ItemGroup>
@@ -222,6 +207,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\TaskServiceRef\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\MaterialServiceRef\item.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\MaterialServiceRef\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\MaterialServiceRef\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\MaterialServiceRef\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -241,6 +241,5 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

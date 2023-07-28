@@ -80,7 +80,7 @@ namespace TaskMgmt.UI.ViewModel
             {
                 SetProperty(ref selectedTaskmaterialusage, value);
                 CurrentUnitVariations = _unitVariation.GetVariations(selectedTaskmaterialusage.Material?.UniteOfIssue);
-                SelectedUnit = selectedTaskmaterialusage.UniteOfMeasurement;
+                SelectedUnit = selectedTaskmaterialusage.UniteOfMeasurement.Value;
                 IsRecordChanged = false;
                 IsRecordNew = false;
                 Message = "";
@@ -242,7 +242,7 @@ namespace TaskMgmt.UI.ViewModel
         {
             if (IsRecordNew && !TaskMaterialUsageList.Contains(SelectedTaskMaterialUsage))
             {
-                if (SelectedTaskMaterialUsage == null ||  SelectedMaterial == null || String.IsNullOrEmpty(SelectedTaskMaterialUsage.UniteOfMeasurement))
+                if (SelectedTaskMaterialUsage == null ||  SelectedMaterial == null || String.IsNullOrEmpty(SelectedTaskMaterialUsage.UniteOfMeasurement.Value))
                 {
                     Message = "Missing information";
                 }
@@ -267,7 +267,7 @@ namespace TaskMgmt.UI.ViewModel
         {
             if (IsRecordChanged)
             {
-                SelectedTaskMaterialUsage.UniteOfMeasurement = SelectedUnit;
+                SelectedTaskMaterialUsage.UniteOfMeasurement.Value = SelectedUnit;
                 proxy.UpdateUsage(SelectedTaskMaterialUsage);
                 LoadUsages();
                 Message = "Usage on " + SelectedTask.Name + " updated";

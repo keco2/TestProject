@@ -49,6 +49,10 @@
       <Project>{fe898a27-209a-4210-9964-cd23498b5574}</Project>
       <Name>TaskMgmt.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TaskMgmt.Model\TaskMgmt.Model.csproj">
+      <Project>{64e4fb18-b595-48ea-9602-5044928e82be}</Project>
+      <Name>TaskMgmt.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -12,7 +12,7 @@
       <xs:element minOccurs="0" name="Amount" type="xs:int" />
       <xs:element minOccurs="0" name="Material" nillable="true" type="tns:Material" />
       <xs:element minOccurs="0" name="Task" nillable="true" type="tns:Task" />
-      <xs:element minOccurs="0" name="UniteOfMeasurement" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UniteOfMeasurement" nillable="true" type="tns:Unit" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="TaskMaterialUsage" nillable="true" type="tns:TaskMaterialUsage" />
@@ -22,10 +22,16 @@
       <xs:element minOccurs="0" name="ManufacturerCode" type="xs:int" />
       <xs:element minOccurs="0" name="Partnumber" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Price" type="xs:int" />
-      <xs:element minOccurs="0" name="UniteOfIssue" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UniteOfIssue" nillable="true" type="tns:Unit" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Material" nillable="true" type="tns:Material" />
+  <xs:complexType name="Unit">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Value" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Unit" nillable="true" type="tns:Unit" />
   <xs:complexType name="Task">
     <xs:sequence>
       <xs:element minOccurs="0" name="ID" type="ser:guid" />
