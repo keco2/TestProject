@@ -1,19 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TaskMgmt.Common;
 
-namespace TaskMgmt.Model
+namespace TaskMgmt.BLL
 {
-    public static class UnitExtensions
-    {
-        public static T ToEnum<T>(this string value)
-        {
-            return (T)Enum.Parse(typeof(T), value, true);
-        }
-    }
-
     public enum UnitEnum { mg, g, kg, mm, m, km, l, ml };
 
     public class UnitVariation
