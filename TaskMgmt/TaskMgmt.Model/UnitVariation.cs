@@ -6,12 +6,6 @@ using System.Threading.Tasks;
 
 namespace TaskMgmt.Model
 {
-
-    class Unit
-    {
-
-    }
-
     public static class UnitExtensions
     {
         public static T ToEnum<T>(this string value)
@@ -20,15 +14,9 @@ namespace TaskMgmt.Model
         }
     }
 
-    public interface IStrategy
-    {
-        UnitEnum Base { get; }
-        UnitEnum[] Variations { get; }
-    }
-
     public enum UnitEnum { mg, g, kg, mm, m, km, l, ml };
 
-    public class UnitSetup
+    public class UnitVariation
     {
         private readonly Dictionary<UnitEnum, UnitEnum[]> _unitVariationSetup = new Dictionary<UnitEnum, UnitEnum[]>()
         {
@@ -58,20 +46,6 @@ namespace TaskMgmt.Model
             return _unitVariationSetup
                 .Select(us => us.Key.ToString())
                 .ToArray();
-        }
-    }
-
-    public class UnitWeight : IStrategy
-    {
-        //private readonly string[] variations = { "mg", "g", "kg" };
-        //public string[] Variations => variations;
-        //public string Base { get => "g"; }
-        public UnitEnum Base { get => UnitEnum.g; }
-
-        public UnitEnum[] Variations { get => new UnitEnum[] { UnitEnum.mg, UnitEnum.g, UnitEnum.kg }; }
-
-        public UnitWeight()
-        {
         }
     }
 }

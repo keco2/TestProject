@@ -15,7 +15,7 @@ namespace TaskMgmt.Tests.UnitTests.BLL
         public void AllUnitVariations_ReturnsAll()
         {
             // Setup
-            var unitSetup = new UnitSetup();
+            var unitSetup = new UnitVariation();
 
             //Act
             var result = unitSetup.GetVariations().OrderBy(u => u);
@@ -29,7 +29,7 @@ namespace TaskMgmt.Tests.UnitTests.BLL
         public void UnitGetVariationsOfKg_Returns_g_mg_kg()
         {
             // Setup
-            var unitSetup = new UnitSetup();
+            var unitSetup = new UnitVariation();
 
             //Act
             var result = unitSetup.GetVariations("g");
@@ -43,7 +43,7 @@ namespace TaskMgmt.Tests.UnitTests.BLL
         public void UnitGetVariationsOfLiter_Returns_ml_l()
         {
             // Setup
-            var unitSetup = new UnitSetup();
+            var unitSetup = new UnitVariation();
 
             //Act
             var result = unitSetup.GetVariations("l");
@@ -57,7 +57,7 @@ namespace TaskMgmt.Tests.UnitTests.BLL
         public void UnitBase_ReturnsOnlyBaseUnits()
         {
             // Setup
-            var unitSetup = new UnitSetup();
+            var unitSetup = new UnitVariation();
 
             //Act
             var result = unitSetup.GetBaseUnits().OrderBy(u => u);
