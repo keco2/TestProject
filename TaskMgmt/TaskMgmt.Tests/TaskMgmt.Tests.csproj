@@ -53,6 +53,10 @@
     <Compile Include="UnitTests\BLL\UsageUnitTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TaskMgmt.BLL\TaskMgmt.BLL.csproj">
+      <Project>{fbc338d2-59a1-4a67-9446-f3dd7a9cac11}</Project>
+      <Name>TaskMgmt.BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TaskMgmt.Common\TaskMgmt.Common.csproj">
       <Project>{fe898a27-209a-4210-9964-cd23498b5574}</Project>
       <Name>TaskMgmt.Common</Name>
