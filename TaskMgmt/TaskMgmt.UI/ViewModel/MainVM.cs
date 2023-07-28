@@ -67,7 +67,7 @@ namespace TaskMgmt.UI.ViewModel
             get { return selectedMaterial; }
             set {
                 SetProperty(ref selectedMaterial, value);
-                CurrentUnitVariations = _unitVariation.GetVariations(selectedMaterial.UniteOfIssue);
+                UnitVariationOptions = _unitVariation.GetVariations(selectedMaterial.UniteOfIssue);
                 Message = "";
             }
         }
@@ -79,7 +79,7 @@ namespace TaskMgmt.UI.ViewModel
             set
             {
                 SetProperty(ref selectedTaskmaterialusage, value);
-                CurrentUnitVariations = _unitVariation.GetVariations(selectedTaskmaterialusage.Material?.UniteOfIssue);
+                UnitVariationOptions = _unitVariation.GetVariations(selectedTaskmaterialusage.Material?.UniteOfIssue);
                 SelectedUnit = selectedTaskmaterialusage.UniteOfMeasurement.Value;
                 IsRecordChanged = false;
                 IsRecordNew = false;
@@ -127,7 +127,7 @@ namespace TaskMgmt.UI.ViewModel
         }
 
         private string[] currentUnitvariations;
-        public string[] CurrentUnitVariations
+        public string[] UnitVariationOptions
         {
             get => currentUnitvariations;
             set => SetProperty(ref currentUnitvariations, value);
