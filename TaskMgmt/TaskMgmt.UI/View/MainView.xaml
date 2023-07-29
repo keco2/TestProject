@@ -7,11 +7,11 @@
         mc:Ignorable="d"
         Title="Task Management Software" Height="450" Width="800" Background="Beige">
     <TabControl Margin="10">
-        <TabItem Header="Usages">
-            <local:UsageControl />
-        </TabItem>
         <TabItem Header="Tasks">
             <local:TaskControl />
+        </TabItem>
+        <TabItem Header="Usages">
+            <local:UsageControl />
         </TabItem>
     </TabControl>
 </Window>

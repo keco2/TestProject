@@ -33,20 +33,6 @@ namespace TaskMgmt.UI.ViewModel
             set => SetProperty(ref tasklist, value);
         }
 
-        private IEnumerable<Material> materiallist;
-        public IEnumerable<Material> MaterialList
-        {
-            get => materiallist;
-            set => SetProperty(ref materiallist, value);
-        }
-
-        private IEnumerable<TaskMaterialUsage> taskmaterialUsageList;
-        public IEnumerable<TaskMaterialUsage> TaskMaterialUsageList
-        {
-            get => taskmaterialUsageList;
-            set => SetProperty(ref taskmaterialUsageList, value);
-        }
-
         private Task selectedTask;
         public Task SelectedTask
         {
@@ -54,55 +40,10 @@ namespace TaskMgmt.UI.ViewModel
             set
             {
                 SetProperty(ref selectedTask, value);
-                SelectedUnit = null;
-                LoadUsages();
                 IsRecordChanged = false;
                 IsRecordNew = false;
             }
         }
-
-        private Material selectedMaterial;
-        public Material SelectedMaterial
-        {
-            get { return selectedMaterial; }
-            set {
-                SetProperty(ref selectedMaterial, value);
-                UnitVariationOptions = _unitVariation.GetVariations(selectedMaterial.UniteOfIssue);
-                Message = "";
-            }
-        }
-
-        private TaskMaterialUsage selectedTaskmaterialusage;
-        public TaskMaterialUsage SelectedTaskMaterialUsage
-        {
-            get { return selectedTaskmaterialusage; }
-            set
-            {
-                SetProperty(ref selectedTaskmaterialusage, value);
-                UnitVariationOptions = _unitVariation.GetVariations(selectedTaskmaterialusage.Material?.UniteOfIssue);
-                SelectedUnit = selectedTaskmaterialusage.UniteOfMeasurement?.Value;
-                IsRecordChanged = false;
-                IsRecordNew = false;
-                Message = "";
-            }
-        }
-
-        private string selectedUnitvariation;
-        public string SelectedUnit
-        {
-            get => selectedUnitvariation;
-            set
-            {
-                SetProperty(ref selectedUnitvariation, value);
-                IsRecordChanged = IsRecordNew ? false : true;
-                Message = "";
-            }
-        }
-
-
-        private void LoadMaterial() => MaterialList = _proxy.GetMaterials();
-
-        private void LoadUsages() => TaskMaterialUsageList = _proxy.GetUsagesByTaskId(SelectedTask.ID);
 
         private bool isRecordNew = false;
         public bool IsRecordNew
@@ -118,22 +59,6 @@ namespace TaskMgmt.UI.ViewModel
             get => isRecordChanged;
             set => SetProperty(ref isRecordChanged, value);
         }
-
-        private string[] baseunits;
-        public string[] BaseUnits
-        {
-            get => baseunits;
-            set => SetProperty(ref baseunits, value);
-        }
-
-        private string[] currentUnitvariations;
-        public string[] UnitVariationOptions
-        {
-            get => currentUnitvariations;
-            set => SetProperty(ref currentUnitvariations, value);
-        }
-
-        private readonly UnitVariation _unitVariation = new UnitVariation();
 
         public ICommand NewTaskCmd { get; private set; }
         public ICommand AddTaskCmd { get; private set; }
@@ -171,10 +96,6 @@ namespace TaskMgmt.UI.ViewModel
             UpdateTaskCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(UpdateRecord));
             DeleteTaskCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(DeleteRecord));
             RecordChangedCmd = new DelegateCommand(_ => IsRecordChanged = IsRecordNew ? false : true);
-
-            NewUsageCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(PrepareNewUsage));
-            AddUsageCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(AddUsage));
-            UpdateUsageCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(UpdateUsage));
         }
 
         private void OnRecordChanged(object text)
@@ -250,54 +171,5 @@ namespace TaskMgmt.UI.ViewModel
             Message = taskName + " deleted / DB.count = " + count;
         }
 
-        private void PrepareNewUsage(Proxy proxy)
-        {
-            LoadMaterial();
-            SelectedTaskMaterialUsage = new TaskMaterialUsage();
-            IsRecordChanged = false;
-            IsRecordNew = true;
-        }
-
-        private void AddUsage(Proxy proxy)
-        {
-            if (IsRecordNew && !TaskMaterialUsageList.Contains(SelectedTaskMaterialUsage))
-            {
-                if (SelectedTaskMaterialUsage == null ||  SelectedMaterial == null || String.IsNullOrEmpty(SelectedTaskMaterialUsage.UniteOfMeasurement?.Value))
-                {
-                    Message = "Missing information";
-                }
-                else
-                {
-                    ValidateData(SelectedTaskMaterialUsage);
-                    SelectedTaskMaterialUsage.Task = SelectedTask;
-                    SelectedTaskMaterialUsage.Material = SelectedMaterial;
-                    var taskId = SelectedTaskMaterialUsage.Task.ID;
-                    var materialId = SelectedTaskMaterialUsage.Material.ID;
-                    //SelectedTaskMaterialUsage.UniteOfMeasurement = CurrentUnitVariations.
-                    proxy.AddUsage(SelectedTaskMaterialUsage);
-                    LoadUsages();
-                    SelectedTaskMaterialUsage = TaskMaterialUsageList.Single(u => u.Task.ID == taskId && u.Material.ID == materialId);
-                    Message = "Material " + SelectedTaskMaterialUsage.Material.ManufacturerCode + " assigned to task " + SelectedTaskMaterialUsage.Task.Name;
-                    IsRecordNew = false;
-                    isRecordChanged = false;
-                }
-            }
-        }
-
-        private void UpdateUsage(Proxy proxy)
-        {
-            if (IsRecordChanged)
-            {
-                ValidateData(SelectedTaskMaterialUsage);
-                SelectedTaskMaterialUsage.UniteOfMeasurement.Value = SelectedUnit;
-                proxy.UpdateUsage(SelectedTaskMaterialUsage);
-                LoadUsages();
-                Message = "Usage on " + SelectedTask.Name + " updated";
-            }
-            else
-            {
-                Message = "No change found";
-            }
-        }
     }
 }

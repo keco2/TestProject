@@ -4,9 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:TaskMgmt.UI.View"
+             xmlns:viewmodel="clr-namespace:TaskMgmt.UI.ViewModel"
              xmlns:conv="clr-namespace:TaskMgmt.UI.Converters"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d"
+             Loaded="UserControl_Loaded"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <Style x:Key="recDetailLabel" TargetType="Label">
@@ -30,6 +32,9 @@
         </Style>
         <conv:BoolVisibilityConverter x:Key="boolVisibilityConverter" />
     </UserControl.Resources>
+    <UserControl.DataContext>
+        <viewmodel:UsageControlVM />
+    </UserControl.DataContext>
     <Grid>
         <Grid>
             <Grid.RowDefinitions>

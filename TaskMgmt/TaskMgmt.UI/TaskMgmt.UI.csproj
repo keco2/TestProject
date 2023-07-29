@@ -85,6 +85,7 @@
     <Compile Include="ViewHelper\ViewExtensions.cs" />
     <Compile Include="ViewHelper\DelegateCommand.cs" />
     <Compile Include="ViewHelper\ViewModelBase.cs" />
+    <Compile Include="ViewModel\UsageControlVM.cs" />
     <Compile Include="View\TaskControl.xaml.cs">
       <DependentUpon>TaskControl.xaml</DependentUpon>
     </Compile>
