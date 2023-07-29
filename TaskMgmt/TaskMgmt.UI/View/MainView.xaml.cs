@@ -24,7 +24,6 @@ namespace TaskMgmt.UI
         public MainView()
         {
             InitializeComponent();
-            DataContext = new MainVM();
         }
     }
 }

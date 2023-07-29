@@ -15,7 +15,7 @@ using TaskMgmt.BLL;
 
 namespace TaskMgmt.UI.ViewModel
 {
-    class MainVM : ViewModelBase
+    class TaskControlVM : ViewModelBase
     {
         private readonly Proxy _proxy;
 
@@ -69,7 +69,7 @@ namespace TaskMgmt.UI.ViewModel
         public ICommand AddUsageCmd { get; private set; }
         public ICommand UpdateUsageCmd { get; private set; }
 
-        public MainVM()
+        public TaskControlVM()
         {
             HookUpUICommands();
             _proxy = new Proxy();
