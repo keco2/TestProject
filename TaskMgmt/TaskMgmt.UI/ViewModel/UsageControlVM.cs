@@ -144,6 +144,7 @@ namespace TaskMgmt.UI.ViewModel
         public ICommand NewUsageCmd { get; private set; }
         public ICommand AddUsageCmd { get; private set; }
         public ICommand UpdateUsageCmd { get; private set; }
+        public ICommand DeleteUsageCmd { get; private set; }
 
         public UsageControlVM()
         {
@@ -176,6 +177,7 @@ namespace TaskMgmt.UI.ViewModel
             NewUsageCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(PrepareNewUsage));
             AddUsageCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(AddUsage));
             UpdateUsageCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(UpdateUsage));
+            DeleteUsageCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(DeleteUsage));
         }
 
         private void OnRecordChanged(object text)
@@ -299,6 +301,15 @@ namespace TaskMgmt.UI.ViewModel
             {
                 Message = "No change found";
             }
+        }
+
+        private void DeleteUsage(Proxy proxy)
+        {
+            var taskName = SelectedTask.Name;
+            proxy.DeleteUsage(SelectedTaskMaterialUsage.Task.ID, SelectedTaskMaterialUsage.Material.ID);
+            LoadUsages();
+            var count = TaskMaterialUsageList.Count();
+            Message = "Usage from task " + taskName + " deleted / DB.count = " + count;
         }
     }
 }

@@ -82,6 +82,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Converters\BoolVisibilityConverter.cs" />
+    <Compile Include="Converters\ObjectNullToFalseConverter.cs" />
     <Compile Include="ViewHelper\ViewExtensions.cs" />
     <Compile Include="ViewHelper\DelegateCommand.cs" />
     <Compile Include="ViewHelper\ViewModelBase.cs" />

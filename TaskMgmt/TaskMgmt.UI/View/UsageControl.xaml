@@ -31,6 +31,7 @@
             </Setter>
         </Style>
         <conv:BoolVisibilityConverter x:Key="boolVisibilityConverter" />
+        <conv:ObjectNullToFalseConverter x:Key="objectNullToFalseConverter" />
     </UserControl.Resources>
     <UserControl.DataContext>
         <viewmodel:UsageControlVM />
@@ -129,7 +130,7 @@
                 <Button Content="New usage" Width="150" Command="{Binding NewUsageCmd}" Margin="5" />
                 <Button Content="Add new usage" Width="150" Command="{Binding AddUsageCmd}" IsEnabled="{Binding IsRecordNew}" Margin="5" />
                 <Button Content="Update usage" Width="150" Command="{Binding UpdateUsageCmd}" IsEnabled="{Binding IsRecordChanged}" Margin="5" />
-                <Button Content="Delete usage" Width="150" Command="{Binding DeleteTaskCmd}" Margin="5" />
+                <Button Content="Delete usage" Width="150" Command="{Binding DeleteUsageCmd}" IsEnabled="{Binding SelectedTaskMaterialUsage, Converter={StaticResource objectNullToFalseConverter}}" Margin="5" />
             </StackPanel>
         </Grid>
     </Grid>

@@ -35,7 +35,8 @@ namespace TaskMgmt.UI.ViewModel
         public void AddUsage(TaskMaterialUsage usage) => _taskMaterialUsageService.AddTaskMaterialUsage(usage);
 
         public void UpdateUsage(TaskMaterialUsage usage) => _taskMaterialUsageService.UpdateTaskMaterialUsage(usage);
-        // ...
+
+        public void DeleteUsage(Guid taskId, Guid materialId) => _taskMaterialUsageService.DeleteTaskMaterialUsage(taskId.ToString(), materialId.ToString());
 
 
         public IEnumerable<Task> GetTasks() => _taskService.GetTasks();
