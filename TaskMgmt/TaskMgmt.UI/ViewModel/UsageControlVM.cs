@@ -265,13 +265,14 @@ namespace TaskMgmt.UI.ViewModel
         {
             if (IsRecordNew && !TaskMaterialUsageList.Contains(SelectedTaskMaterialUsage))
             {
-                if (SelectedTaskMaterialUsage == null || SelectedMaterial == null || String.IsNullOrEmpty(SelectedTaskMaterialUsage.UniteOfMeasurement?.Value))
+                if (SelectedTaskMaterialUsage == null || SelectedMaterial == null || String.IsNullOrEmpty(SelectedUnit))
                 {
                     Message = "Missing information";
                 }
                 else
                 {
                     ValidateData(SelectedTaskMaterialUsage);
+                    SelectedTaskMaterialUsage.UniteOfMeasurement = new Unit(SelectedUnit);
                     SelectedTaskMaterialUsage.Task = SelectedTask;
                     SelectedTaskMaterialUsage.Material = SelectedMaterial;
                     var taskId = SelectedTaskMaterialUsage.Task.ID;
