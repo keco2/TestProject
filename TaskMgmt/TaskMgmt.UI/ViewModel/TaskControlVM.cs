@@ -121,6 +121,10 @@ namespace TaskMgmt.UI.ViewModel
                 {
                     Message = "Invalid data";
                 }
+                catch (EndpointNotFoundException)
+                {
+                    Message = "ERROR: EndpointNotFoundException";
+                }
             }
             else
             {

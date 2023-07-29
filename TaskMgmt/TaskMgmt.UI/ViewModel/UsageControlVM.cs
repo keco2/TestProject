@@ -100,7 +100,6 @@ namespace TaskMgmt.UI.ViewModel
             }
         }
 
-
         private void LoadMaterial() => MaterialList = _proxy.GetMaterials();
 
         private void LoadUsages() => TaskMaterialUsageList = _proxy.GetUsagesByTaskId(SelectedTask.ID);
@@ -136,10 +135,6 @@ namespace TaskMgmt.UI.ViewModel
 
         private readonly UnitVariation _unitVariation = new UnitVariation();
 
-        public ICommand NewTaskCmd { get; private set; }
-        public ICommand AddTaskCmd { get; private set; }
-        public ICommand UpdateTaskCmd { get; private set; }
-        public ICommand DeleteTaskCmd { get; private set; }
         public ICommand RecordChangedCmd { get; private set; }
         public ICommand NewUsageCmd { get; private set; }
         public ICommand AddUsageCmd { get; private set; }
@@ -168,27 +163,11 @@ namespace TaskMgmt.UI.ViewModel
 
         private void HookUpUICommands()
         {
-            NewTaskCmd = new DelegateCommand(_ => PrepareNewRecord());
-            AddTaskCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(AddRecord));
-            UpdateTaskCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(UpdateRecord));
-            DeleteTaskCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(DeleteRecord));
             RecordChangedCmd = new DelegateCommand(_ => IsRecordChanged = IsRecordNew ? false : true);
-
             NewUsageCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(PrepareNewUsage));
             AddUsageCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(AddUsage));
             UpdateUsageCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(UpdateUsage));
             DeleteUsageCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(DeleteUsage));
-        }
-
-        private void OnRecordChanged(object text)
-        {
-            IsRecordChanged = IsRecordNew ? false : String.IsNullOrEmpty((string)text) ? false : true;
-        }
-
-        private void PrepareNewRecord()
-        {
-            SelectedTask = new Task();
-            IsRecordNew = true;
         }
 
         private void InvokeOnSelectedRecord(Action<Proxy> action)
@@ -203,6 +182,10 @@ namespace TaskMgmt.UI.ViewModel
                 {
                     Message = "Invalid data";
                 }
+                catch (EndpointNotFoundException)
+                {
+                    Message = "ERROR: EndpointNotFoundException";
+                }
             }
             else
             {
@@ -210,47 +193,10 @@ namespace TaskMgmt.UI.ViewModel
             }
         }
 
-        private void AddRecord(Proxy proxy)
-        {
-            if (IsRecordNew && SelectedTask != null && !TaskList.Contains(SelectedTask))
-            {
-                ValidateData(SelectedTask);
-                var newtaskId = SelectedTask.ID;
-                proxy.AddTask(SelectedTask);
-                LoadTasks();
-                SelectedTask = TaskList.Single(t => t.ID == newtaskId);
-                Message = "Task " + SelectedTask.Name + " added";
-                IsRecordNew = false;
-            }
-        }
-
         private void ValidateData(Object selectedTask)
         {
             // Todo: ValidateData on Add/Update
             // throw new InvalidCastException();
-        }
-
-        private void UpdateRecord(Proxy proxy)
-        {
-            if (IsRecordChanged)
-            {
-                ValidateData(SelectedTask);
-                proxy.UpdateTask(SelectedTask.ID, SelectedTask);
-                Message = SelectedTask.Name + " updated";
-            }
-            else
-            {
-                Message = "No change found";
-            }
-        }
-
-        private void DeleteRecord(Proxy proxy)
-        {
-            var taskName = SelectedTask.Name;
-            proxy.DeleteTask(SelectedTask.ID);
-            LoadTasks();
-            var count = TaskList.Count();
-            Message = taskName + " deleted / DB.count = " + count;
         }
 
         private void PrepareNewUsage(Proxy proxy)
