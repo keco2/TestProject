@@ -54,10 +54,10 @@ namespace TaskMgmt.UI.ViewModel
             set
             {
                 SetProperty(ref selectedTask, value);
-                IsRecordChanged = false;
-                IsRecordNew = false;
                 SelectedUnit = null;
                 LoadUsages();
+                IsRecordChanged = false;
+                IsRecordNew = false;
             }
         }
 
@@ -80,7 +80,7 @@ namespace TaskMgmt.UI.ViewModel
             {
                 SetProperty(ref selectedTaskmaterialusage, value);
                 UnitVariationOptions = _unitVariation.GetVariations(selectedTaskmaterialusage.Material?.UniteOfIssue);
-                SelectedUnit = selectedTaskmaterialusage.UniteOfMeasurement.Value;
+                SelectedUnit = selectedTaskmaterialusage.UniteOfMeasurement?.Value;
                 IsRecordChanged = false;
                 IsRecordNew = false;
                 Message = "";
@@ -94,7 +94,7 @@ namespace TaskMgmt.UI.ViewModel
             set
             {
                 SetProperty(ref selectedUnitvariation, value);
-                IsRecordChanged = true;
+                IsRecordChanged = IsRecordNew ? false : true;
                 Message = "";
             }
         }
@@ -177,6 +177,11 @@ namespace TaskMgmt.UI.ViewModel
             UpdateUsageCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(UpdateUsage));
         }
 
+        private void OnRecordChanged(object text)
+        {
+            IsRecordChanged = IsRecordNew ? false : String.IsNullOrEmpty((string)text) ? false : true;
+        }
+
         private void PrepareNewRecord()
         {
             SelectedTask = new Task();
@@ -187,7 +192,14 @@ namespace TaskMgmt.UI.ViewModel
         {
             if (SelectedTask != null)
             {
-                action.Invoke(_proxy);
+                try
+                {
+                    action.Invoke(_proxy);
+                }
+                catch (InvalidCastException)
+                {
+                    Message = "Invalid data";
+                }
             }
             else
             {
@@ -199,6 +211,7 @@ namespace TaskMgmt.UI.ViewModel
         {
             if (IsRecordNew && SelectedTask != null && !TaskList.Contains(SelectedTask))
             {
+                ValidateData(SelectedTask);
                 var newtaskId = SelectedTask.ID;
                 proxy.AddTask(SelectedTask);
                 LoadData();
@@ -208,10 +221,17 @@ namespace TaskMgmt.UI.ViewModel
             }
         }
 
+        private void ValidateData(Object selectedTask)
+        {
+            // Todo: ValidateData on Add/Update
+            // throw new InvalidCastException();
+        }
+
         private void UpdateRecord(Proxy proxy)
         {
             if (IsRecordChanged)
             {
+                ValidateData(SelectedTask);
                 proxy.UpdateTask(SelectedTask.ID, SelectedTask);
                 Message = SelectedTask.Name + " updated";
             }
@@ -242,12 +262,13 @@ namespace TaskMgmt.UI.ViewModel
         {
             if (IsRecordNew && !TaskMaterialUsageList.Contains(SelectedTaskMaterialUsage))
             {
-                if (SelectedTaskMaterialUsage == null ||  SelectedMaterial == null || String.IsNullOrEmpty(SelectedTaskMaterialUsage.UniteOfMeasurement.Value))
+                if (SelectedTaskMaterialUsage == null ||  SelectedMaterial == null || String.IsNullOrEmpty(SelectedTaskMaterialUsage.UniteOfMeasurement?.Value))
                 {
                     Message = "Missing information";
                 }
                 else
                 {
+                    ValidateData(SelectedTaskMaterialUsage);
                     SelectedTaskMaterialUsage.Task = SelectedTask;
                     SelectedTaskMaterialUsage.Material = SelectedMaterial;
                     var taskId = SelectedTaskMaterialUsage.Task.ID;
@@ -267,6 +288,7 @@ namespace TaskMgmt.UI.ViewModel
         {
             if (IsRecordChanged)
             {
+                ValidateData(SelectedTaskMaterialUsage);
                 SelectedTaskMaterialUsage.UniteOfMeasurement.Value = SelectedUnit;
                 proxy.UpdateUsage(SelectedTaskMaterialUsage);
                 LoadUsages();
