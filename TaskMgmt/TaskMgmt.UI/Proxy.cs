@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ServiceModel;
-using System.Linq;
 using TaskMgmt.UI.TaskServiceRef;
 using TaskMgmt.UI.MaterialServiceRef;
 using TaskMgmt.UI.TaskMaterialUsageServiceRef;
@@ -27,11 +26,13 @@ namespace TaskMgmt.UI.ViewModel
         }
 
         public IEnumerable<Material> GetMaterials() => _materialService.GetMaterials();
-
+        // ...
         // ...
 
         public IEnumerable<TaskMaterialUsage> GetUsages() => _taskMaterialUsageService.GetTaskMaterialUsages();
+
         public IEnumerable<TaskMaterialUsage> GetUsagesByTaskId(Guid taskId) => _taskMaterialUsageService.GetTaskMaterialUsagesByTaskId(taskId.ToString());
+
         public void AddUsage(TaskMaterialUsage usage) => _taskMaterialUsageService.AddTaskMaterialUsage(usage);
 
         public void UpdateUsage(TaskMaterialUsage usage) => _taskMaterialUsageService.UpdateTaskMaterialUsage(usage);
