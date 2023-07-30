@@ -1,17 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.ServiceModel;
-using System.Text;
 using System.Windows.Input;
-using TaskMgmt.Model;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using TaskMgmt.UI.ViewHelper;
 using TaskMgmt.BLL;
+using TaskMgmt.Model;
 
 namespace TaskMgmt.UI.ViewModel
 {
@@ -95,7 +88,7 @@ namespace TaskMgmt.UI.ViewModel
             set
             {
                 SetProperty(ref selectedUnitvariation, value);
-                IsRecordChanged = IsRecordNew ? false : true;
+                IsRecordChanged = !IsRecordNew;
                 Message = "";
             }
         }
@@ -163,7 +156,7 @@ namespace TaskMgmt.UI.ViewModel
 
         private void HookUpUICommands()
         {
-            RecordChangedCmd = new DelegateCommand(_ => IsRecordChanged = IsRecordNew ? false : true);
+            RecordChangedCmd = new DelegateCommand(_ => IsRecordChanged = !IsRecordNew);
             NewUsageCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(PrepareNewUsage));
             AddUsageCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(AddUsage));
             UpdateUsageCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(UpdateUsage));

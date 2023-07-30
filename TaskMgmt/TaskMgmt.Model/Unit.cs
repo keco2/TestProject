@@ -18,14 +18,11 @@ namespace TaskMgmt.Model
 
         public override bool Equals(Object obj)
         {
-            var unitobj = obj as Unit;
-
-            if (unitobj == null)
+            if (obj is Unit unitobj)
             {
-                return false;
+                return this.Value.Equals(unitobj.Value);
             }
-
-            return this.Value.Equals(unitobj.Value);
+            return false;
         }
 
         public override int GetHashCode()

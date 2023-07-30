@@ -95,12 +95,7 @@ namespace TaskMgmt.UI.ViewModel
             AddTaskCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(AddRecord));
             UpdateTaskCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(UpdateRecord));
             DeleteTaskCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(DeleteRecord));
-            RecordChangedCmd = new DelegateCommand(_ => IsRecordChanged = IsRecordNew ? false : true);
-        }
-
-        private void OnRecordChanged(object text)
-        {
-            IsRecordChanged = IsRecordNew ? false : String.IsNullOrEmpty((string)text) ? false : true;
+            RecordChangedCmd = new DelegateCommand(_ => IsRecordChanged = !IsRecordNew);
         }
 
         private void PrepareNewRecord()
