@@ -59,7 +59,7 @@ namespace TaskMgmt.DAL.Repositories
             if (existingItem != null)
             {
                 existingItem.Amount = item.Amount;
-                existingItem.UniteOfMeasurement = item.UniteOfMeasurement;
+                existingItem.UnitOfMeasurement = item.UnitOfMeasurement;
             }
         }
 

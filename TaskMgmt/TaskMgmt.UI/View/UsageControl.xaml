@@ -82,9 +82,9 @@
                         <DataGridTextColumn Binding="{Binding Material.Partnumber}" Header="Partnumber" />
                         <DataGridTextColumn Binding="{Binding Material.ManufacturerCode}" Header="ManufacturerCode" />
                         <DataGridTextColumn Binding="{Binding Material.Price}" Header="Price" />
-                        <DataGridTextColumn Binding="{Binding Material.UniteOfIssue}" Header="UniteOfIssue" />
+                        <DataGridTextColumn Binding="{Binding Material.UnitOfIssue}" Header="UnitOfIssue" />
                         <DataGridTextColumn Binding="{Binding Amount}" Header="Amount" />
-                        <DataGridTextColumn Binding="{Binding UniteOfMeasurement}" Header="UniteOfMeasurement" />
+                        <DataGridTextColumn Binding="{Binding UnitOfMeasurement}" Header="UnitOfMeasurement" />
                     </DataGrid.Columns>
                     </DataGrid>
                 <Label Grid.Row="1" Content="{Binding Message}" Foreground="DarkGray" HorizontalAlignment="Center"/>

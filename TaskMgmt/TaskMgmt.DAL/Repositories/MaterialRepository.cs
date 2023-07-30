@@ -59,7 +59,7 @@ namespace TaskMgmt.DAL.Repositories
                 existingItem.Partnumber = item.Partnumber;
                 existingItem.ManufacturerCode = item.ManufacturerCode;
                 existingItem.Price = item.Price;
-                existingItem.UniteOfIssue = item.UniteOfIssue;
+                existingItem.UnitOfIssue = item.UnitOfIssue;
             }
         }
 

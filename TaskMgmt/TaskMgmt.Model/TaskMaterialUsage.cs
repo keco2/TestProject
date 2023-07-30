@@ -9,7 +9,7 @@ namespace TaskMgmt.Model
         private Task task;
         private Material material;
         private int amount;
-        private Unit uniteOfMeasurement;
+        private Unit unitOfMeasurement;
 
         public TaskMaterialUsage()
         {
@@ -31,7 +31,7 @@ namespace TaskMgmt.Model
         public int Amount { get => amount; set => amount = value; }
 
         [DataMember]
-        public Unit UniteOfMeasurement { get => uniteOfMeasurement; set => uniteOfMeasurement = value; }
+        public Unit UnitOfMeasurement { get => unitOfMeasurement; set => unitOfMeasurement = value; }
 
     }
 }

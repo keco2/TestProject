@@ -61,7 +61,7 @@ namespace TaskMgmt.UI.ViewModel
             set
             {
                 SetProperty(ref selectedMaterial, value);
-                UnitVariationOptions = _unitVariation.GetVariations(selectedMaterial.UniteOfIssue);
+                UnitVariationOptions = _unitVariation.GetVariations(selectedMaterial.UnitOfIssue);
                 Message = "";
             }
         }
@@ -73,8 +73,8 @@ namespace TaskMgmt.UI.ViewModel
             set
             {
                 SetProperty(ref selectedTaskmaterialusage, value);
-                UnitVariationOptions = _unitVariation.GetVariations(selectedTaskmaterialusage.Material?.UniteOfIssue);
-                SelectedUnit = selectedTaskmaterialusage.UniteOfMeasurement?.Value;
+                UnitVariationOptions = _unitVariation.GetVariations(selectedTaskmaterialusage.Material?.UnitOfIssue);
+                SelectedUnit = selectedTaskmaterialusage.UnitOfMeasurement?.Value;
                 IsRecordChanged = false;
                 IsRecordNew = false;
                 Message = "";
@@ -211,12 +211,11 @@ namespace TaskMgmt.UI.ViewModel
                 else
                 {
                     ValidateData(SelectedTaskMaterialUsage);
-                    SelectedTaskMaterialUsage.UniteOfMeasurement = new Unit(SelectedUnit);
+                    SelectedTaskMaterialUsage.UnitOfMeasurement = new Unit(SelectedUnit);
                     SelectedTaskMaterialUsage.Task = SelectedTask;
                     SelectedTaskMaterialUsage.Material = SelectedMaterial;
                     var taskId = SelectedTaskMaterialUsage.Task.ID;
                     var materialId = SelectedTaskMaterialUsage.Material.ID;
-                    //SelectedTaskMaterialUsage.UniteOfMeasurement = CurrentUnitVariations.
                     proxy.AddUsage(SelectedTaskMaterialUsage);
                     LoadUsages();
                     SelectedTaskMaterialUsage = TaskMaterialUsageList.Single(u => u.Task.ID == taskId && u.Material.ID == materialId);
@@ -232,7 +231,7 @@ namespace TaskMgmt.UI.ViewModel
             if (IsRecordChanged)
             {
                 ValidateData(SelectedTaskMaterialUsage);
-                SelectedTaskMaterialUsage.UniteOfMeasurement.Value = SelectedUnit;
+                SelectedTaskMaterialUsage.UnitOfMeasurement.Value = SelectedUnit;
                 proxy.UpdateUsage(SelectedTaskMaterialUsage);
                 LoadUsages();
                 Message = "Usage on " + SelectedTask.Name + " updated";
