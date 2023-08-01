@@ -7,7 +7,7 @@ namespace TaskMgmt.DAL
     {
         IGenericRepository<TaskMaterialUsage> TaskMaterialUsageRepository { get; }
 
-        IGenericRepository<Material> MaterialRepository { get; }
+        IGenericRepository<MaterialEntity> MaterialRepository { get; }
 
         ITaskRepository TaskRepository { get; }
 

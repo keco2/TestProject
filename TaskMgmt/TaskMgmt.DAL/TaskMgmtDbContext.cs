@@ -9,25 +9,6 @@ using System.Data.Entity.Migrations;
 
 namespace TaskMgmt.DAL
 {
-
-    internal sealed class Configuration : DbMigrationsConfiguration<TaskMgmt.DAL.TaskMgmtDbContext>
-    {
-        public Configuration()
-        {
-            //AutomaticMigrationsEnabled = false;
-            //ContextKey = "TaskMgmt.DAL.TaskMgmtDbContext";
-        }
-
-        protected override void Seed(TaskMgmt.DAL.TaskMgmtDbContext context)
-        {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method
-            //  to avoid creating duplicate seed data.
-        }
-    }
-
-
     public class TaskMgmtDbContext : DbContext
     {
         public TaskMgmtDbContext() : base("name=TaskMgmtDbConnection")
@@ -39,8 +20,13 @@ namespace TaskMgmt.DAL
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<TaskEntity>().Property(c => c.Name).IsRequired()
+            modelBuilder.Entity<TaskEntity>().Property(t => t.Name).IsRequired()
                                                                .HasMaxLength(255);
+
+            modelBuilder.Entity<MaterialEntity>().Property(m => m.ManufacturerCode).IsRequired();
+            modelBuilder.Entity<MaterialEntity>().Property(m => m.Price).IsRequired();
+            modelBuilder.Entity<MaterialEntity>().Property(m => m.UnitOfIssue).IsRequired();
+
             // Zero or One to Many
             //modelBuilder.Entity<TaskMaterialUsage>().HasOptional(a => a.Country)
             //                               .WithMany(c => c.Airplanes)

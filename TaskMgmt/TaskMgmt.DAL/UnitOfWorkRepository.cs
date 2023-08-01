@@ -12,7 +12,7 @@ namespace TaskMgmt.DAL
     public class UnitOfWorkRepository : IUnitOfWork, IDisposable
     {
         private ITaskRepository taskRepository;
-        private IGenericRepository<Material> materialRepository;
+        private IGenericRepository<MaterialEntity> materialRepository;
         private IGenericRepository<TaskMaterialUsage> taskMaterialUsageRepository;
         private TaskMgmtDbContext dbContext = new TaskMgmtDbContext();
         private TaskMgmtMemContext memContext = new TaskMgmtMemContext();
@@ -30,13 +30,13 @@ namespace TaskMgmt.DAL
             }
         }
 
-        public IGenericRepository<Material> MaterialRepository
+        public IGenericRepository<MaterialEntity> MaterialRepository
         {
             get
             {
                 if (materialRepository == null)
                 {
-                    materialRepository = new MaterialRepository(memContext);
+                    materialRepository = new MaterialRepository(dbContext);
                 }
                 return materialRepository;
             }
