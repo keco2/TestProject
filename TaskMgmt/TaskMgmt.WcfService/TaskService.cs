@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TaskMgmt.DAL;
 using TaskMgmt.Model;
 using AutoMapper;
+using System.Linq;
 
 namespace TaskMgmt.WcfService
 {
@@ -25,34 +26,33 @@ namespace TaskMgmt.WcfService
 
         public IEnumerable<Task> GetTasks()
         {
-            var tasks = unitOfWorkRepo.TaskRepository.GetTasks();
+            var tasks = unitOfWorkRepo.TaskRepository.GetItems();
             return mapper.Map<IEnumerable<Task>>(tasks);
         }
 
         public Task GetTaskById(string taskId)
         {
             Guid taskGuid = Guid.Parse(taskId);
-            var task = unitOfWorkRepo.TaskRepository.GetTaskByID(taskGuid);
+            var task = unitOfWorkRepo.TaskRepository.GetItemsByID(taskGuid).Single();
             return mapper.Map<Task>(task);
         }
 
         public void AddTask(Task task)
         {
-            unitOfWorkRepo.TaskRepository.InsertTask(mapper.Map<TaskEntity>(task));
+            unitOfWorkRepo.TaskRepository.InsertItem(mapper.Map<TaskEntity>(task));
             unitOfWorkRepo.SaveChanges();
         }
 
         public void UpdateTask(string id, Task task)
         {
-            Guid taskGuid = Guid.Parse(id);
-            unitOfWorkRepo.TaskRepository.UpdateTask(taskGuid, mapper.Map<TaskEntity>(task));
+            unitOfWorkRepo.TaskRepository.UpdateItem(mapper.Map<TaskEntity>(task));
             unitOfWorkRepo.SaveChanges();
         }
 
         public void DeleteTask(string id)
         {
             Guid taskGuid = Guid.Parse(id);
-            unitOfWorkRepo.TaskRepository.DeleteTask(taskGuid);
+            unitOfWorkRepo.TaskRepository.DeleteItem(taskGuid);
             unitOfWorkRepo.SaveChanges();
         }
     }

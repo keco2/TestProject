@@ -9,7 +9,7 @@ namespace TaskMgmt.DAL
 
         IGenericRepository<MaterialEntity> MaterialRepository { get; }
 
-        ITaskRepository TaskRepository { get; }
+        IGenericRepository<TaskEntity> TaskRepository { get; }
 
         void SaveChanges();
     }

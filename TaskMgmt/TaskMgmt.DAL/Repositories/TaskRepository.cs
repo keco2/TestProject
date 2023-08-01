@@ -9,7 +9,7 @@ using TaskMgmt.Model;
 
 namespace TaskMgmt.DAL.Repositories
 {
-    public class TaskRepository : ITaskRepository
+    public class TaskRepository : IGenericRepository<TaskEntity>, IDisposable
     {
         private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         private bool disposedValue = false;
@@ -24,40 +24,40 @@ namespace TaskMgmt.DAL.Repositories
             this.dbQuery = dbSet.AsNoTracking();
         }
 
-        public void DeleteTask(Guid taskId)
+        public void DeleteItem(params Guid[] taskId)
         {
-            logger.Info("TaskRepository.DeleteTask ID={0}", taskId);
-            dbSet.Remove(dbSet.Find(taskId));
+            logger.Info("TaskRepository.DeleteTask ID={0}", taskId[0]);
+            dbSet.Remove(dbSet.Find(taskId[0]));
         }
 
-        public TaskEntity GetTaskByID(Guid taskId)
+        public IEnumerable<TaskEntity> GetItemsByID(Guid taskId)
         {
             logger.Info("TaskRepository.GetTaskByID ID={0}", taskId);
-            return dbQuery.Where(t => t.ID == taskId).Single();
+            return dbQuery.Where(t => t.ID == taskId);
         }
 
-        public IEnumerable<TaskEntity> GetTasks()
+        public IEnumerable<TaskEntity> GetItems()
         {
             logger.Info("TaskRepository.GetTasks");
             return dbQuery.AsEnumerable();
         }
 
-        public void InsertTask(TaskEntity task)
+        public void InsertItem(TaskEntity task)
         {
             logger.Info("TaskRepository.InsertTask ID={0}", task.ID);
             dbSet.Add(task);
         }
 
-        public void UpdateTask(Guid taskId, TaskEntity task)
+        public void UpdateItem(TaskEntity task)
         {
-            logger.Info("TaskRepository.UpdateTask ID={0}", taskId);
+            logger.Info("TaskRepository.UpdateTask ID={0}", task.ID);
             dbSet.Attach(task);
             context.Entry(task).State = EntityState.Modified;
         }
 
         public void Save()
         {
-            logger.Info("TaskRepository.Save");
+            logger.Info("SaveChanges");
             context.SaveChanges();
         }
 

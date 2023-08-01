@@ -11,14 +11,14 @@ namespace TaskMgmt.DAL
 {
     public class UnitOfWorkRepository : IUnitOfWork, IDisposable
     {
-        private ITaskRepository taskRepository;
+        private IGenericRepository<TaskEntity> taskRepository;
         private IGenericRepository<MaterialEntity> materialRepository;
         private IGenericRepository<TaskMaterialUsage> taskMaterialUsageRepository;
         private TaskMgmtDbContext dbContext = new TaskMgmtDbContext();
         private TaskMgmtMemContext memContext = new TaskMgmtMemContext();
         private bool disposedValue;
 
-        public ITaskRepository TaskRepository
+        public IGenericRepository<TaskEntity> TaskRepository
         {
             get
             {

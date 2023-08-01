@@ -49,17 +49,17 @@ namespace TaskMgmt.DAL.Repositories
             dbSet.Add(item);
         }
 
-        public void Save()
-        {
-            logger.Info("Save");
-            context.SaveChanges();
-        }
-
         public void UpdateItem(MaterialEntity item)
         {
             logger.Info("UpdateItem ID={0}", item.ID);
             dbSet.Attach(item);
             context.Entry(item).State = EntityState.Modified;
+        }
+
+        public void Save()
+        {
+            logger.Info("SaveChanges");
+            context.SaveChanges();
         }
 
         protected virtual void Dispose(bool disposing)
