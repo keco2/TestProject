@@ -42,7 +42,7 @@
                 <RowDefinition />
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="30"/>
-                <RowDefinition />
+                <RowDefinition MaxHeight="100" />
                 <RowDefinition Height="30" />
             </Grid.RowDefinitions>
             <Label Grid.Row="0" Content="Tasks" HorizontalAlignment="Left"/>

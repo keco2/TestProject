@@ -52,8 +52,8 @@
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition Height="30" />
-                    <RowDefinition Height="30"/>
-                    <RowDefinition MaxHeight="200" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="100" />
                 </Grid.RowDefinitions>
                 <DataGrid Grid.Column="0"
                       SelectedItem="{Binding SelectedTask, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
