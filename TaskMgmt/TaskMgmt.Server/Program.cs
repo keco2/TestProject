@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Linq;
 using System.ServiceModel;
 using TaskMgmt.Common;
+using TaskMgmt.DAL;
+using TaskMgmt.DAL.Repositories;
 using TaskMgmt.WcfService;
 
 namespace TaskMgmt.Server
@@ -12,12 +15,23 @@ namespace TaskMgmt.Server
             Logging.LoggingSetUp();
             Console.Title = "Task Management Server";
 
+            //ITaskRepository repo;
+            //var dbcontext = new TaskMgmtDbContext();
+            ////Console.WriteLine(dbcontext.Database.Connection.ServerVersion);
+            //repo = new TaskRepository(dbcontext);
+            //var x = repo.GetTasks();
+            //Console.WriteLine(x.First().Name);
+
             using (ServiceHost taskServiceHost = new ServiceHost(typeof(TaskService)))
             using (ServiceHost materialServiceHost = new ServiceHost(typeof(MaterialService)))
             using (ServiceHost taskMaterialUsageServiceHost = new ServiceHost(typeof(TaskMaterialUsageService)))
             {
                 try
                 {
+                    IncreaseServiehostDebugTimeout(taskServiceHost);
+                    IncreaseServiehostDebugTimeout(materialServiceHost);
+                    IncreaseServiehostDebugTimeout(taskMaterialUsageServiceHost);
+
                     taskServiceHost.Open();
                     materialServiceHost.Open();
                     taskMaterialUsageServiceHost.Open();
@@ -41,6 +55,14 @@ namespace TaskMgmt.Server
                     Console.ReadLine();
                 }
             }
+        }
+
+        private static void IncreaseServiehostDebugTimeout(ServiceHost serviceHost)
+        {
+#if DEBUG
+            serviceHost.OpenTimeout = new TimeSpan(0, 15, 0);
+            serviceHost.CloseTimeout = new TimeSpan(0, 15, 0);
+#endif
         }
     }
 }

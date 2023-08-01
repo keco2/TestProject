@@ -13,21 +13,23 @@ namespace TaskMgmt.WcfService
     public class TaskMaterialUsageService : ITaskMaterialUsageService
     {
         private TaskMaterialUsageRepository repo;
+        private IUnitOfWork unitOfWorkRepo;
 
         public TaskMaterialUsageService()
         {
-            this.repo = new TaskMaterialUsageRepository(new DbContext());
+            this.repo = new TaskMaterialUsageRepository(new TaskMgmtMemContext());
+            unitOfWorkRepo = new UnitOfWorkRepository();
         }
 
         public IEnumerable<TaskMaterialUsage> GetTaskMaterialUsages()
         {
-            return repo.GetItems();
+            return unitOfWorkRepo.TaskMaterialUsageRepository.GetItems();
         }
 
         public IEnumerable<TaskMaterialUsage> GetTaskMaterialUsagesByTaskId(string taskId)
         {
             Guid taskGuid = Guid.Parse(taskId);
-            return repo.GetItemsByTaskID(taskGuid);
+            return unitOfWorkRepo.TaskMaterialUsageRepository.GetItemsByID(taskGuid);
         }
 
         public void AddTaskMaterialUsage(TaskMaterialUsage usage)

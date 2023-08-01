@@ -7,13 +7,13 @@ using TaskMgmt.Model;
 
 namespace TaskMgmt.DAL
 {
-    public class DbContext : IDisposable
+    public class TaskMgmtMemContext : IDisposable
     {
         public ICollection<Task> Tasks = StaticData.Tasks;
         public ICollection<Material> Materials = StaticData.Materials;
         public ICollection<TaskMaterialUsage> TaskMaterialUsages = StaticData.TaskMaterialUsages;
 
-        public DbContext()
+        public TaskMgmtMemContext()
         {
         }
 

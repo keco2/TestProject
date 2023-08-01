@@ -73,10 +73,10 @@ namespace TaskMgmt.UI.ViewModel
         {
             HookUpUICommands();
             _proxy = new Proxy();
-            LoadData();
+            LoadTasks();
         }
 
-        private void LoadData()
+        public void LoadTasks()
         {
             try
             {
@@ -134,7 +134,7 @@ namespace TaskMgmt.UI.ViewModel
                 ValidateData(SelectedTask);
                 var newtaskId = SelectedTask.ID;
                 proxy.AddTask(SelectedTask);
-                LoadData();
+                LoadTasks();
                 SelectedTask = TaskList.Single(t => t.ID == newtaskId);
                 Message = "Task " + SelectedTask.Name + " added";
                 IsRecordNew = false;
@@ -165,7 +165,7 @@ namespace TaskMgmt.UI.ViewModel
         {
             var taskName = SelectedTask.Name;
             proxy.DeleteTask(SelectedTask.ID);
-            LoadData();
+            LoadTasks();
             var count = TaskList.Count();
             Message = taskName + " deleted / DB.count = " + count;
         }

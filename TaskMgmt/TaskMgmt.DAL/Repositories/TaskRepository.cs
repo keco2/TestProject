@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using TaskMgmt.Model;
@@ -10,53 +13,52 @@ namespace TaskMgmt.DAL.Repositories
     {
         private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         private bool disposedValue = false;
-        private DbContext context;
+        private TaskMgmtDbContext context;
+        private DbSet<TaskEntity> dbSet;
+        private DbQuery<TaskEntity> dbQuery;
 
-        public TaskRepository(DbContext context)
+        public TaskRepository(TaskMgmtDbContext context)
         {
             this.context = context;
+            this.dbSet = context.Set<TaskEntity>();
+            this.dbQuery = dbSet.AsNoTracking();
         }
 
-        void ITaskRepository.DeleteTask(Guid taskId)
+        public void DeleteTask(Guid taskId)
         {
             logger.Info("TaskRepository.DeleteTask ID={0}", taskId);
-            context.Tasks.Remove(context.Tasks.Where(t => t.ID == taskId).Single());
+            dbSet.Remove(dbSet.Find(taskId));
         }
 
-        Task ITaskRepository.GetTaskByID(Guid taskId)
+        public TaskEntity GetTaskByID(Guid taskId)
         {
             logger.Info("TaskRepository.GetTaskByID ID={0}", taskId);
-            return context.Tasks.Where(t => t.ID == taskId).Single();
+            return dbQuery.Where(t => t.ID == taskId).Single();
         }
 
-        IEnumerable<Task> ITaskRepository.GetTasks()
+        public IEnumerable<TaskEntity> GetTasks()
         {
             logger.Info("TaskRepository.GetTasks");
-            return context.Tasks;
+            return dbQuery.AsEnumerable();
         }
 
-        void ITaskRepository.InsertTask(Task task)
+        public void InsertTask(TaskEntity task)
         {
             logger.Info("TaskRepository.InsertTask ID={0}", task.ID);
-            context.Tasks.Add(task);
+            dbSet.Add(task);
         }
 
-        void ITaskRepository.Save()
-        {
-            logger.Info("TaskRepository.Save");
-            throw new NotImplementedException();
-            // Todo - Implement repo.Save - only if real DB provider added
-        }
-
-        void ITaskRepository.UpdateTask(Guid taskId, Task task)
+        public void UpdateTask(Guid taskId, TaskEntity task)
         {
             logger.Info("TaskRepository.UpdateTask ID={0}", taskId);
-            Task existingTask = context.Tasks.Where(b => b.ID == taskId).Single();
-            if (existingTask != null)
-            {
-                existingTask.Name = task.Name;
-                // Todo - Include all fields - ITaskRepository.UpdateTask
-            }
+            dbSet.Attach(task);
+            context.Entry(task).State = EntityState.Modified;
+        }
+
+        public void Save()
+        {
+            logger.Info("TaskRepository.Save");
+            context.SaveChanges();
         }
 
         protected virtual void Dispose(bool disposing)

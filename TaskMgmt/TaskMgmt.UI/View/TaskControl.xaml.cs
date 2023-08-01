@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TaskMgmt.UI.ViewModel;
 
 namespace TaskMgmt.UI.View
 {
@@ -23,6 +24,11 @@ namespace TaskMgmt.UI.View
         public TaskControl()
         {
             InitializeComponent();
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            (DataContext as TaskControlVM).LoadTasks();
         }
     }
 }

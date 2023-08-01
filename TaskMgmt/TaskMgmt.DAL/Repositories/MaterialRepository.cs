@@ -10,9 +10,9 @@ namespace TaskMgmt.DAL.Repositories
     {
         private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         private bool disposedValue = false;
-        private DbContext context;
+        private TaskMgmtMemContext context;
 
-        public MaterialRepository(DbContext context)
+        public MaterialRepository(TaskMgmtMemContext context)
         {
             this.context = context;
         }
@@ -25,10 +25,10 @@ namespace TaskMgmt.DAL.Repositories
             context.Materials.Remove(item);
         }
 
-        public Material GetItemByID(params Guid[] guids)
+        public IEnumerable<Material> GetItemsByID(Guid guid)
         {
-            logger.Info("GetItemByID ID={0}", guids);
-            return context.Materials.Where(t => t.ID == guids[0]).Single();
+            logger.Info("GetItemByID ID={0}", guid);
+            return context.Materials.Where(t => t.ID == guid);
         }
 
         public IEnumerable<Material> GetItems()

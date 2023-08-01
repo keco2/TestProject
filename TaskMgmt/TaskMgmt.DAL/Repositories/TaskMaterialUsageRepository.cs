@@ -10,9 +10,9 @@ namespace TaskMgmt.DAL.Repositories
     {
         private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         private bool disposedValue = false;
-        private DbContext context;
+        private TaskMgmtMemContext context;
 
-        public TaskMaterialUsageRepository(DbContext context)
+        public TaskMaterialUsageRepository(TaskMgmtMemContext context)
         {
             this.context = context;
         }
@@ -26,19 +26,18 @@ namespace TaskMgmt.DAL.Repositories
             context.TaskMaterialUsages.Remove(item);
         }
 
-        public TaskMaterialUsage GetItemByID(params Guid[] guids)
+        public IEnumerable<TaskMaterialUsage> GetItemsByID(Guid taskGuid)
         {
-            Guid taskGuid = guids[0];
-            Guid materialGuid = guids[1];
-            logger.Info("{0} {1}={2} {3}={4}", nameof(GetItemByID), nameof(taskGuid), taskGuid, nameof(materialGuid), materialGuid);
-            return context.TaskMaterialUsages.Where(t => t.Task.ID == taskGuid && t.Material.ID == materialGuid).Single();
-        }
-
-        public IEnumerable<TaskMaterialUsage> GetItemsByTaskID(Guid taskGuid)
-        {
-            logger.Info("{0} {1}={2}", nameof(GetItemsByTaskID), nameof(taskGuid), taskGuid);
+            logger.Info("{0} {1}={2}", nameof(GetItemsByID), nameof(taskGuid), taskGuid);
             return context.TaskMaterialUsages.Where(t => t.Task.ID == taskGuid);
         }
+
+        //public IEnumerable<TaskMaterialUsage> GetItemsByTaskID(params Guid[] guids)
+        //{
+        //    Guid taskGuid = guids[0];
+        //    logger.Info("{0} {1}={2}", nameof(GetItemsByTaskID), nameof(taskGuid), taskGuid);
+        //    return context.TaskMaterialUsages.Where(t => t.Task.ID == taskGuid);
+        //}
 
         public IEnumerable<TaskMaterialUsage> GetItems()
         {

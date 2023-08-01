@@ -8,10 +8,10 @@ namespace TaskMgmt.DAL.Repositories
 {
     public interface ITaskRepository : IDisposable
     {
-        IEnumerable<Task> GetTasks();
-        Task GetTaskByID(Guid taskId);
-        void InsertTask(Task task);
-        void UpdateTask(Guid taskId, Task task);
+        IEnumerable<TaskEntity> GetTasks();
+        TaskEntity GetTaskByID(Guid taskId);
+        void InsertTask(TaskEntity task);
+        void UpdateTask(Guid taskId, TaskEntity task);
         void DeleteTask(Guid taskId);
         void Save();
     }
