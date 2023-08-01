@@ -77,7 +77,8 @@
                 <Label Grid.Row="3" Content="Duration" Style="{StaticResource recDetailLabel}"  HorizontalAlignment="Left"/>
                 <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SelectedTask.ID}" IsReadOnly="True" TextWrapping="NoWrap" TextAlignment="Left" BorderThickness="0" Background="Transparent" Margin="2"/>
                 <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SelectedTask.Name}" Style="{StaticResource textboxTrigger}" TextWrapping="NoWrap" AcceptsReturn="False" AcceptsTab="False" TextAlignment="Left" BorderThickness="0" Background="Transparent" Margin="2"/>
-                <TextBox Grid.Row="2" Grid.Column="1" Text="..." Style="{StaticResource textboxTrigger}" TextWrapping="NoWrap" AcceptsReturn="False" AcceptsTab="False" TextAlignment="Left" BorderThickness="0" Background="Transparent" Margin="2"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding SelectedTask.Description}" Style="{StaticResource textboxTrigger}" TextWrapping="NoWrap" AcceptsReturn="False" AcceptsTab="False" TextAlignment="Left" BorderThickness="0" Background="Transparent" Margin="2"/>
+                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding SelectedTask.TotalDuration}" Style="{StaticResource textboxTrigger}" TextWrapping="NoWrap" AcceptsReturn="False" AcceptsTab="False" TextAlignment="Left" BorderThickness="0" Background="Transparent" Margin="2"/>
                 <!--<TextBoxWithEvent />-->
             </Grid>
             <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center">

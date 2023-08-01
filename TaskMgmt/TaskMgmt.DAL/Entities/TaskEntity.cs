@@ -12,6 +12,6 @@ namespace TaskMgmt.DAL
 
         public string Description { get; set; }
 
-        public string TotalDuration { get; set; }
+        public int TotalDuration { get; set; }
     }
 }

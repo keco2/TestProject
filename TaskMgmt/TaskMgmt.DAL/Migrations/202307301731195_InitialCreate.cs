@@ -14,7 +14,7 @@
                         ID = c.Guid(nullable: false),
                         Name = c.String(nullable: false, maxLength: 255),
                         Description = c.String(),
-                        TotalDuration = c.String(),
+                        TotalDuration = c.Int(),
                     })
                 .PrimaryKey(t => t.ID);
         }

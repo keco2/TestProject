@@ -9,8 +9,10 @@
   <xs:element name="ArrayOfTask" nillable="true" type="tns:ArrayOfTask" />
   <xs:complexType name="Task">
     <xs:sequence>
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ID" type="ser:guid" />
       <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TotalDuration" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Task" nillable="true" type="tns:Task" />

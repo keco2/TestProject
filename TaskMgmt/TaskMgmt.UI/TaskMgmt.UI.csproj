@@ -199,21 +199,6 @@
     <WCFMetadataStorage Include="Connected Services\TaskServiceRef\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\TaskServiceRef\item.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\TaskServiceRef\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\TaskServiceRef\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\TaskServiceRef\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Connected Services\MaterialServiceRef\item.disco" />
   </ItemGroup>
   <ItemGroup>
@@ -239,6 +224,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\TaskMaterialUsageServiceRef\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\TaskServiceRef\item.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\TaskServiceRef\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\TaskServiceRef\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\TaskServiceRef\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

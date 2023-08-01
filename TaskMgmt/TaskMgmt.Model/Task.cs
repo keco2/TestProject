@@ -6,18 +6,21 @@ namespace TaskMgmt.Model
     [DataContract]
     public class Task
     {
-        private string name;
-        private Guid id;
-
         public Task()
         {
             ID = Guid.NewGuid();
         }
 
         [DataMember]
-        public string Name { get => name; set => name = value; }
+        public string Name { get; set; }
 
         [DataMember]
-        public Guid ID { get => id; set => id = value; }
+        public Guid ID { get; set; }
+
+        [DataMember]
+        public string Description { get; set; }
+
+        [DataMember]
+        public int TotalDuration { get; set; }
     }
 }
