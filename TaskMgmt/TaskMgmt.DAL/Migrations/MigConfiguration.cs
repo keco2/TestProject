@@ -13,7 +13,8 @@
     {
         public MigConfiguration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
             ContextKey = "TaskMgmt.DAL.TaskMgmtDbContext";
         }
 
