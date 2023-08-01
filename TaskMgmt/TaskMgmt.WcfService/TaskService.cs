@@ -1,41 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using TaskMgmt.DAL;
 using TaskMgmt.Model;
+using AutoMapper;
 
 namespace TaskMgmt.WcfService
 {
     public class TaskService : ITaskService
     {
         private IUnitOfWork unitOfWorkRepo;
+        private IMapper mapper;
 
         public TaskService()
         {
             unitOfWorkRepo = new UnitOfWorkRepository();
+            IConfigurationProvider mapperCfg = new MapperConfiguration(
+                cfg =>
+                {
+                    cfg.CreateMap<Task, TaskEntity>();
+                    cfg.CreateMap<TaskEntity, Task>();
+                });
+            mapper = new Mapper(mapperCfg);
         }
 
         public IEnumerable<Task> GetTasks()
         {
-            return unitOfWorkRepo.TaskRepository.GetTasks().ManualMap();
+            var tasks = unitOfWorkRepo.TaskRepository.GetTasks();
+            return mapper.Map<IEnumerable<Task>>(tasks);
         }
 
         public Task GetTaskById(string taskId)
         {
             Guid taskGuid = Guid.Parse(taskId);
-            return unitOfWorkRepo.TaskRepository.GetTaskByID(taskGuid).ManualMap();
+            var task = unitOfWorkRepo.TaskRepository.GetTaskByID(taskGuid);
+            return mapper.Map<Task>(task);
         }
 
         public void AddTask(Task task)
         {
-            unitOfWorkRepo.TaskRepository.InsertTask(task.ManualMap());
+            unitOfWorkRepo.TaskRepository.InsertTask(mapper.Map<TaskEntity>(task));
             unitOfWorkRepo.SaveChanges();
         }
 
         public void UpdateTask(string id, Task task)
         {
             Guid taskGuid = Guid.Parse(id);
-            unitOfWorkRepo.TaskRepository.UpdateTask(taskGuid, task.ManualMap());
+            unitOfWorkRepo.TaskRepository.UpdateTask(taskGuid, mapper.Map<TaskEntity>(task));
             unitOfWorkRepo.SaveChanges();
         }
 
@@ -44,32 +54,6 @@ namespace TaskMgmt.WcfService
             Guid taskGuid = Guid.Parse(id);
             unitOfWorkRepo.TaskRepository.DeleteTask(taskGuid);
             unitOfWorkRepo.SaveChanges();
-        }
-    }
-
-    public static class ManualMapTemp
-    {
-        public static IEnumerable<Task> ManualMap(this IEnumerable<TaskEntity> dblist)
-        {
-            return dblist.Select(t => t.ManualMap());
-        }
-
-        public static Task ManualMap(this TaskEntity taskEntity)
-        {
-            return new Task()
-            {
-                ID = taskEntity.ID,
-                Name = taskEntity.Name
-            };
-        }
-
-        public static TaskEntity ManualMap(this Task task)
-        {
-            return new TaskEntity()
-            {
-                ID = task.ID,
-                Name = task.Name
-            };
         }
     }
 }
