@@ -30,7 +30,7 @@ namespace TaskMgmt.DAL
 
     public class TaskMgmtDbContext : DbContext
     {
-        public TaskMgmtDbContext() : base("name=ccc")
+        public TaskMgmtDbContext() : base("name=TaskMgmtDbConnection")
         {
             MigrateDatabaseToLatest();
         }
