@@ -13,9 +13,8 @@ namespace TaskMgmt.DAL
     {
         private IGenericRepository<TaskEntity> taskRepository;
         private IGenericRepository<MaterialEntity> materialRepository;
-        private IGenericRepository<TaskMaterialUsage> taskMaterialUsageRepository;
+        private IGenericRepository<TaskMaterialUsageEntity> taskMaterialUsageRepository;
         private TaskMgmtDbContext dbContext = new TaskMgmtDbContext();
-        private TaskMgmtMemContext memContext = new TaskMgmtMemContext();
         private bool disposedValue;
 
         public IGenericRepository<TaskEntity> TaskRepository
@@ -42,13 +41,13 @@ namespace TaskMgmt.DAL
             }
         }
 
-        public IGenericRepository<TaskMaterialUsage> TaskMaterialUsageRepository
+        public IGenericRepository<TaskMaterialUsageEntity> TaskMaterialUsageRepository
         {
             get
             {
                 if (taskMaterialUsageRepository == null)
                 {
-                    taskMaterialUsageRepository = new TaskMaterialUsageRepository(memContext);
+                    taskMaterialUsageRepository = new TaskMaterialUsageRepository(dbContext);
                 }
                 return taskMaterialUsageRepository;
             }
@@ -63,7 +62,7 @@ namespace TaskMgmt.DAL
 
         private void DetachAll()
         {
-            foreach (DbEntityEntry e in dbContext.ChangeTracker.Entries<TaskEntity>().ToList())
+            foreach (DbEntityEntry e in dbContext.ChangeTracker.Entries().ToList())
             {
                 e.State = System.Data.Entity.EntityState.Detached;
             }

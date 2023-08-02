@@ -20,17 +20,38 @@ namespace TaskMgmt.DAL
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<TaskEntity>().Property(t => t.Name).IsRequired()
-                                                               .HasMaxLength(255);
+            modelBuilder.Entity<TaskEntity>().Property(t => t.Name)
+                .HasMaxLength(255)
+                .IsRequired();
 
             modelBuilder.Entity<MaterialEntity>().Property(m => m.ManufacturerCode).IsRequired();
             modelBuilder.Entity<MaterialEntity>().Property(m => m.Price).IsRequired();
-            modelBuilder.Entity<MaterialEntity>().Property(m => m.UnitOfIssue).IsRequired();
+            modelBuilder.Entity<MaterialEntity>().Property(m => m.UnitOfIssue).IsRequired()
+                .HasMaxLength(10);
 
-            // Zero or One to Many
-            //modelBuilder.Entity<TaskMaterialUsage>().HasOptional(a => a.Country)
-            //                               .WithMany(c => c.Airplanes)
-            //                               .HasForeignKey(a => a.CountryId);
+            modelBuilder.Entity<TaskMaterialUsageEntity>()
+                .HasKey(u => new { u.MaterialID, u.TaskID });
+            //modelBuilder.Entity<TaskMaterialUsageEntity>()
+                //.HasRequired<MaterialEntity>(u => u.Material)
+            //    //.WithMany() .HasForeignKey<Guid>(u => u.MaterialId) .WillCascadeOnDelete()
+                ;
+            //modelBuilder.Entity<TaskMaterialUsageEntity>()
+            //    .HasRequired<TaskEntity>(u => u.Task)
+            //    //.WithMany() .HasForeignKey<Guid>(u => u.TaskId) .WillCascadeOnDelete()
+            //    ;
+            modelBuilder.Entity<TaskMaterialUsageEntity>().Property(u => u.UnitOfMeasurement)
+                .HasMaxLength(10)
+                .IsRequired();
+            modelBuilder.Entity<TaskMaterialUsageEntity>().Property(u => u.Amount)
+                .IsRequired();
+
+            // The properties expression 'u => u.Material.ID' is not valid.
+            // The expression should represent a property: C#:
+            //      't => t.MyProperty'
+            //
+            // When specifying multiple properties use an anonymous type: C#:
+            //      't => new { t.MyProperty1, t.MyProperty2 }'
+
 
             // Add complex type Configuration Classes
             //modelBuilder.Configurations.Add(new TaskMgmtDbConfig());
@@ -46,6 +67,8 @@ namespace TaskMgmt.DAL
         }
 
         public virtual DbSet<TaskEntity> Tasks { get; set; }
+        public virtual DbSet<MaterialEntity> Materials { get; set; }
+        public virtual DbSet<TaskMaterialUsageEntity> TaskMaterialUsages { get; set; }
 
     }
 }

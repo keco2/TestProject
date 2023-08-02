@@ -1,6 +1,10 @@
-﻿using System;
+﻿using AutoMapper;
+using AutoMapper.Features;
+using AutoMapper.QueryableExtensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
@@ -12,41 +16,59 @@ namespace TaskMgmt.WcfService
 {
     public class TaskMaterialUsageService : ITaskMaterialUsageService
     {
-        private TaskMaterialUsageRepository repo;
         private IUnitOfWork unitOfWorkRepo;
+        private IMapper mapper;
 
         public TaskMaterialUsageService()
         {
-            this.repo = new TaskMaterialUsageRepository(new TaskMgmtMemContext());
             unitOfWorkRepo = new UnitOfWorkRepository();
+
+            IConfigurationProvider mapperCfg = new TaskMaterialUsageMapperConfig();
+            mapperCfg.AssertConfigurationIsValid();
+            mapper = new Mapper(mapperCfg);
         }
 
         public IEnumerable<TaskMaterialUsage> GetTaskMaterialUsages()
         {
-            return unitOfWorkRepo.TaskMaterialUsageRepository.GetItems();
+            var entities = unitOfWorkRepo.TaskMaterialUsageRepository.GetItems();
+            return mapper.Map<IEnumerable<TaskMaterialUsage>>(entities);
         }
 
         public IEnumerable<TaskMaterialUsage> GetTaskMaterialUsagesByTaskId(string taskId)
         {
             Guid taskGuid = Guid.Parse(taskId);
-            return unitOfWorkRepo.TaskMaterialUsageRepository.GetItemsByID(taskGuid);
+            var taskEntites = unitOfWorkRepo.TaskMaterialUsageRepository.GetItemsByID(taskGuid);
+
+
+
+            var DEBUG_SOURCE = taskEntites.ToList();
+            var DEBUG_DEST = mapper.Map<IEnumerable<TaskMaterialUsage>>(taskEntites).ToList();
+
+
+
+            return mapper.Map<IEnumerable<TaskMaterialUsage>>(taskEntites);
         }
 
         public void AddTaskMaterialUsage(TaskMaterialUsage usage)
         {
-            repo.InsertItem(usage);
+            var usageEntity = mapper.Map<TaskMaterialUsageEntity>(usage);
+            unitOfWorkRepo.TaskMaterialUsageRepository.InsertItem(usageEntity);
+            unitOfWorkRepo.SaveChanges();
         }
 
         public void UpdateTaskMaterialUsage(TaskMaterialUsage usage)
         {
-            repo.UpdateItem(usage);
+            var usageEntity = mapper.Map<TaskMaterialUsageEntity>(usage);
+            unitOfWorkRepo.TaskMaterialUsageRepository.UpdateItem(usageEntity);
+            unitOfWorkRepo.SaveChanges();
         }
 
         public void DeleteTaskMaterialUsage(string taskId, string materialId)
         {
             Guid taskGuid = Guid.Parse(taskId);
             Guid materialGuid = Guid.Parse(materialId);
-            repo.DeleteItem(taskGuid, materialGuid);
+            unitOfWorkRepo.TaskMaterialUsageRepository.DeleteItem(taskGuid, materialGuid);
+            unitOfWorkRepo.SaveChanges();
         }
     }
 }

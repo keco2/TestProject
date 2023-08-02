@@ -18,9 +18,13 @@ namespace TaskMgmt.WcfService
             IConfigurationProvider mapperCfg = new MapperConfiguration(
                 cfg =>
                 {
-                    cfg.CreateMap<Material, MaterialEntity>().ForMember(dest => dest.UnitOfIssue,  options => options.MapFrom(src => src.UnitOfIssue.Value));
-                    cfg.CreateMap<MaterialEntity, Material>().ForMember(dest => dest.UnitOfIssue, options => options.MapFrom(src => new Unit(src.UnitOfIssue)));
+                    cfg.CreateMap<Material, MaterialEntity>()
+                    .ForMember(dest => dest.UnitOfIssue,  options => options.MapFrom(src => src.UnitOfIssue.Value));
+
+                    cfg.CreateMap<MaterialEntity, Material>()
+                    .ForMember(dest => dest.UnitOfIssue, options => options.MapFrom(src => new Unit(src.UnitOfIssue)));
                 });
+            mapperCfg.AssertConfigurationIsValid();
             mapper = new Mapper(mapperCfg);
         }
 

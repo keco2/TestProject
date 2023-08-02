@@ -63,11 +63,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\MaterialEntity.cs" />
+    <Compile Include="Entities\TaskMaterialUsageEntity.cs" />
     <Compile Include="Migrations\202308010847441_AddMaterialEntity.cs" />
     <Compile Include="Migrations\202308010847441_AddMaterialEntity.designer.cs">
       <DependentUpon>202308010847441_AddMaterialEntity.cs</DependentUpon>
     </Compile>
-    <Compile Include="TaskMgmtMemContext.cs" />
+    <Compile Include="Migrations\202308021320012_AddUsageEntity.cs" />
+    <Compile Include="Migrations\202308021320012_AddUsageEntity.designer.cs">
+      <DependentUpon>202308021320012_AddUsageEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Entities\TaskEntity.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Migrations\202307301731195_InitialCreate.cs" />
@@ -81,7 +85,6 @@
     <Compile Include="Repositories\TaskMaterialUsageRepository.cs" />
     <Compile Include="Repositories\MaterialRepository.cs" />
     <Compile Include="Repositories\TaskRepository.cs" />
-    <Compile Include="StaticData.cs" />
     <Compile Include="UnitOfWorkRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -107,6 +110,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202308010847441_AddMaterialEntity.resx">
       <DependentUpon>202308010847441_AddMaterialEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308021320012_AddUsageEntity.resx">
+      <DependentUpon>202308021320012_AddUsageEntity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

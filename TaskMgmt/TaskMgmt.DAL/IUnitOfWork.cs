@@ -5,7 +5,7 @@ namespace TaskMgmt.DAL
 {
     public interface IUnitOfWork
     {
-        IGenericRepository<TaskMaterialUsage> TaskMaterialUsageRepository { get; }
+        IGenericRepository<TaskMaterialUsageEntity> TaskMaterialUsageRepository { get; }
 
         IGenericRepository<MaterialEntity> MaterialRepository { get; }
 

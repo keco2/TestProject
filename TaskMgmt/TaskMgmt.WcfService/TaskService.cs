@@ -15,13 +15,7 @@ namespace TaskMgmt.WcfService
         public TaskService()
         {
             unitOfWorkRepo = new UnitOfWorkRepository();
-            IConfigurationProvider mapperCfg = new MapperConfiguration(
-                cfg =>
-                {
-                    cfg.CreateMap<Task, TaskEntity>();
-                    cfg.CreateMap<TaskEntity, Task>();
-                });
-            mapper = new Mapper(mapperCfg);
+            mapper = new Mapper(new TaskMapperConfig());
         }
 
         public IEnumerable<Task> GetTasks()

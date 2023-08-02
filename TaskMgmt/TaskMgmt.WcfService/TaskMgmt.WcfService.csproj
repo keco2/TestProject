@@ -61,6 +61,9 @@
     <Compile Include="IMaterialService.cs" />
     <Compile Include="ITaskMaterialUsageService.cs" />
     <Compile Include="ITaskService.cs" />
+    <Compile Include="Mappers\TaskMaterialUsageMapperConfig.cs" />
+    <Compile Include="Mappers\TaskMapperConfig.cs" />
+    <Compile Include="Mappers\MaterialMapperConfig.cs" />
     <Compile Include="TaskMaterialUsageService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MaterialService.cs" />
@@ -80,6 +83,7 @@
       <Name>TaskMgmt.Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <VSToolsPath Condition="'$(VSToolsPath)' == '' and '$(VisualStudioVersion)' != '' and '$(VisualStudioVersion)' != '11.0'">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

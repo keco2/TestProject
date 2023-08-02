@@ -1,20 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using TaskMgmt.Model;
 
 namespace TaskMgmt.DAL.Repositories
 {
-    public class TaskMaterialUsageRepository : IGenericRepository<TaskMaterialUsage>, IDisposable
+    public class TaskMaterialUsageRepository : IGenericRepository<TaskMaterialUsageEntity>, IDisposable
     {
         private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         private bool disposedValue = false;
-        private TaskMgmtMemContext context;
+        private TaskMgmtDbContext context;
+        private DbSet<TaskMaterialUsageEntity> dbSet;
+        private DbQuery<TaskMaterialUsageEntity> dbQuery;
 
-        public TaskMaterialUsageRepository(TaskMgmtMemContext context)
+        public TaskMaterialUsageRepository(TaskMgmtDbContext context)
         {
             this.context = context;
+            dbSet = context.Set<TaskMaterialUsageEntity>();
+            dbQuery = dbSet.AsNoTracking();
         }
 
         public void DeleteItem(params Guid[] guids)
@@ -26,10 +32,10 @@ namespace TaskMgmt.DAL.Repositories
             context.TaskMaterialUsages.Remove(item);
         }
 
-        public IEnumerable<TaskMaterialUsage> GetItemsByID(Guid taskGuid)
+        public IEnumerable<TaskMaterialUsageEntity> GetItemsByID(Guid guid)
         {
-            logger.Info("{0} {1}={2}", nameof(GetItemsByID), nameof(taskGuid), taskGuid);
-            return context.TaskMaterialUsages.Where(t => t.Task.ID == taskGuid);
+            logger.Info("{0} {1}={2}", nameof(GetItemsByID), nameof(guid), guid);
+            return dbQuery.Where(t => t.Task.ID == guid).Include(m => m.Material).Include(t => t.Task);
         }
 
         //public IEnumerable<TaskMaterialUsage> GetItemsByTaskID(params Guid[] guids)
@@ -39,34 +45,35 @@ namespace TaskMgmt.DAL.Repositories
         //    return context.TaskMaterialUsages.Where(t => t.Task.ID == taskGuid);
         //}
 
-        public IEnumerable<TaskMaterialUsage> GetItems()
+        public IEnumerable<TaskMaterialUsageEntity> GetItems()
         {
             logger.Info("{0}", nameof(GetItems));
-            return context.TaskMaterialUsages;
+            return dbQuery.Include(m => m.Material).Include(t => t.Task).AsEnumerable();
         }
 
-        public void InsertItem(TaskMaterialUsage item)
+        public void InsertItem(TaskMaterialUsageEntity item)
         {
             logger.Info("{0} {1}={2}", nameof(InsertItem), nameof(item.Material.ID), item.Material.ID);
-            context.TaskMaterialUsages.Add(item);
+            dbSet.Add(item);
         }
 
-        public void UpdateItem(TaskMaterialUsage item)
+        public void UpdateItem(TaskMaterialUsageEntity item)
         {
             logger.Info("{0} {1}={2} {3}={4}", nameof(UpdateItem), nameof(item.Task.ID), item.Task.ID, nameof(item.Material.ID), item.Material.ID);
-            TaskMaterialUsage existingItem = context.TaskMaterialUsages.Where(t => t.Task.ID == item.Task.ID && t.Material.ID == item.Material.ID).Single();
-            if (existingItem != null)
-            {
-                existingItem.Amount = item.Amount;
-                existingItem.UnitOfMeasurement = item.UnitOfMeasurement;
-            }
+            //TaskMaterialUsageEntity existingItem = context.TaskMaterialUsages.Where(t => t.Task.ID == item.Task.ID && t.Material.ID == item.Material.ID).Single();
+            //if (existingItem != null)
+            //{
+            //    existingItem.Amount = item.Amount;
+            //    existingItem.UnitOfMeasurement = item.UnitOfMeasurement;
+            //}
+            dbSet.Attach(item);
+            context.Entry(item).State = EntityState.Modified;
         }
 
         public void Save()
         {
             logger.Info("Save");
-            throw new NotImplementedException();
-            // Todo - Implement repo.Save - only if real DB provider added
+            context.SaveChanges();
         }
 
         protected virtual void Dispose(bool disposing)
