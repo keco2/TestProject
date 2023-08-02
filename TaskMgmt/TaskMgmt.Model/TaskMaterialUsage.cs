@@ -6,32 +6,23 @@ namespace TaskMgmt.Model
     [DataContract]
     public class TaskMaterialUsage
     {
-        private Task task;
-        private Material material;
-        private int amount;
-        private Unit unitOfMeasurement;
-
         public TaskMaterialUsage()
         {
         }
 
-        public TaskMaterialUsage(Task task, Material material)
+        public TaskMaterialUsage(Material material)
         {
-            Task = task;
             Material = material;
         }
 
         [DataMember]
-        public Task Task { get => task; set => task = value; }
+        public Material Material { get; set; }
 
         [DataMember]
-        public Material Material { get => material; set => material = value; }
+        public int Amount { get; set; }
 
         [DataMember]
-        public int Amount { get => amount; set => amount = value; }
-
-        [DataMember]
-        public Unit UnitOfMeasurement { get => unitOfMeasurement; set => unitOfMeasurement = value; }
+        public Unit UnitOfMeasurement { get; set; }
 
     }
 }

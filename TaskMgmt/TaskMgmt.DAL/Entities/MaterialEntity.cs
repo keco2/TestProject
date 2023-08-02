@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace TaskMgmt.DAL
@@ -16,5 +17,7 @@ namespace TaskMgmt.DAL
 
         public string UnitOfIssue { get; set; }
 
+        // NAVIGATION PROPERTY
+        public ICollection<TaskEntity> Tasks { get; internal set; }
     }
 }

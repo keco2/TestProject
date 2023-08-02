@@ -20,12 +20,13 @@ namespace TaskMgmt.DAL
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<TaskEntity>().Property(t => t.Name).IsRequired()
-                                                               .HasMaxLength(255);
+            modelBuilder.Entity<TaskEntity>().Property(t => t.Name).IsRequired().HasMaxLength(255);
+            modelBuilder.Entity<TaskEntity>().HasRequired<MaterialEntity>(k => k.Material).WithRequiredDependent().WillCascadeOnDelete();
 
             modelBuilder.Entity<MaterialEntity>().Property(m => m.ManufacturerCode).IsRequired();
             modelBuilder.Entity<MaterialEntity>().Property(m => m.Price).IsRequired();
             modelBuilder.Entity<MaterialEntity>().Property(m => m.UnitOfIssue).IsRequired();
+            modelBuilder.Entity<MaterialEntity>().HasMany<TaskEntity>(x => x.Tasks).WithOptional();
 
             // Zero or One to Many
             //modelBuilder.Entity<TaskMaterialUsage>().HasOptional(a => a.Country)
@@ -46,6 +47,7 @@ namespace TaskMgmt.DAL
         }
 
         public virtual DbSet<TaskEntity> Tasks { get; set; }
+        public virtual DbSet<MaterialEntity> Materials { get; set; }
 
     }
 }

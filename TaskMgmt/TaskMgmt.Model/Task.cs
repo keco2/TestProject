@@ -22,5 +22,8 @@ namespace TaskMgmt.Model
 
         [DataMember]
         public int TotalDuration { get; set; }
+
+        [DataMember]
+        public TaskMaterialUsage TaskMaterialUsage { get; set; }
     }
 }
