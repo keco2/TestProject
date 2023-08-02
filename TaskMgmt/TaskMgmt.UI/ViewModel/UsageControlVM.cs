@@ -204,9 +204,13 @@ namespace TaskMgmt.UI.ViewModel
         {
             if (IsRecordNew && !TaskMaterialUsageList.Contains(SelectedTaskMaterialUsage))
             {
-                if (SelectedTaskMaterialUsage == null || SelectedMaterial == null || String.IsNullOrEmpty(SelectedUnit))
+                if (SelectedTaskMaterialUsage == null || SelectedUnit == null || SelectedMaterial == null || String.IsNullOrEmpty(SelectedUnit))
                 {
                     Message = "Missing information";
+                }
+                else if (TaskMaterialUsageList.Any(u => u.Material.ID == SelectedMaterial.ID && u.Task.ID == SelectedTask.ID))
+                {
+                    Message = "Usage already exists - required behaviour not specified";
                 }
                 else
                 {
