@@ -4,6 +4,7 @@ using TaskMgmt.DAL;
 using TaskMgmt.Model;
 using AutoMapper;
 using System.Linq;
+using TaskMgmt.WcfService.MappersConfigs;
 
 namespace TaskMgmt.WcfService
 {

@@ -1,16 +1,9 @@
 ﻿using AutoMapper;
-using AutoMapper.Features;
-using AutoMapper.QueryableExtensions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.Text;
 using TaskMgmt.DAL;
-using TaskMgmt.DAL.Repositories;
 using TaskMgmt.Model;
+using TaskMgmt.WcfService.MappersConfigs;
 
 namespace TaskMgmt.WcfService
 {
@@ -22,10 +15,7 @@ namespace TaskMgmt.WcfService
         public TaskMaterialUsageService()
         {
             unitOfWorkRepo = new UnitOfWorkRepository();
-
-            IConfigurationProvider mapperCfg = new TaskMaterialUsageMapperConfig();
-            mapperCfg.AssertConfigurationIsValid();
-            mapper = new Mapper(mapperCfg);
+            mapper = new Mapper(new TaskMaterialUsageMapperConfig());
         }
 
         public IEnumerable<TaskMaterialUsage> GetTaskMaterialUsages()
@@ -38,14 +28,6 @@ namespace TaskMgmt.WcfService
         {
             Guid taskGuid = Guid.Parse(taskId);
             var taskEntites = unitOfWorkRepo.TaskMaterialUsageRepository.GetItemsByID(taskGuid);
-
-
-
-            var DEBUG_SOURCE = taskEntites.ToList();
-            var DEBUG_DEST = mapper.Map<IEnumerable<TaskMaterialUsage>>(taskEntites).ToList();
-
-
-
             return mapper.Map<IEnumerable<TaskMaterialUsage>>(taskEntites);
         }
 

@@ -53,13 +53,13 @@ namespace TaskMgmt.DAL.Repositories
 
         public void InsertItem(TaskMaterialUsageEntity item)
         {
-            logger.Info("{0} {1}={2}", nameof(InsertItem), nameof(item.Material.ID), item.Material.ID);
+            logger.Info("{0} {1}={2} {3}={4}", nameof(InsertItem), nameof(item.MaterialID), item.MaterialID, nameof(item.TaskID), item.TaskID);
             dbSet.Add(item);
         }
 
         public void UpdateItem(TaskMaterialUsageEntity item)
         {
-            logger.Info("{0} {1}={2} {3}={4}", nameof(UpdateItem), nameof(item.Task.ID), item.Task.ID, nameof(item.Material.ID), item.Material.ID);
+            logger.Info("{0} {1}={2} {3}={4}", nameof(UpdateItem), nameof(item.TaskID), item.TaskID, nameof(item.MaterialID), item.MaterialID);
             //TaskMaterialUsageEntity existingItem = context.TaskMaterialUsages.Where(t => t.Task.ID == item.Task.ID && t.Material.ID == item.Material.ID).Single();
             //if (existingItem != null)
             //{

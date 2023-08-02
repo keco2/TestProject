@@ -2,7 +2,7 @@
 using TaskMgmt.DAL;
 using TaskMgmt.Model;
 
-namespace TaskMgmt.WcfService
+namespace TaskMgmt.WcfService.MappersConfigs
 {
     public class TaskMapperConfig : MapperConfiguration
     {

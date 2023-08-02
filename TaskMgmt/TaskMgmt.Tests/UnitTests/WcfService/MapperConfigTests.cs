@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using TaskMgmt.WcfService;
+using TaskMgmt.WcfService.MappersConfigs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
