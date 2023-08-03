@@ -43,10 +43,11 @@ namespace TaskMgmt.UI
             try
             {
                 logger.Error(exception);
-                MessageBox.Show(exception.ToString());
-                Shutdown(-1);
+                MessageBox.Show("Something went wrong. Please find the error in the logfile.\n\nError preview:\n\n"
+                    + exception.ToString().TakeLine(15)
+                    + "}\n\n(See the full exception in the lofgile)", "Error");
             }
-            catch
+            finally
             {
                 Shutdown(-1);
             }
