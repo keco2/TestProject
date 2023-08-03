@@ -19,7 +19,7 @@ namespace TaskMgmt.WcfService
         public MaterialService()
         {
             // DRAFT
-            UnitOfWorkRepo = new UnitOfWorkRepository();
+            //UnitOfWorkRepo = new UnitOfWorkRepository();
             //
 
             mapper = new Mapper(new MaterialMapperConfig());

@@ -12,6 +12,7 @@ using TaskMgmt.WcfService;
 using Unity;
 using Unity.Injection;
 using Unity.Lifetime;
+using Unity.Wcf;
 
 namespace TaskMgmt.Server
 {

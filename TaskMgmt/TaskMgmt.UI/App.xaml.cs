@@ -29,7 +29,7 @@ namespace TaskMgmt.UI
 
         private void App_Startup(object sender, StartupEventArgs e)
         {
-            ResolveUiDependecies();
+            //ResolveUiDependecies();
         }
 
         private void ResolveUiDependecies()

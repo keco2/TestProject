@@ -5,6 +5,7 @@ using TaskMgmt.DAL;
 using TaskMgmt.Model;
 using TaskMgmt.WcfService.MappersConfigs;
 using Unity;
+using System.ServiceModel.Activation;
 
 namespace TaskMgmt.WcfService
 {
@@ -18,7 +19,7 @@ namespace TaskMgmt.WcfService
         public TaskMaterialUsageService()
         {
             // DRAFT
-            UnitOfWorkRepo = new UnitOfWorkRepository();
+            //UnitOfWorkRepo = new UnitOfWorkRepository();
             //
 
             mapper = new Mapper(new TaskMaterialUsageMapperConfig());
