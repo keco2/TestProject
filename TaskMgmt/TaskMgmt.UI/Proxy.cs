@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace TaskMgmt.UI.ViewModel
 {
-    public class Proxy
+    public class Proxy : IProxy
     {
         readonly ITaskService _taskService;
         readonly IMaterialService _materialService;

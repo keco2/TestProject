@@ -12,6 +12,13 @@ namespace TaskMgmt.UI.ViewModel
     {
         private readonly Proxy _proxy;
 
+        public UsageControlVM()
+        {
+            HookUpUICommands();
+            _proxy = new Proxy();
+            LoadTasks();
+        }
+
         private string message;
         public string Message
         {
@@ -93,10 +100,6 @@ namespace TaskMgmt.UI.ViewModel
             }
         }
 
-        private void LoadMaterial() => MaterialList = _proxy.GetMaterials();
-
-        private void LoadUsages() => TaskMaterialUsageList = _proxy.GetUsagesByTaskId(SelectedTask.ID);
-
         private bool isRecordNew = false;
         public bool IsRecordNew
         {
@@ -134,13 +137,6 @@ namespace TaskMgmt.UI.ViewModel
         public ICommand UpdateUsageCmd { get; private set; }
         public ICommand DeleteUsageCmd { get; private set; }
 
-        public UsageControlVM()
-        {
-            HookUpUICommands();
-            _proxy = new Proxy();
-            LoadTasks();
-        }
-
         public void LoadTasks()
         {
             try
@@ -153,6 +149,10 @@ namespace TaskMgmt.UI.ViewModel
                 Message = "ERROR: EndpointNotFoundException";
             }
         }
+
+        private void LoadMaterial() => MaterialList = _proxy.GetMaterials();
+
+        private void LoadUsages() => TaskMaterialUsageList = _proxy.GetUsagesByTaskId(SelectedTask.ID);
 
         private void HookUpUICommands()
         {

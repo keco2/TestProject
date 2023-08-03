@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using TaskMgmt.Common;
+using TaskMgmt.UI.ViewModel;
+using Unity;
 
 namespace TaskMgmt.UI
 {
@@ -22,6 +24,19 @@ namespace TaskMgmt.UI
             Logging.LoggingSetUp();
             AppDomain currentDomain = AppDomain.CurrentDomain;
             currentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            Startup += App_Startup;
+        }
+
+        private void App_Startup(object sender, StartupEventArgs e)
+        {
+            ResolveUiDependecies();
+        }
+
+        private void ResolveUiDependecies()
+        {
+            IUnityContainer ioc = new UnityContainer();
+            ioc
+                .RegisterType<IProxy, Proxy>();
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
