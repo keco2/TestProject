@@ -26,8 +26,15 @@ namespace TaskMgmt.UI.ViewModel
         }
 
         public IEnumerable<Material> GetMaterials() => _materialService.GetMaterials();
-        // ...
-        // ...
+
+        public Material GetMaterialById(Guid id) => _materialService.GetMaterialById(id.ToString());
+
+        public void AddMaterial(Material material) => _materialService.AddMaterial(material);
+
+        public void UpdateMaterial(Guid id, Material material) => _materialService.UpdateMaterial(id.ToString(), material);
+
+        public void DeleteMaterial(Guid id) => _materialService.DeleteMaterial(id.ToString());
+
 
         public IEnumerable<TaskMaterialUsage> GetUsages() => _taskMaterialUsageService.GetTaskMaterialUsages();
 

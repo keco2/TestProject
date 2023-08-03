@@ -14,7 +14,7 @@ namespace TaskMgmt.Common
             return (T)Enum.Parse(typeof(T), value, true);
         }
 
-        public static string TakeLine(this string text, int linesToTake)
+        public static string TakeLines(this string text, int linesToTake)
         {
             var sb = new StringBuilder();
             int i = 0;

@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
+using System.ServiceModel.Description;
+using System.ServiceModel.Dispatcher;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
@@ -43,9 +48,11 @@ namespace TaskMgmt.UI
             try
             {
                 logger.Error(exception);
-                MessageBox.Show("Something went wrong. Please find the error in the logfile.\n\nError preview:\n\n"
-                    + exception.ToString().TakeLine(15)
-                    + "}\n\n(See the full exception in the lofgile)", "Error");
+                string msg = "Something went wrong. Please find the error in the logfile.";
+#if DEBUG
+                msg += $"\n\nError preview:\n\n{exception.ToString().TakeLines(15)}\n\n(See the full exception in the lofgile)";
+#endif
+                MessageBox.Show(msg, "Error");
             }
             finally
             {

@@ -98,12 +98,6 @@ namespace TaskMgmt.UI.ViewModel
             RecordChangedCmd = new DelegateCommand(_ => IsRecordChanged = !IsRecordNew);
         }
 
-        private void PrepareNewRecord()
-        {
-            SelectedTask = new Task();
-            IsRecordNew = true;
-        }
-
         private void InvokeOnSelectedRecord(Action<Proxy> action)
         {
             if (SelectedTask != null)
@@ -125,6 +119,12 @@ namespace TaskMgmt.UI.ViewModel
             {
                 Message = "No task is selected";
             }
+        }
+
+        private void PrepareNewRecord()
+        {
+            SelectedTask = new Task();
+            IsRecordNew = true;
         }
 
         private void AddRecord(Proxy proxy)
@@ -166,8 +166,7 @@ namespace TaskMgmt.UI.ViewModel
             var taskName = SelectedTask.Name;
             proxy.DeleteTask(SelectedTask.ID);
             LoadTasks();
-            var count = TaskList.Count();
-            Message = taskName + " deleted / DB.count = " + count;
+            Message = taskName + " deleted (related material-usages deleted)";
         }
 
     }

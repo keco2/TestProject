@@ -18,6 +18,10 @@ namespace TaskMgmt.BLL
             { UnitEnum.m, new UnitEnum[] { UnitEnum.mm, UnitEnum.cm, UnitEnum.m, UnitEnum.km, UnitEnum.inch, UnitEnum.ft } }
         };
 
+        /// <summary>
+        /// Get all unit variations
+        /// </summary>
+        /// <returns></returns>
         public string[] GetVariations()
         {
             return Enum.GetValues(typeof(UnitEnum))
@@ -26,6 +30,11 @@ namespace TaskMgmt.BLL
                 .ToArray();
         }
 
+        /// <summary>
+        /// Get variations available for the given base-unit e.g. for gram: [ mg, g, kg, ...]
+        /// </summary>
+        /// <param name="baseUnit"></param>
+        /// <returns></returns>
         public string[] GetVariations(Unit baseUnit)
         {
             if (String.IsNullOrEmpty(baseUnit?.Value))
@@ -39,6 +48,10 @@ namespace TaskMgmt.BLL
                 .ToArray();
         }
 
+        /// <summary>
+        /// Get only base units e.g. [ l, g, m ] but not [ mg, kg, ml, mm, cm ...]
+        /// </summary>
+        /// <returns></returns>
         public string[] GetBaseUnits()
         {
             return _unitVariationSetup

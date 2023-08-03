@@ -120,7 +120,7 @@
 
 
                 <Label Grid.Row="1" Content="{Binding Message}" Foreground="DarkGray" HorizontalAlignment="Center"/>
-                <Label Grid.Row="2" Content="Task details" HorizontalAlignment="Left"/>
+                <Label Grid.Row="2" Content="Details" HorizontalAlignment="Left"/>
                 <Grid Name="Textboxes" Grid.Row="3">
                     <Grid.RowDefinitions>
                         <RowDefinition />

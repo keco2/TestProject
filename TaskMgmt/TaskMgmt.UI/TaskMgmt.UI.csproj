@@ -86,7 +86,11 @@
     <Compile Include="ViewHelper\ViewExtensions.cs" />
     <Compile Include="ViewHelper\DelegateCommand.cs" />
     <Compile Include="ViewHelper\ViewModelBase.cs" />
+    <Compile Include="ViewModel\MaterialControlVM.cs" />
     <Compile Include="ViewModel\UsageControlVM.cs" />
+    <Compile Include="View\MaterialControl.xaml.cs">
+      <DependentUpon>MaterialControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\TaskControl.xaml.cs">
       <DependentUpon>TaskControl.xaml</DependentUpon>
     </Compile>
@@ -107,6 +111,10 @@
       <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\MaterialControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\TaskControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -10,6 +10,9 @@
         <TabItem Header="Tasks">
             <local:TaskControl />
         </TabItem>
+        <TabItem Header="Materials">
+            <local:MaterialControl />
+        </TabItem>
         <TabItem Header="Usages">
             <local:UsageControl />
         </TabItem>
