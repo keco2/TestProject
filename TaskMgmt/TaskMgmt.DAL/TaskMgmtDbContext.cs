@@ -31,30 +31,11 @@ namespace TaskMgmt.DAL
 
             modelBuilder.Entity<TaskMaterialUsageEntity>()
                 .HasKey(u => new { u.MaterialID, u.TaskID });
-            //modelBuilder.Entity<TaskMaterialUsageEntity>()
-                //.HasRequired<MaterialEntity>(u => u.Material)
-            //    //.WithMany() .HasForeignKey<Guid>(u => u.MaterialId) .WillCascadeOnDelete()
-                ;
-            //modelBuilder.Entity<TaskMaterialUsageEntity>()
-            //    .HasRequired<TaskEntity>(u => u.Task)
-            //    //.WithMany() .HasForeignKey<Guid>(u => u.TaskId) .WillCascadeOnDelete()
-            //    ;
             modelBuilder.Entity<TaskMaterialUsageEntity>().Property(u => u.UnitOfMeasurement)
                 .HasMaxLength(10)
                 .IsRequired();
             modelBuilder.Entity<TaskMaterialUsageEntity>().Property(u => u.Amount)
                 .IsRequired();
-
-            // The properties expression 'u => u.Material.ID' is not valid.
-            // The expression should represent a property: C#:
-            //      't => t.MyProperty'
-            //
-            // When specifying multiple properties use an anonymous type: C#:
-            //      't => new { t.MyProperty1, t.MyProperty2 }'
-
-
-            // Add complex type Configuration Classes
-            //modelBuilder.Configurations.Add(new TaskMgmtDbConfig());
         }
 
         /// <summary>

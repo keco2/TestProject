@@ -205,5 +205,63 @@ namespace TaskMgmt.Tests.UnitTests.WcfService
             Assert.AreEqual(amountExpected, usageResult.Amount);
             Assert.AreEqual(unitOfMeasurementExpected.Value, usageResult.UnitOfMeasurement.Value);
         }
+
+        [Test]
+        public void TaskMaterialUsageMapperConfig_MapUsageToUsageEntity_ShouldbeAsExpected()
+        {
+            // Setup
+
+            Guid taskGuidExpected = new Guid("00000000-0000-0000-0000-000000000001");
+            string nameExpected = "name";
+            string descExpected = "description";
+            int totaldurationExpected = 11;
+
+            Guid materialGuidExpected = new Guid("00000000-0000-0000-0000-000000000002");
+            int manufacturerCodeExpected = 11;
+            string partnumberExpected = "partnumberExpected";
+            int priceExpected = 123;
+            Unit unitOfIssueExpected = new Unit("kg");
+
+            int amountExpected = 2;
+            Unit unitOfMeasurementExpected = new Unit("g");
+
+            var taskSource = new Task()
+            {
+                ID = taskGuidExpected,
+                Name = nameExpected,
+                Description = descExpected,
+                TotalDuration = totaldurationExpected
+            };
+
+            var materialSource = new Material()
+            {
+                ID = materialGuidExpected,
+                ManufacturerCode = manufacturerCodeExpected,
+                Partnumber = partnumberExpected,
+                Price = priceExpected,
+                UnitOfIssue = unitOfIssueExpected
+            };
+
+            var usageSource = new TaskMaterialUsage()
+            {
+                Task = taskSource,
+                Material = materialSource,
+                Amount = amountExpected,
+                UnitOfMeasurement = unitOfMeasurementExpected
+            };
+
+            IMapper mapper = new Mapper(new TaskMaterialUsageMapperConfig());
+
+            // Act
+            TaskMaterialUsageEntity usageResult = mapper.Map<TaskMaterialUsageEntity>(usageSource);
+
+            // Assert
+            Assert.IsNull(usageResult.Material);
+            Assert.IsNull(usageResult.Task);
+            Assert.AreEqual(materialGuidExpected, usageResult.MaterialID);
+            Assert.AreEqual(taskGuidExpected, usageResult.TaskID);
+            Assert.AreEqual(amountExpected, usageResult.Amount);
+            Assert.AreEqual(unitOfMeasurementExpected.Value, usageResult.UnitOfMeasurement);
+        }
     }
 }

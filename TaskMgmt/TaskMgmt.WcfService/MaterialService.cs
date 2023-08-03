@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TaskMgmt.DAL;
 using TaskMgmt.Model;
+using TaskMgmt.WcfService.MappersConfigs;
 
 namespace TaskMgmt.WcfService
 {
@@ -15,17 +16,7 @@ namespace TaskMgmt.WcfService
         public MaterialService()
         {
             unitOfWorkRepo = new UnitOfWorkRepository();
-            IConfigurationProvider mapperCfg = new MapperConfiguration(
-                cfg =>
-                {
-                    cfg.CreateMap<Material, MaterialEntity>()
-                    .ForMember(dest => dest.UnitOfIssue,  options => options.MapFrom(src => src.UnitOfIssue.Value));
-
-                    cfg.CreateMap<MaterialEntity, Material>()
-                    .ForMember(dest => dest.UnitOfIssue, options => options.MapFrom(src => new Unit(src.UnitOfIssue)));
-                });
-            mapperCfg.AssertConfigurationIsValid();
-            mapper = new Mapper(mapperCfg);
+            mapper = new Mapper(new MaterialMapperConfig());
         }
 
         public IEnumerable<Material> GetMaterials()

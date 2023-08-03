@@ -18,14 +18,15 @@ namespace TaskMgmt.WcfService.MappersConfigs
                     cfg.CreateMap<MaterialEntity, Material>()
                     .ForMember(dest => dest.UnitOfIssue, options => options.MapFrom(src => new Unit(src.UnitOfIssue)));
 
+                    cfg.CreateMap<TaskMaterialUsageEntity, TaskMaterialUsage>().ForMember(dest => dest.UnitOfMeasurement, options
+                        => options.MapFrom(src => new Unit(src.UnitOfMeasurement)));
                     cfg.CreateMap<TaskMaterialUsage, TaskMaterialUsageEntity>()
                     .ForMember(dest => dest.UnitOfMeasurement, options => options.MapFrom(src => src.UnitOfMeasurement.Value))
                     .ForMember(dest => dest.MaterialID, options => options.MapFrom(src => src.Material.ID))
                     .ForMember(dest => dest.TaskID, options => options.MapFrom(src => src.Task.ID))
+                    // Ignore nested members to prevent EF to insert into foreign tables
                     .ForMember(dest => dest.Material, options => options.Ignore())
                     .ForMember(dest => dest.Task, options => options.Ignore());
-                    cfg.CreateMap<TaskMaterialUsageEntity, TaskMaterialUsage>().ForMember(dest => dest.UnitOfMeasurement, options
-                        => options.MapFrom(src => new Unit(src.UnitOfMeasurement)));
                 })
         {
             //
