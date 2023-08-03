@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
@@ -16,6 +17,101 @@ using Unity.Wcf;
 
 namespace TaskMgmt.Server
 {
+    internal class UnityInstanceProvider : IInstanceProvider
+    {
+
+        private readonly IUnityContainer container;
+        private readonly Type contractType;
+
+        public UnityInstanceProvider(IUnityContainer container, Type contractType)
+        {
+            this.container = container;
+            this.contractType = contractType;
+        }
+
+        public object GetInstance(InstanceContext instanceContext)
+        {
+            return GetInstance(instanceContext, null);
+        }
+
+        public object GetInstance(InstanceContext instanceContext, Message message)
+        {
+            return container.Resolve(contractType);
+        }
+
+        public void ReleaseInstance(InstanceContext instanceContext, object instance)
+        {
+            //container.Teardown(instance);
+        }
+    }
+
+    public class UnityServiceBehavior : IServiceBehavior
+    {
+
+        private readonly IUnityContainer container;
+
+        public UnityServiceBehavior(IUnityContainer container)
+        {
+            this.container = container;
+        }
+
+        public void Validate(ServiceDescription serviceDescription, ServiceHostBase serviceHostBase)
+        {
+        }
+
+        public void AddBindingParameters(ServiceDescription serviceDescription, ServiceHostBase serviceHostBase, Collection<ServiceEndpoint> endpoints, BindingParameterCollection bindingParameters)
+        {
+        }
+
+        public void ApplyDispatchBehavior(ServiceDescription serviceDescription, ServiceHostBase serviceHostBase)
+        {
+            foreach (ChannelDispatcher channelDispatcher in serviceHostBase.ChannelDispatchers)
+            {
+                foreach (EndpointDispatcher endpointDispatcher in channelDispatcher.Endpoints)
+                {
+                    if (endpointDispatcher.ContractName != "IMetadataExchange")
+                    {
+                        string contractName = endpointDispatcher.ContractName;
+                        ServiceEndpoint serviceEndpoint = serviceDescription.Endpoints?.FirstOrDefault(e => e.Contract.Name == contractName);
+                        if (serviceEndpoint != null)
+                        {
+                            endpointDispatcher.DispatchRuntime.InstanceProvider = new UnityInstanceProvider(this.container, serviceEndpoint.Contract.ContractType);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public class UnityServiceHost : ServiceHost
+    {
+
+        private IUnityContainer unityContainer;
+
+        public UnityServiceHost(IUnityContainer unityContainer, Type serviceType)
+            : base(serviceType)
+        {
+            this.unityContainer = unityContainer;
+        }
+
+        protected override void OnOpening()
+        {
+            base.OnOpening();
+
+            if (this.Description.Behaviors.Find<UnityServiceBehavior>() == null)
+            {
+                this.Description.Behaviors.Add(new UnityServiceBehavior(this.unityContainer));
+            }
+        }
+    }
+
+
+
+
+
+
+
+
     class Program
     {
         static void Main(string[] args)
@@ -23,7 +119,7 @@ namespace TaskMgmt.Server
             Console.Title = "Task Management Server";
             Logging.LoggingSetUp();
             ResolveDependencies();
-            StartWcfServices();
+            //StartWcfServices();
         }
 
         private static void StartWcfServices()
@@ -65,11 +161,16 @@ namespace TaskMgmt.Server
 
         private static void ResolveDependencies()
         {
-            IUnityContainer container = new UnityContainer();
-            container
-                .RegisterType<IUnitOfWork, UnitOfWorkRepository>(new ContainerControlledLifetimeManager())
-                .RegisterType<ITaskService, TaskService>(new ContainerControlledLifetimeManager())
-                .RegisterType<TaskService>(new InjectionProperty("UnitOfWorkRepo", new ResolvedArrayParameter<IUnitOfWork>()));
+            UnityContainer container = new UnityContainer();
+            UnityServiceHost serviceHost = new UnityServiceHost(container, typeof(TaskService));
+            serviceHost.Open();
+
+
+            //IUnityContainer container = new UnityContainer();
+            //container
+            //    .RegisterType<IUnitOfWork, UnitOfWorkRepository>(new ContainerControlledLifetimeManager())
+            //    .RegisterType<ITaskService, TaskService>(new ContainerControlledLifetimeManager())
+            //    .RegisterType<TaskService>(new InjectionProperty("UnitOfWorkRepo", new ResolvedArrayParameter<IUnitOfWork>()));
 
             //Resolve the dependency
             //var unitOfWork = container.Resolve<IUnitOfWork>();
@@ -79,6 +180,8 @@ namespace TaskMgmt.Server
 
             //Resolve for Controller and the dependecy gets injected automatically
             //var controller = container.Resolve<UnitOfWorkRepository>();
+
+
         }
 
         private static void IncreaseServiehostDebugTimeout(ServiceHost serviceHost)

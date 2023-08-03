@@ -11,24 +11,6 @@ using Unity.Lifetime;
 
 namespace TaskMgmt.WcfService
 {
-    public class WcfServiceFactory : UnityServiceHostFactory
-    {
-        protected override void ConfigureContainer(IUnityContainer container)
-        {
-            throw new Exception("WooooooooooooooooooW");
-
-            // configure container
-            container
-                //.RegisterType<IService1, Service1>()
-                //.RegisterType<IRespository<Blah>, BlahRepository>()
-                //.RegisterType<IBlahContext, BlahContext>(new HierarchicalLifetimeManager());
-                .RegisterType<ITaskService, TaskService>()
-                .RegisterType<IUnitOfWork, UnitOfWorkRepository>(new HierarchicalLifetimeManager());
-        }
-    }
-
-
-
     public class TaskService : ITaskService
     {
         private IMapper mapper;
