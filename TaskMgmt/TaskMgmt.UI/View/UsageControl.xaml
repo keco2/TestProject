@@ -1,0 +1,153 @@
+﻿<UserControl x:Class="TaskMgmt.UI.View.UsageControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:TaskMgmt.UI.View"
+             xmlns:viewmodel="clr-namespace:TaskMgmt.UI.ViewModel"
+             xmlns:conv="clr-namespace:TaskMgmt.UI.Converters"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d"
+             Loaded="UserControl_Loaded"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style x:Key="recDetailLabel" TargetType="Label">
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Margin" Value="10,0,0,0" />
+        </Style>
+        <Style x:Key="textboxTrigger" TargetType="{x:Type TextBox}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <TextBox x:Name="root" Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}" Background="Transparent" >
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="TextChanged">
+                                    <i:InvokeCommandAction Command="{Binding RecordChangedCmd}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TextBox>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <conv:BoolVisibilityConverter x:Key="boolVisibilityConverter" />
+        <conv:ObjectNullToFalseConverter x:Key="objectNullToFalseConverter" />
+    </UserControl.Resources>
+    <UserControl.DataContext>
+        <viewmodel:UsageControlVM />
+    </UserControl.DataContext>
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition />
+                <RowDefinition Height="30" />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Content="Usages / Usages of Materials in tasks" HorizontalAlignment="Left"/>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="100" />
+                </Grid.RowDefinitions>
+                <DataGrid Grid.Column="0"
+                      SelectedItem="{Binding SelectedTask, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectionMode="Single"
+                      AutoGenerateColumns="True"
+                      GridLinesVisibility="None"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      IsManipulationEnabled="False"
+                      IsReadOnly="True"
+                      CanUserResizeRows="False"
+                      ItemsSource="{Binding TaskList}">
+                    </DataGrid>
+
+
+                <Grid Name="rightSideDatagrids" Grid.Column="1" Grid.RowSpan="4" Margin="2,0,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <DataGrid
+                      ItemsSource="{Binding TaskMaterialUsageList}"
+                      SelectedItem="{Binding SelectedTaskMaterialUsage}"
+                      SelectionMode="Single"
+                      AutoGenerateColumns="False"
+                      GridLinesVisibility="None"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      IsManipulationEnabled="False"
+                      IsReadOnly="True"
+                      CanUserResizeRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Material.Partnumber}" Header="Partnumber" />
+                            <DataGridTextColumn Binding="{Binding Material.ManufacturerCode}" Header="ManufacturerCode" />
+                            <DataGridTextColumn Binding="{Binding Material.Price}" Header="Price" />
+                            <DataGridTextColumn Binding="{Binding Material.UnitOfIssue}" Header="UnitOfIssue" />
+                            <DataGridTextColumn Binding="{Binding Amount}" Header="Amount" />
+                            <DataGridTextColumn Binding="{Binding UnitOfMeasurement}" Header="UnitOfMeasurement" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Grid Name="materialGrid" Visibility="{Binding IsRecordNew, Converter={StaticResource boolVisibilityConverter}}" Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="Available materials" Grid.Column="1" HorizontalAlignment="Left"/>
+                        <DataGrid Name="Usages" Grid.Row="1"
+                          ItemsSource="{Binding MaterialList}"
+                          IsEnabled="{Binding IsRecordNew}"
+                          SelectedItem="{Binding SelectedMaterial}"
+                          SelectionMode="Single"
+                          Visibility="{Binding IsRecordNew, Converter={StaticResource boolVisibilityConverter}}"
+                          AutoGenerateColumns="True"
+                          GridLinesVisibility="None"
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False"
+                          IsManipulationEnabled="False"
+                          IsReadOnly="True"
+                          CanUserResizeRows="False"
+                          >
+                        </DataGrid>
+                    </Grid>
+                </Grid>
+
+
+                <Label Grid.Row="1" Content="{Binding Message}" Foreground="DarkGray" HorizontalAlignment="Center"/>
+                <Label Grid.Row="2" Content="Details" HorizontalAlignment="Left"/>
+                <Grid Name="Textboxes" Grid.Row="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Content="ID" Style="{StaticResource recDetailLabel}" IsEnabled="False" HorizontalAlignment="Left"/>
+                    <Label Grid.Row="1" Content="Taskname" Style="{StaticResource recDetailLabel}" IsEnabled="False"  HorizontalAlignment="Left"/>
+                    <Label Grid.Row="2" Content="Amount" Style="{StaticResource recDetailLabel}"  HorizontalAlignment="Left"/>
+                    <Label Grid.Row="3" Content="Unit of measurement" Style="{StaticResource recDetailLabel}"  HorizontalAlignment="Left"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SelectedTask.ID}" IsReadOnly="True" TextWrapping="NoWrap" TextAlignment="Left" BorderThickness="0" Background="Transparent" Margin="2"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SelectedTask.Name}" TextWrapping="NoWrap" AcceptsReturn="False" AcceptsTab="False" TextAlignment="Left" BorderThickness="0" Background="Transparent" Margin="2"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding SelectedTaskMaterialUsage.Amount}" Style="{StaticResource textboxTrigger}" TextWrapping="NoWrap" AcceptsReturn="False" AcceptsTab="False" TextAlignment="Left" BorderThickness="0" Background="Transparent" Margin="2"/>
+                    <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding UnitVariationOptions}" SelectedItem="{Binding SelectedUnit}" Background="Transparent" Margin="2" />
+                </Grid>
+            </Grid>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="New usage" Width="150" Command="{Binding NewUsageCmd}" Margin="5" />
+                <Button Content="Add new usage" Width="150" Command="{Binding AddUsageCmd}" IsEnabled="{Binding IsRecordNew}" Margin="5" />
+                <Button Content="Update usage" Width="150" Command="{Binding UpdateUsageCmd}" IsEnabled="{Binding IsRecordChanged}" Margin="5" />
+                <Button Content="Delete usage" Width="150" Command="{Binding DeleteUsageCmd}" IsEnabled="{Binding SelectedTaskMaterialUsage, Converter={StaticResource objectNullToFalseConverter}}" Margin="5" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>
