@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Threading;
 using TaskMgmt.Common;
 using TaskMgmt.UI.ViewModel;
-using Unity;
+//using Unity;
 
 namespace TaskMgmt.UI
 {
@@ -34,9 +34,9 @@ namespace TaskMgmt.UI
 
         private void ResolveUiDependecies()
         {
-            IUnityContainer ioc = new UnityContainer();
-            ioc
-                .RegisterType<IProxy, Proxy>();
+            //IUnityContainer ioc = new UnityContainer();
+            //ioc
+            //    .RegisterType<IProxy, Proxy>();
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

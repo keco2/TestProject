@@ -17,6 +17,20 @@ using Unity.Wcf;
 
 namespace TaskMgmt.Server
 {
+
+    //  <package id = "Unity" version="5.11.10" targetFramework="net48" />
+    //  <package id = "Unity.Abstractions" version="5.11.7" targetFramework="net48" />
+    //  <package id = "Unity.Container" version="5.11.11" targetFramework="net48" />
+    //  <package id = "Unity.Wcf" version="5.11.1" targetFramework="net48" />
+
+
+    //  https://github.com/unitycontainer/wcf/issues/9
+
+    //  ----------------------------------------------------
+    //  Unity.Wcf 5.11.1 not working with Unity 5.11.10  !!!
+    //  ----------------------------------------------------
+
+
     internal class UnityInstanceProvider : IInstanceProvider
     {
 
@@ -112,6 +126,7 @@ namespace TaskMgmt.Server
 
 
 
+
     class Program
     {
         static void Main(string[] args)
@@ -161,27 +176,32 @@ namespace TaskMgmt.Server
 
         private static void ResolveDependencies()
         {
-            UnityContainer container = new UnityContainer();
+            //UnityContainer container = new UnityContainer();
+            //UnityServiceHost serviceHost = new UnityServiceHost(container, typeof(TaskService));
+            //serviceHost.Open();
+
+
+            IUnityContainer container = new UnityContainer();
+            container
+                .RegisterType<IUnitOfWork, UnitOfWorkRepository>(new ContainerControlledLifetimeManager())
+                .RegisterType<ITaskService, TaskService>(new ContainerControlledLifetimeManager())
+                //.RegisterType<TaskService>(new InjectionProperty("UnitOfWorkRepo", new ResolvedArrayParameter<IUnitOfWork>()))
+                ;
+
             UnityServiceHost serviceHost = new UnityServiceHost(container, typeof(TaskService));
             serviceHost.Open();
 
-
-            //IUnityContainer container = new UnityContainer();
-            //container
-            //    .RegisterType<IUnitOfWork, UnitOfWorkRepository>(new ContainerControlledLifetimeManager())
-            //    .RegisterType<ITaskService, TaskService>(new ContainerControlledLifetimeManager())
-            //    .RegisterType<TaskService>(new InjectionProperty("UnitOfWorkRepo", new ResolvedArrayParameter<IUnitOfWork>()));
-
-            //Resolve the dependency
+            ////Resolve the dependency
             //var unitOfWork = container.Resolve<IUnitOfWork>();
 
-            //Register the instance
+            ////Register the instance
             //container = container.RegisterInstance<IUnitOfWork>(unitOfWork);
 
-            //Resolve for Controller and the dependecy gets injected automatically
+            ////Resolve for Controller and the dependecy gets injected automatically
             //var controller = container.Resolve<UnitOfWorkRepository>();
 
-
+            Console.WriteLine("Press <ENTER> to terminate service.");
+            Console.ReadLine();
         }
 
         private static void IncreaseServiehostDebugTimeout(ServiceHost serviceHost)

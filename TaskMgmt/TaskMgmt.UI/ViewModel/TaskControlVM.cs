@@ -12,7 +12,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using TaskMgmt.UI.ViewHelper;
 using TaskMgmt.BLL;
-using Unity;
+//using Unity;
 
 namespace TaskMgmt.UI.ViewModel
 {
@@ -23,10 +23,11 @@ namespace TaskMgmt.UI.ViewModel
         public TaskControlVM()
         {
             //
-            IUnityContainer ioc = new UnityContainer();
-            _proxy = ioc.Resolve<Proxy>();
+            //IUnityContainer ioc = new UnityContainer();
+            //_proxy = ioc.Resolve<Proxy>();
             //_proxy = proxy;
             //
+            _proxy = new Proxy();
 
             HookUpUICommands();
             LoadTasks();

@@ -5,13 +5,13 @@ using System.Linq;
 using TaskMgmt.DAL;
 using TaskMgmt.Model;
 using TaskMgmt.WcfService.MappersConfigs;
-using Unity;
+//using Unity.Container;
 
 namespace TaskMgmt.WcfService
 {
     public class MaterialService : IMaterialService
     {
-        [Dependency]
+        //[Dependency]
         public IUnitOfWork UnitOfWorkRepo { get; set; }
 
         private IMapper mapper;

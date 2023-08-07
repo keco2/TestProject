@@ -13,7 +13,7 @@ namespace TaskMgmt.WcfService
     {
         private IMapper mapper;
 
-        [Dependency]
+        //[Dependency]
         public IUnitOfWork UnitOfWorkRepo { get; set; }
 
         public TaskMaterialUsageService()

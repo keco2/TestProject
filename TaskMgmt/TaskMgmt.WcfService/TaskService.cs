@@ -7,7 +7,7 @@ using System.Linq;
 using TaskMgmt.WcfService.MappersConfigs;
 using Unity;
 using Unity.Wcf;
-using Unity.Lifetime;
+//using Unity.Lifetime;
 
 namespace TaskMgmt.WcfService
 {
