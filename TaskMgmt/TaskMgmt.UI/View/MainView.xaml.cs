@@ -19,11 +19,12 @@ namespace TaskMgmt.UI
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainView : Window
+    public partial class MainView : Window, IMainVM
     {
-        public MainView()
+        public MainView(IMainVM vm)
         {
             InitializeComponent();
+            DataContext = vm;
         }
     }
 }

@@ -32,9 +32,6 @@
         </Style>
         <conv:ObjectNullToFalseConverter x:Key="objectNullToFalseConverter" />
     </UserControl.Resources>
-    <UserControl.DataContext>
-        <viewmodel:TaskControlVM />
-    </UserControl.DataContext>
     <Grid>
         <Grid>
             <Grid.RowDefinitions>

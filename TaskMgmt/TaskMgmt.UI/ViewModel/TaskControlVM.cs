@@ -9,26 +9,19 @@ using System.Text;
 using System.Windows.Input;
 using TaskMgmt.Model;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using TaskMgmt.UI.ViewHelper;
 using TaskMgmt.BLL;
-//using Unity;
+using Unity;
 
 namespace TaskMgmt.UI.ViewModel
 {
-    class TaskControlVM : ViewModelBase
+    class TaskControlVM : ViewModelBase, IMainVM
     {
         private readonly IProxy _proxy;
 
-        public TaskControlVM()
+        public TaskControlVM(IProxy proxy)
         {
-            //
-            //IUnityContainer ioc = new UnityContainer();
-            //_proxy = ioc.Resolve<Proxy>();
-            //_proxy = proxy;
-            //
-            _proxy = new Proxy();
-
+            _proxy = proxy;
             HookUpUICommands();
             LoadTasks();
         }
