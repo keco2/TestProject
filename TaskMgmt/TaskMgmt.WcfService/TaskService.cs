@@ -6,8 +6,6 @@ using AutoMapper;
 using System.Linq;
 using TaskMgmt.WcfService.MappersConfigs;
 using Unity;
-using Unity.Wcf;
-//using Unity.Lifetime;
 
 namespace TaskMgmt.WcfService
 {
@@ -20,10 +18,6 @@ namespace TaskMgmt.WcfService
 
         public TaskService()
         {
-            // DRAFT
-            //UnitOfWorkRepo = new UnitOfWorkRepository();
-            //
-
             mapper = new Mapper(new TaskMapperConfig());
         }
 

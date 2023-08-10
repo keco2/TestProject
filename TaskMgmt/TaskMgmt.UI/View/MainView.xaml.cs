@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TaskMgmt.UI.ViewModel;
 
-namespace TaskMgmt.UI
+namespace TaskMgmt.UI.View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

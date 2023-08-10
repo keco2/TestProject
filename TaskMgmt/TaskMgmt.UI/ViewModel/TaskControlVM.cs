@@ -8,14 +8,10 @@ using System.ServiceModel;
 using System.Text;
 using System.Windows.Input;
 using TaskMgmt.Model;
-using System.ComponentModel;
-using TaskMgmt.UI.ViewHelper;
-using TaskMgmt.BLL;
-using Unity;
 
 namespace TaskMgmt.UI.ViewModel
 {
-    class TaskControlVM : ViewModelBase, IMainVM
+    class TaskControlVM : ViewModelBase, ITaskVM, ILoadble
     {
         private readonly IProxy _proxy;
 

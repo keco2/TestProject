@@ -1,4 +1,4 @@
-﻿<Window x:Class="TaskMgmt.UI.MainView"
+﻿<Window x:Class="TaskMgmt.UI.View.MainView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,12 +6,12 @@
         xmlns:local="clr-namespace:TaskMgmt.UI.View"
         mc:Ignorable="d"
         Title="Task Management Software" Height="450" Width="800" Background="Beige">
-    <TabControl Margin="10">
+    <TabControl Margin="10" SelectedIndex="{Binding SelectedTabIndex}">
         <TabItem Header="Tasks">
-            <local:TaskControl />
+            <local:TaskControl DataContext="{Binding TaskDataContext}" />
         </TabItem>
         <TabItem Header="Usages">
-            <local:UsageControl />
+            <local:UsageControl DataContext="{Binding UsageDataContext}" />
         </TabItem>
     </TabControl>
 </Window>

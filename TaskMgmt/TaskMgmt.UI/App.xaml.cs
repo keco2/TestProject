@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Threading;
 using TaskMgmt.Common;
 using TaskMgmt.UI.ViewModel;
+using TaskMgmt.UI.View;
 using Unity;
 
 namespace TaskMgmt.UI
@@ -37,7 +38,11 @@ namespace TaskMgmt.UI
             IUnityContainer ioc = new UnityContainer();
             ioc
                 .RegisterType<IMainVM, MainView>()
-                .RegisterType<IMainVM, TaskControlVM>()
+                .RegisterType<IMainVM, MainVM>()
+                .RegisterType<ITaskVM, TaskControl>()
+                .RegisterType<ITaskVM, TaskControlVM>()
+                .RegisterType<IUsageVM, UsageControl>()
+                .RegisterType<IUsageVM, UsageControlVM>()
                 .RegisterType<IProxy, Proxy>();
 
             return ioc.Resolve<MainView>();

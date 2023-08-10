@@ -105,8 +105,12 @@
     <Compile Include="ViewHelper\ViewExtensions.cs" />
     <Compile Include="ViewHelper\DelegateCommand.cs" />
     <Compile Include="ViewHelper\ViewModelBase.cs" />
+    <Compile Include="ViewModel\ILoadble.cs" />
     <Compile Include="ViewModel\IMainVM.cs" />
+    <Compile Include="ViewModel\MainVM.cs" />
     <Compile Include="ViewModel\UsageControlVM.cs" />
+    <Compile Include="ViewModel\ITaskVM.cs" />
+    <Compile Include="ViewModel\IUsageVM.cs" />
     <Compile Include="View\TaskControl.xaml.cs">
       <DependentUpon>TaskControl.xaml</DependentUpon>
     </Compile>

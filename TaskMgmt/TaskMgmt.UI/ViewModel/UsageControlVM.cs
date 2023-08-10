@@ -8,14 +8,14 @@ using TaskMgmt.Model;
 
 namespace TaskMgmt.UI.ViewModel
 {
-    class UsageControlVM : ViewModelBase
+    class UsageControlVM : ViewModelBase, IUsageVM, ILoadble
     {
-        private readonly Proxy _proxy;
+        private readonly IProxy _proxy;
 
-        public UsageControlVM()
+        public UsageControlVM(IProxy proxy)
         {
+            _proxy = proxy;
             HookUpUICommands();
-            _proxy = new Proxy();
             LoadTasks();
         }
 
@@ -163,7 +163,7 @@ namespace TaskMgmt.UI.ViewModel
             DeleteUsageCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(DeleteUsage));
         }
 
-        private void InvokeOnSelectedRecord(Action<Proxy> action)
+        private void InvokeOnSelectedRecord(Action<IProxy> action)
         {
             if (SelectedTask != null)
             {
@@ -192,7 +192,7 @@ namespace TaskMgmt.UI.ViewModel
             // throw new InvalidCastException();
         }
 
-        private void PrepareNewUsage(Proxy proxy)
+        private void PrepareNewUsage(IProxy proxy)
         {
             LoadMaterial();
             SelectedTaskMaterialUsage = new TaskMaterialUsage();
@@ -200,7 +200,7 @@ namespace TaskMgmt.UI.ViewModel
             IsRecordNew = true;
         }
 
-        private void AddUsage(Proxy proxy)
+        private void AddUsage(IProxy proxy)
         {
             if (IsRecordNew && !TaskMaterialUsageList.Contains(SelectedTaskMaterialUsage))
             {
@@ -230,7 +230,7 @@ namespace TaskMgmt.UI.ViewModel
             }
         }
 
-        private void UpdateUsage(Proxy proxy)
+        private void UpdateUsage(IProxy proxy)
         {
             if (IsRecordChanged)
             {
@@ -246,7 +246,7 @@ namespace TaskMgmt.UI.ViewModel
             }
         }
 
-        private void DeleteUsage(Proxy proxy)
+        private void DeleteUsage(IProxy proxy)
         {
             var taskName = SelectedTask.Name;
             proxy.DeleteUsage(SelectedTaskMaterialUsage.Task.ID, SelectedTaskMaterialUsage.Material.ID);
