@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="Entities\MaterialEntity.cs" />
     <Compile Include="Entities\TaskMaterialUsageEntity.cs" />
+    <Compile Include="Interface\ITaskMgmtDbContext.cs" />
     <Compile Include="Migrations\202308010847441_AddMaterialEntity.cs" />
     <Compile Include="Migrations\202308010847441_AddMaterialEntity.designer.cs">
       <DependentUpon>202308010847441_AddMaterialEntity.cs</DependentUpon>
@@ -73,7 +74,7 @@
       <DependentUpon>202308021320012_AddUsageEntity.cs</DependentUpon>
     </Compile>
     <Compile Include="Entities\TaskEntity.cs" />
-    <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="Interface\IUnitOfWork.cs" />
     <Compile Include="Migrations\202307301731195_InitialCreate.cs" />
     <Compile Include="Migrations\202307301731195_InitialCreate.designer.cs">
       <DependentUpon>202307301731195_InitialCreate.cs</DependentUpon>
@@ -81,7 +82,7 @@
     <Compile Include="Migrations\MigConfiguration.cs" />
     <Compile Include="TaskMgmtDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\IGenericRepository.cs" />
+    <Compile Include="Interface\IGenericRepository.cs" />
     <Compile Include="Repositories\TaskMaterialUsageRepository.cs" />
     <Compile Include="Repositories\MaterialRepository.cs" />
     <Compile Include="Repositories\TaskRepository.cs" />

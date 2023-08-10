@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TaskMgmt.DAL.Interface;
 using TaskMgmt.DAL.Repositories;
-using TaskMgmt.Model;
 
 namespace TaskMgmt.DAL
 {
@@ -14,8 +11,13 @@ namespace TaskMgmt.DAL
         private IGenericRepository<TaskEntity> taskRepository;
         private IGenericRepository<MaterialEntity> materialRepository;
         private IGenericRepository<TaskMaterialUsageEntity> taskMaterialUsageRepository;
-        private TaskMgmtDbContext dbContext = new TaskMgmtDbContext();
+        private ITaskMgmtDbContext dbContext;
         private bool disposedValue;
+
+        public UnitOfWorkRepository(ITaskMgmtDbContext taskMgmtDbContext)
+        {
+            dbContext = taskMgmtDbContext;
+        }
 
         public IGenericRepository<TaskEntity> TaskRepository
         {
@@ -52,7 +54,6 @@ namespace TaskMgmt.DAL
                 return taskMaterialUsageRepository;
             }
         }
-
 
         public void SaveChanges()
         {

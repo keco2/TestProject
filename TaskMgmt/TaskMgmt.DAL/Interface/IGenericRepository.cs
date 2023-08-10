@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using TaskMgmt.Model;
 
-namespace TaskMgmt.DAL.Repositories
+namespace TaskMgmt.DAL.Interface
 {
     public interface IGenericRepository<TEntity> where TEntity : class
     {

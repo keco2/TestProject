@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Text;
-using TaskMgmt.Model;
+using TaskMgmt.DAL.Interface;
 
 namespace TaskMgmt.DAL.Repositories
 {
@@ -12,11 +11,11 @@ namespace TaskMgmt.DAL.Repositories
     {
         private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         private bool disposedValue = false;
-        private TaskMgmtDbContext context;
+        private ITaskMgmtDbContext context;
         private DbSet<TaskMaterialUsageEntity> dbSet;
         private DbQuery<TaskMaterialUsageEntity> dbQuery;
 
-        public TaskMaterialUsageRepository(TaskMgmtDbContext context)
+        public TaskMaterialUsageRepository(ITaskMgmtDbContext context)
         {
             this.context = context;
             dbSet = context.Set<TaskMaterialUsageEntity>();
@@ -28,8 +27,8 @@ namespace TaskMgmt.DAL.Repositories
             Guid taskGuid = guids[0];
             Guid materialGuid = guids[1];
             logger.Info("{0} {1}={2} {3}={4}", nameof(DeleteItem), nameof(taskGuid), taskGuid, nameof(materialGuid), materialGuid);
-            var item = context.TaskMaterialUsages.Where(t => t.Task.ID == taskGuid && t.Material.ID == materialGuid).Single();
-            context.TaskMaterialUsages.Remove(item);
+            var item = dbSet.Where(t => t.Task.ID == taskGuid && t.Material.ID == materialGuid).Single();
+            dbSet.Remove(item);
         }
 
         public IEnumerable<TaskMaterialUsageEntity> GetItemsByID(Guid guid)

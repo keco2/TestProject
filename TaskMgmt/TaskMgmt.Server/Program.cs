@@ -2,6 +2,8 @@
 using System.ServiceModel;
 using TaskMgmt.Common;
 using TaskMgmt.DAL;
+using TaskMgmt.DAL.Interface;
+using TaskMgmt.DAL.Repositories;
 using TaskMgmt.WcfService;
 using Unity;
 using Unity.Lifetime;
@@ -58,6 +60,11 @@ namespace TaskMgmt.Server
         {
             IUnityContainer container = new UnityContainer();
             container
+                .RegisterType<IGenericRepository<TaskMaterialUsageEntity>, TaskMaterialUsageRepository>(new ContainerControlledLifetimeManager())
+                .RegisterType<IGenericRepository<MaterialEntity>, MaterialRepository>(new ContainerControlledLifetimeManager())
+                .RegisterType<IGenericRepository<TaskEntity>, TaskRepository>(new ContainerControlledLifetimeManager())
+                .RegisterType<ITaskMgmtDbContext, TaskMgmtDbContext>(new ContainerControlledLifetimeManager())
+                .RegisterType<ITaskMgmtDbContext, TaskMgmtDbContext>(new ContainerControlledLifetimeManager())
                 .RegisterType<IUnitOfWork, UnitOfWorkRepository>(new ContainerControlledLifetimeManager())
                 .RegisterType<ITaskService, TaskService>(new ContainerControlledLifetimeManager())
                 .RegisterType<IMaterialService, MaterialService>(new ContainerControlledLifetimeManager())

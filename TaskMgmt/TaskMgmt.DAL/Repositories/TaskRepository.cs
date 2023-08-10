@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Migrations;
 using System.Linq;
-using System.Text;
-using TaskMgmt.Model;
+using TaskMgmt.DAL.Interface;
 
 namespace TaskMgmt.DAL.Repositories
 {
@@ -13,11 +11,11 @@ namespace TaskMgmt.DAL.Repositories
     {
         private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         private bool disposedValue = false;
-        private TaskMgmtDbContext context;
+        private ITaskMgmtDbContext context;
         private DbSet<TaskEntity> dbSet;
         private DbQuery<TaskEntity> dbQuery;
 
-        public TaskRepository(TaskMgmtDbContext context)
+        public TaskRepository(ITaskMgmtDbContext context)
         {
             this.context = context;
             this.dbSet = context.Set<TaskEntity>();
