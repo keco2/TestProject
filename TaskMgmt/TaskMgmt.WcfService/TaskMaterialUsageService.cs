@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using TaskMgmt.DAL;
+using TaskMgmt.DAL.Interface;
 using TaskMgmt.Model;
 using TaskMgmt.WcfService.MappersConfigs;
 using Unity;

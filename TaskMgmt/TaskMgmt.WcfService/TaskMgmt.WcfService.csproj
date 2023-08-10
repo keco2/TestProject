@@ -78,9 +78,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IMaterialService.cs" />
-    <Compile Include="ITaskMaterialUsageService.cs" />
-    <Compile Include="ITaskService.cs" />
+    <Compile Include="Interface\IMaterialService.cs" />
+    <Compile Include="Interface\ITaskMaterialUsageService.cs" />
+    <Compile Include="Interface\ITaskService.cs" />
     <Compile Include="MappersConfigs\TaskMaterialUsageMapperConfig.cs" />
     <Compile Include="MappersConfigs\TaskMapperConfig.cs" />
     <Compile Include="MappersConfigs\MaterialMapperConfig.cs" />

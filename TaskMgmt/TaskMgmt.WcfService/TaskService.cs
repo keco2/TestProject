@@ -6,6 +6,7 @@ using AutoMapper;
 using System.Linq;
 using TaskMgmt.WcfService.MappersConfigs;
 using Unity;
+using TaskMgmt.DAL.Interface;
 
 namespace TaskMgmt.WcfService
 {
