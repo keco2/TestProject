@@ -93,6 +93,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnityInstanceProvider.cs" />
+    <Compile Include="UnityIoC.cs" />
     <Compile Include="UnityServiceBehavior.cs" />
     <Compile Include="UnityServiceHost.cs" />
   </ItemGroup>

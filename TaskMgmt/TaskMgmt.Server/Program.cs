@@ -1,14 +1,9 @@
 ﻿using NLog;
 using System;
-using System.ServiceModel;
 using TaskMgmt.Common;
-using TaskMgmt.DAL;
-using TaskMgmt.DAL.Interface;
-using TaskMgmt.DAL.Repositories;
+using System.ServiceModel;
 using TaskMgmt.WcfService;
 using Unity;
-using Unity.Injection;
-using Unity.Lifetime;
 
 namespace TaskMgmt.Server
 {
@@ -18,7 +13,7 @@ namespace TaskMgmt.Server
         {
             Console.Title = "Task Management Server";
             Logging.LoggingSetUp();
-            StartWcfServices(ResolveDependencies());
+            StartWcfServices(UnityIoC.ResolveDependencies());
         }
 
         private static void StartWcfServices(IUnityContainer container)
@@ -56,25 +51,6 @@ namespace TaskMgmt.Server
                     Console.ReadLine();
                 }
             }
-        }
-
-        private static IUnityContainer ResolveDependencies()
-        {
-            IUnityContainer container = new UnityContainer();
-            container
-                .RegisterFactory<ILogger>(l => LogManager.GetCurrentClassLogger())
-                .RegisterType<IGenericRepository<TaskMaterialUsageEntity>, TaskMaterialUsageRepository>(new ContainerControlledLifetimeManager())
-                .RegisterType<IGenericRepository<MaterialEntity>, MaterialRepository>(new ContainerControlledLifetimeManager())
-                .RegisterType<IGenericRepository<TaskEntity>, TaskRepository>(new ContainerControlledLifetimeManager())
-                .RegisterType<ITaskMgmtDbContext, TaskMgmtDbContext>(new ContainerControlledLifetimeManager())
-                .RegisterType<ITaskMgmtDbContext, TaskMgmtDbContext>(new ContainerControlledLifetimeManager())
-                .RegisterType<IUnitOfWork, UnitOfWorkRepository>(new ContainerControlledLifetimeManager())
-                .RegisterType<ITaskService, TaskService>(new ContainerControlledLifetimeManager())
-                .RegisterType<IMaterialService, MaterialService>(new ContainerControlledLifetimeManager())
-                .RegisterType<ITaskMaterialUsageService, TaskMaterialUsageService>(new ContainerControlledLifetimeManager())
-                //.RegisterType<TaskService>(new InjectionProperty("UnitOfWorkRepo", new ResolvedArrayParameter<IUnitOfWork>()))
-                ;
-            return container;
         }
 
         private static void IncreaseServiehostDebugTimeout(ServiceHost serviceHost)
