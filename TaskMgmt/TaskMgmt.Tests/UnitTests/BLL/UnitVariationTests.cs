@@ -9,72 +9,18 @@ namespace TaskMgmt.Tests.UnitTests.BLL
     [TestFixture]
     public class UnitVariationTests
     {
-        [Test]
-        public void GetVariations_ReturnsAllUnits()
+        [TestCase("g", new string[] { "g", "mg", "kg", "t", "oz", "lb" })]
+        [TestCase("m", new string[] { "mm", "cm", "m", "km", "inch", "ft" })]
+        [TestCase("l", new string[] { "ml", "l", "cm3", "m3", "gal" })]
+        [TestCase("pcs", new string[] { "pcs" })]
+        [TestCase(null, new string[] { "" })]
+        public void GetVariations_ForBaseUnit_ReturnsCorrectResult(string baseUnit, string[] expected)
         {
             // Setup
             var unitSetup = new UnitVariation();
 
             //Act
-            var result = unitSetup.GetVariations().OrderBy(u => u);
-            var expected = new string[] { "cm", "cm3", "ft", "g", "gal", "inch", "kg", "km", "l", "lb", "m", "m3", "mg", "ml", "mm", "oz", "pcs", "t"
- }.OrderBy(u => u);
-
-            //Assert
-            Assert.AreEqual(expected, result);
-        }
-
-        [Test]
-        public void GetVariations_ForKg_ReturnsCorrectResult()
-        {
-            // Setup
-            var unitSetup = new UnitVariation();
-
-            //Act
-            var result = unitSetup.GetVariations(new Unit("g"));
-            var expected = new string[] { "g", "mg", "kg", "t", "oz", "lb" };
-
-            //Assert
-            Assert.AreEqual(expected, result);
-        }
-
-        [Test]
-        public void GetVariations_ForMeter_ReturnsCorrectResult()
-        {
-            // Setup
-            var unitSetup = new UnitVariation();
-
-            //Act
-            var result = unitSetup.GetVariations(new Unit("m"));
-            var expected = new string[] { "mm", "cm", "m", "km", "inch", "ft" };
-
-            //Assert
-            Assert.AreEqual(expected, result);
-        }
-
-        [Test]
-        public void GetVariations_ForLiter_ReturnsCorrectResult()
-        {
-            // Setup
-            var unitSetup = new UnitVariation();
-
-            //Act
-            var result = unitSetup.GetVariations(new Unit("l"));
-            var expected = new string[] { "ml", "l", "cm3", "m3", "gal" };
-
-            //Assert
-            Assert.AreEqual(expected, result);
-        }
-
-        [Test]
-        public void GetVariations_ForPieces_ReturnsPcs()
-        {
-            // Setup
-            var unitSetup = new UnitVariation();
-
-            //Act
-            var result = unitSetup.GetVariations(new Unit("pcs"));
-            var expected = new string[] { "pcs" };
+            var result = unitSetup.GetVariations(new Unit(baseUnit));
 
             //Assert
             Assert.AreEqual(expected, result);
@@ -88,20 +34,6 @@ namespace TaskMgmt.Tests.UnitTests.BLL
 
             //Act
             var result = unitSetup.GetVariations(null);
-            var expected = new string[] { String.Empty };
-
-            //Assert
-            Assert.AreEqual(expected, result);
-        }
-
-        [Test]
-        public void GetVariations_ForEmpty_ReturnsEmpty()
-        {
-            // Setup
-            var unitSetup = new UnitVariation();
-
-            //Act
-            var result = unitSetup.GetVariations(new Unit(null));
             var expected = new string[] { String.Empty };
 
             //Assert
