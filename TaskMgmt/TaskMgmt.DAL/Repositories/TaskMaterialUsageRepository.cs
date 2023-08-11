@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
@@ -9,17 +10,19 @@ namespace TaskMgmt.DAL.Repositories
 {
     public class TaskMaterialUsageRepository : IGenericRepository<TaskMaterialUsageEntity>, IDisposable
     {
-        private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private ILogger Logger { get => logger; set => logger = value; }
+        private static ILogger logger;
         private bool disposedValue = false;
         private ITaskMgmtDbContext context;
         private DbSet<TaskMaterialUsageEntity> dbSet;
         private DbQuery<TaskMaterialUsageEntity> dbQuery;
 
-        public TaskMaterialUsageRepository(ITaskMgmtDbContext context)
+        public TaskMaterialUsageRepository(ITaskMgmtDbContext context, ILogger logger)
         {
             this.context = context;
             dbSet = context.Set<TaskMaterialUsageEntity>();
             dbQuery = dbSet.AsNoTracking();
+            Logger = logger;
         }
 
         public void DeleteItem(params Guid[] guids)

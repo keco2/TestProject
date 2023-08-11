@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using TaskMgmt.DAL.Interface;
@@ -8,15 +9,18 @@ namespace TaskMgmt.DAL
 {
     public class UnitOfWorkRepository : IUnitOfWork, IDisposable
     {
+        private ILogger logger { get => _logger; set => _logger = value; }
+        private static ILogger _logger;
         private IGenericRepository<TaskEntity> taskRepository;
         private IGenericRepository<MaterialEntity> materialRepository;
         private IGenericRepository<TaskMaterialUsageEntity> taskMaterialUsageRepository;
         private ITaskMgmtDbContext dbContext;
         private bool disposedValue;
 
-        public UnitOfWorkRepository(ITaskMgmtDbContext taskMgmtDbContext)
+        public UnitOfWorkRepository(ITaskMgmtDbContext taskMgmtDbContext, ILogger logger)
         {
             dbContext = taskMgmtDbContext;
+            this.logger = logger;
         }
 
         public IGenericRepository<TaskEntity> TaskRepository
@@ -25,7 +29,7 @@ namespace TaskMgmt.DAL
             {
                 if (taskRepository == null)
                 {
-                    taskRepository = new TaskRepository(dbContext);
+                    taskRepository = new TaskRepository(dbContext, logger);
                 }
                 return taskRepository;
             }
@@ -37,7 +41,7 @@ namespace TaskMgmt.DAL
             {
                 if (materialRepository == null)
                 {
-                    materialRepository = new MaterialRepository(dbContext);
+                    materialRepository = new MaterialRepository(dbContext, logger);
                 }
                 return materialRepository;
             }
@@ -49,7 +53,7 @@ namespace TaskMgmt.DAL
             {
                 if (taskMaterialUsageRepository == null)
                 {
-                    taskMaterialUsageRepository = new TaskMaterialUsageRepository(dbContext);
+                    taskMaterialUsageRepository = new TaskMaterialUsageRepository(dbContext, logger);
                 }
                 return taskMaterialUsageRepository;
             }

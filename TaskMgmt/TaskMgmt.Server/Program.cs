@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.ServiceModel;
 using TaskMgmt.Common;
 using TaskMgmt.DAL;
@@ -6,6 +7,7 @@ using TaskMgmt.DAL.Interface;
 using TaskMgmt.DAL.Repositories;
 using TaskMgmt.WcfService;
 using Unity;
+using Unity.Injection;
 using Unity.Lifetime;
 
 namespace TaskMgmt.Server
@@ -60,6 +62,7 @@ namespace TaskMgmt.Server
         {
             IUnityContainer container = new UnityContainer();
             container
+                .RegisterFactory<ILogger>(l => LogManager.GetCurrentClassLogger())
                 .RegisterType<IGenericRepository<TaskMaterialUsageEntity>, TaskMaterialUsageRepository>(new ContainerControlledLifetimeManager())
                 .RegisterType<IGenericRepository<MaterialEntity>, MaterialRepository>(new ContainerControlledLifetimeManager())
                 .RegisterType<IGenericRepository<TaskEntity>, TaskRepository>(new ContainerControlledLifetimeManager())
