@@ -23,36 +23,36 @@ namespace TaskMgmt.DAL.Repositories
             this.dbSet = context.Set<TaskEntity>();
             this.dbQuery = dbSet.AsNoTracking();
             Logger = logger;
-            logger.Info($"{nameof(TaskRepository)}.Init");
+            logger.Info("Init");
         }
 
         public void DeleteItem(params Guid[] taskId)
         {
-            Logger.Info("TaskRepository.DeleteTask ID={0}", taskId[0]);
+            logger.Info($"{taskId[0]}");
             dbSet.Remove(dbSet.Find(taskId[0]));
         }
 
         public IEnumerable<TaskEntity> GetItemsByID(Guid taskId)
         {
-            Logger.Info("TaskRepository.GetTaskByID ID={0}", taskId);
+            logger.Info($"{taskId}");
             return dbQuery.Where(t => t.ID == taskId);
         }
 
         public IEnumerable<TaskEntity> GetItems()
         {
-            Logger.Info("TaskRepository.GetTasks");
+            logger.Info("All");
             return dbQuery.AsEnumerable();
         }
 
         public void InsertItem(TaskEntity task)
         {
-            Logger.Info("TaskRepository.InsertTask ID={0}", task.ID);
+            Logger.Info($"{task.ID}");
             dbSet.Add(task);
         }
 
         public void UpdateItem(TaskEntity task)
         {
-            Logger.Info("TaskRepository.UpdateTask ID={0}", task.ID);
+            Logger.Info($"{task.ID}");
             dbSet.Attach(task);
             context.Entry(task).State = EntityState.Modified;
         }

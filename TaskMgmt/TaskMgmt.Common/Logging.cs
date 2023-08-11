@@ -16,7 +16,11 @@ namespace TaskMgmt.Common
 
             // Targets where to log to: File and Console
             var logfile = new NLog.Targets.FileTarget("logfile") { FileName = "${basedir}/logfile.txt" };
-            logfile.Layout = "${longdate}|${level:truncate=1:uppercase=true}|T${threadid:padCharacter=0:padding=2:fixedLength=True}|${logger}|${message}";
+            logfile.Layout = "${longdate}" +
+                "|${level:truncate=1:uppercase=true}" +
+                "|T${threadid:padCharacter=0:padding=2:fixedLength=True}" +
+                "|${callsite:className=True:includeNamespace=True:fileName=False:includeSourcePath=False:methodName=True}" +
+                "|${message}";
             logfile.ArchiveOldFileOnStartupAboveSize = 5000000;
             logfile.ArchiveNumbering = NLog.Targets.ArchiveNumberingMode.DateAndSequence;
             var minLogLevel = LogLevel.Info;

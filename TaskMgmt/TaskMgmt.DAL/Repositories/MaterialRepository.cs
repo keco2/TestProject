@@ -23,38 +23,37 @@ namespace TaskMgmt.DAL.Repositories
             dbSet = context.Set<MaterialEntity>();
             dbQuery = dbSet.AsNoTracking();
             Logger = logger;
-            logger.Info($"{nameof(MaterialRepository)}.Init");
+            logger.Info("Init");
         }
 
         public void DeleteItem(params Guid[] guids)
         {
-            Logger.Info("DeleteItem ID={0}", guids);
-
+            logger.Info($"{guids[0]}");
             var item = dbSet.Find(guids[0]);
             dbSet.Remove(item);
         }
 
         public IEnumerable<MaterialEntity> GetItemsByID(Guid guid)
         {
-            Logger.Info("GetItemByID ID={0}", guid);
+            logger.Info($"{guid}");
             return dbQuery.Where(t => t.ID == guid);
         }
 
         public IEnumerable<MaterialEntity> GetItems()
         {
-            Logger.Info("GetItems");
+            Logger.Info("All");
             return dbQuery.AsEnumerable(); ;
         }
 
         public void InsertItem(MaterialEntity item)
         {
-            Logger.Info("InsertItem ID={0}", item.ID);
+            Logger.Info($"{item.ID}");
             dbSet.Add(item);
         }
 
         public void UpdateItem(MaterialEntity item)
         {
-            Logger.Info("UpdateItem ID={0}", item.ID);
+            Logger.Info($"{item.ID}");
             dbSet.Attach(item);
             context.Entry(item).State = EntityState.Modified;
         }
