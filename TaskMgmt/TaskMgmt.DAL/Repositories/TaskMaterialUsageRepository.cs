@@ -23,6 +23,7 @@ namespace TaskMgmt.DAL.Repositories
             dbSet = context.Set<TaskMaterialUsageEntity>();
             dbQuery = dbSet.AsNoTracking();
             Logger = logger;
+            logger.Info($"{nameof(TaskMaterialUsageRepository)}.Init");
         }
 
         public void DeleteItem(params Guid[] guids)

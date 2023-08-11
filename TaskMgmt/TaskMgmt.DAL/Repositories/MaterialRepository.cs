@@ -23,6 +23,7 @@ namespace TaskMgmt.DAL.Repositories
             dbSet = context.Set<MaterialEntity>();
             dbQuery = dbSet.AsNoTracking();
             Logger = logger;
+            logger.Info($"{nameof(MaterialRepository)}.Init");
         }
 
         public void DeleteItem(params Guid[] guids)
