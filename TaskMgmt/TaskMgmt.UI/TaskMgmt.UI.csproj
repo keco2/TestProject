@@ -115,7 +115,6 @@
     </Compile>
     <Compile Include="Interface\ITaskVM.cs" />
     <Compile Include="Interface\IUsageVM.cs" />
-    </Compile>
     <Compile Include="View\TaskControl.xaml.cs">
       <DependentUpon>TaskControl.xaml</DependentUpon>
     </Compile>
