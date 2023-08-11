@@ -14,8 +14,8 @@ namespace TaskMgmt.DAL.Repositories
         private static ILogger logger;
         private bool disposedValue = false;
         private ITaskMgmtDbContext context;
-        private DbSet<TaskEntity> dbSet;
-        private DbQuery<TaskEntity> dbQuery;
+        private IDbSet<TaskEntity> dbSet;
+        private IQueryable<TaskEntity> dbQuery;
 
         public TaskRepository(ITaskMgmtDbContext context, ILogger logger)
         {
