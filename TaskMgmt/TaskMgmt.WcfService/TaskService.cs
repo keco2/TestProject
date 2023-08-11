@@ -5,50 +5,53 @@ using TaskMgmt.Model;
 using AutoMapper;
 using System.Linq;
 using TaskMgmt.WcfService.MappersConfigs;
+using Unity;
+using TaskMgmt.DAL.Interface;
 
 namespace TaskMgmt.WcfService
 {
     public class TaskService : ITaskService
     {
-        private IUnitOfWork unitOfWorkRepo;
         private IMapper mapper;
+
+        [Dependency]
+        public IUnitOfWork UnitOfWorkRepo { get; set; }
 
         public TaskService()
         {
-            unitOfWorkRepo = new UnitOfWorkRepository();
             mapper = new Mapper(new TaskMapperConfig());
         }
 
         public IEnumerable<Task> GetTasks()
         {
-            var tasks = unitOfWorkRepo.TaskRepository.GetItems();
+            var tasks = UnitOfWorkRepo.TaskRepository.GetItems();
             return mapper.Map<IEnumerable<Task>>(tasks);
         }
 
         public Task GetTaskById(string taskId)
         {
             Guid taskGuid = Guid.Parse(taskId);
-            var task = unitOfWorkRepo.TaskRepository.GetItemsByID(taskGuid).Single();
+            var task = UnitOfWorkRepo.TaskRepository.GetItemsByID(taskGuid).Single();
             return mapper.Map<Task>(task);
         }
 
         public void AddTask(Task task)
         {
-            unitOfWorkRepo.TaskRepository.InsertItem(mapper.Map<TaskEntity>(task));
-            unitOfWorkRepo.SaveChanges();
+            UnitOfWorkRepo.TaskRepository.InsertItem(mapper.Map<TaskEntity>(task));
+            UnitOfWorkRepo.SaveChanges();
         }
 
         public void UpdateTask(string id, Task task)
         {
-            unitOfWorkRepo.TaskRepository.UpdateItem(mapper.Map<TaskEntity>(task));
-            unitOfWorkRepo.SaveChanges();
+            UnitOfWorkRepo.TaskRepository.UpdateItem(mapper.Map<TaskEntity>(task));
+            UnitOfWorkRepo.SaveChanges();
         }
 
         public void DeleteTask(string id)
         {
             Guid taskGuid = Guid.Parse(id);
-            unitOfWorkRepo.TaskRepository.DeleteItem(taskGuid);
-            unitOfWorkRepo.SaveChanges();
+            UnitOfWorkRepo.TaskRepository.DeleteItem(taskGuid);
+            UnitOfWorkRepo.SaveChanges();
         }
     }
 }

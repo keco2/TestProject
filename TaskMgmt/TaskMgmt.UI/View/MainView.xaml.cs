@@ -14,16 +14,17 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TaskMgmt.UI.ViewModel;
 
-namespace TaskMgmt.UI
+namespace TaskMgmt.UI.View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainView : Window
+    public partial class MainView : Window, IMainVM
     {
-        public MainView()
+        public MainView(IMainVM vm)
         {
             InitializeComponent();
+            DataContext = vm;
         }
     }
 }

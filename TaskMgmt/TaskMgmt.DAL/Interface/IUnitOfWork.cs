@@ -1,7 +1,4 @@
-﻿using TaskMgmt.DAL.Repositories;
-using TaskMgmt.Model;
-
-namespace TaskMgmt.DAL
+﻿namespace TaskMgmt.DAL.Interface
 {
     public interface IUnitOfWork
     {

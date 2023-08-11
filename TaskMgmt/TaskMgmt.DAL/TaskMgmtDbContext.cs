@@ -5,11 +5,11 @@ using System.Text;
 using System.Data;
 using TaskMgmt.Model;
 using System.Data.Entity;
-using System.Data.Entity.Migrations;
+using TaskMgmt.DAL.Interface;
 
 namespace TaskMgmt.DAL
 {
-    public class TaskMgmtDbContext : DbContext
+    public class TaskMgmtDbContext : DbContext, ITaskMgmtDbContext
     {
         public TaskMgmtDbContext() : base("name=TaskMgmtDbConnection")
         {
@@ -46,10 +46,5 @@ namespace TaskMgmt.DAL
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<TaskMgmtDbContext, TaskMgmt.DAL.Migrations.MigConfiguration>());
         }
-
-        public virtual DbSet<TaskEntity> Tasks { get; set; }
-        public virtual DbSet<MaterialEntity> Materials { get; set; }
-        public virtual DbSet<TaskMaterialUsageEntity> TaskMaterialUsages { get; set; }
-
     }
 }

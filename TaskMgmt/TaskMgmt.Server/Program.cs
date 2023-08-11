@@ -1,10 +1,9 @@
-﻿using System;
-using System.Linq;
-using System.ServiceModel;
+﻿using NLog;
+using System;
 using TaskMgmt.Common;
-using TaskMgmt.DAL;
-using TaskMgmt.DAL.Repositories;
+using System.ServiceModel;
 using TaskMgmt.WcfService;
+using Unity;
 
 namespace TaskMgmt.Server
 {
@@ -12,19 +11,16 @@ namespace TaskMgmt.Server
     {
         static void Main(string[] args)
         {
-            Logging.LoggingSetUp();
             Console.Title = "Task Management Server";
+            Logging.LoggingSetUp();
+            StartWcfServices(UnityIoC.ResolveDependencies());
+        }
 
-            //ITaskRepository repo;
-            //var dbcontext = new TaskMgmtDbContext();
-            ////Console.WriteLine(dbcontext.Database.Connection.ServerVersion);
-            //repo = new TaskRepository(dbcontext);
-            //var x = repo.GetTasks();
-            //Console.WriteLine(x.First().Name);
-
-            using (ServiceHost taskServiceHost = new ServiceHost(typeof(TaskService)))
-            using (ServiceHost materialServiceHost = new ServiceHost(typeof(MaterialService)))
-            using (ServiceHost taskMaterialUsageServiceHost = new ServiceHost(typeof(TaskMaterialUsageService)))
+        private static void StartWcfServices(IUnityContainer container)
+        {
+            using (UnityServiceHost taskServiceHost = new UnityServiceHost(container, typeof(TaskService)))
+            using (UnityServiceHost materialServiceHost = new UnityServiceHost(container, typeof(MaterialService)))
+            using (UnityServiceHost taskMaterialUsageServiceHost = new UnityServiceHost(container, typeof(TaskMaterialUsageService)))
             {
                 try
                 {

@@ -15,9 +15,16 @@ using TaskMgmt.BLL;
 
 namespace TaskMgmt.UI.ViewModel
 {
-    class TaskControlVM : ViewModelBase
+    class TaskControlVM : ViewModelBase, ITaskVM, ILoadble
     {
-        private readonly Proxy _proxy;
+        private readonly IProxy _proxy;
+
+        public TaskControlVM(IProxy proxy)
+        {
+            _proxy = proxy;
+            HookUpUICommands();
+            LoadTasks();
+        }
 
         private string message;
         public string Message
@@ -69,13 +76,6 @@ namespace TaskMgmt.UI.ViewModel
         public ICommand AddUsageCmd { get; private set; }
         public ICommand UpdateUsageCmd { get; private set; }
 
-        public TaskControlVM()
-        {
-            HookUpUICommands();
-            _proxy = new Proxy();
-            LoadTasks();
-        }
-
         public void LoadTasks()
         {
             try
@@ -98,7 +98,7 @@ namespace TaskMgmt.UI.ViewModel
             RecordChangedCmd = new DelegateCommand(_ => IsRecordChanged = !IsRecordNew);
         }
 
-        private void InvokeOnSelectedRecord(Action<Proxy> action)
+        private void InvokeOnSelectedRecord(Action<IProxy> action)
         {
             if (SelectedTask != null)
             {
@@ -127,7 +127,7 @@ namespace TaskMgmt.UI.ViewModel
             IsRecordNew = true;
         }
 
-        private void AddRecord(Proxy proxy)
+        private void AddRecord(IProxy proxy)
         {
             if (IsRecordNew && SelectedTask != null && !TaskList.Contains(SelectedTask))
             {
@@ -147,7 +147,7 @@ namespace TaskMgmt.UI.ViewModel
             // throw new InvalidCastException();
         }
 
-        private void UpdateRecord(Proxy proxy)
+        private void UpdateRecord(IProxy proxy)
         {
             if (IsRecordChanged)
             {
@@ -161,7 +161,7 @@ namespace TaskMgmt.UI.ViewModel
             }
         }
 
-        private void DeleteRecord(Proxy proxy)
+        private void DeleteRecord(IProxy proxy)
         {
             var taskName = SelectedTask.Name;
             proxy.DeleteTask(SelectedTask.ID);

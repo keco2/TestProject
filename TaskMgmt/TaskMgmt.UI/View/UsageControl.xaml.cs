@@ -19,16 +19,11 @@ namespace TaskMgmt.UI.View
     /// <summary>
     /// Interaction logic for TaskControl.xaml
     /// </summary>
-    public partial class UsageControl : UserControl
+    public partial class UsageControl : UserControl, IUsageVM
     {
         public UsageControl()
         {
             InitializeComponent();
-        }
-
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            (DataContext as UsageControlVM).LoadTasks();
         }
     }
 }
