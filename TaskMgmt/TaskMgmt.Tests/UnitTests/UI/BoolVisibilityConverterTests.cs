@@ -2,7 +2,7 @@
 using System.Windows;
 using TaskMgmt.UI.Converters;
 
-namespace TaskMgmt.Tests.UnitTests.UI
+namespace TaskMgmt.UI.UnitTests
 {
     [TestFixture]
     public class BoolVisibilityConverterTests

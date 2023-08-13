@@ -4,7 +4,7 @@ using System.Linq;
 using TaskMgmt.BLL;
 using TaskMgmt.Model;
 
-namespace TaskMgmt.Tests.UnitTests.BLL
+namespace TaskMgmt.BLL.UnitTests
 {
     [TestFixture]
     public class UnitVariationTests

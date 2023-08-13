@@ -8,7 +8,7 @@ using TaskMgmt.Model;
 using TaskMgmt.DAL;
 using AutoMapper;
 
-namespace TaskMgmt.Tests.UnitTests.WcfService
+namespace TaskMgmt.WcfService.UnitTests
 {
     [TestFixture]
     public class MapperConfigTests

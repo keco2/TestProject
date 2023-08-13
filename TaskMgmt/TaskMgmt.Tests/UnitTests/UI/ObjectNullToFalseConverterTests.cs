@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using TaskMgmt.UI.Converters;
 
-namespace TaskMgmt.Tests.UnitTests.UI
+namespace TaskMgmt.UI.UnitTests
 {
     [TestFixture]
     public class ObjectNullToFalseConverterTests
