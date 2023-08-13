@@ -4,10 +4,10 @@ using System.Linq;
 using TaskMgmt.BLL;
 using TaskMgmt.Model;
 
-namespace TaskMgmt.BLL.UnitTests
+namespace TaskMgmt.UnitTests
 {
     [TestFixture]
-    public class UnitVariationTests
+    public class BLLUnitVariationTests
     {
         [TestCase("g", new string[] { "g", "mg", "kg", "t", "oz", "lb" })]
         [TestCase("m", new string[] { "mm", "cm", "m", "km", "inch", "ft" })]

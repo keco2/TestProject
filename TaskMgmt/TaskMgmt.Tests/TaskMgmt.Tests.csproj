@@ -94,7 +94,7 @@
   <ItemGroup>
     <Compile Include="IntegrationTests\WcfServiceTest.cs" />
     <Compile Include="UnitTests\DAL\TaskRepositoryTests.cs" />
-    <Compile Include="UnitTests\DAL\TestDbContext.cs" />
+    <Compile Include="TestDbContext.cs" />
     <Compile Include="TestDataGenerator.cs" />
     <Compile Include="UnitTests\UI\ObjectNullToFalseConverterTests.cs" />
     <Compile Include="UnitTests\WcfService\MapperConfigTests.cs" />

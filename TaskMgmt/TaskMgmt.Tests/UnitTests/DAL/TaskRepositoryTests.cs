@@ -7,11 +7,12 @@ using NSubstitute;
 using NLog;
 using System.Data.Entity;
 using TaskMgmt.Tests;
+using TaskMgmt.DAL;
 
-namespace TaskMgmt.DAL.UnitTests
+namespace TaskMgmt.UnitTests
 {
     [TestFixture]
-    public class TaskRepositoryTests
+    public class DALTaskRepositoryTests
     {
         [Test]
         public void InsertItemTest_Inserting_InsertsButNotSaves()

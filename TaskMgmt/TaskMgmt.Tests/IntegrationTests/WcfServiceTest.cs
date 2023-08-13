@@ -8,16 +8,16 @@ using System.Text;
 using TaskMgmt.DAL;
 using TaskMgmt.DAL.Interface;
 using TaskMgmt.DAL.Repositories;
-using TaskMgmt.DAL.UnitTests;
 using TaskMgmt.Model;
+using TaskMgmt.Tests;
 using TaskMgmt.WcfService;
 using Unity;
 using Unity.Lifetime;
 
-namespace TaskMgmt.WcfService.IntegrationTests
+namespace TaskMgmt.IntegrationTests
 {
     [TestFixture]
-    public class TaskServiceTest
+    public class WcfServiceTaskServiceTest
     {
         [Test]
         public void AddTask_UsingService_ShouldBeFoundInRepo()

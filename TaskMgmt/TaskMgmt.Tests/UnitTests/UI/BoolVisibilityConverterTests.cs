@@ -2,10 +2,10 @@
 using System.Windows;
 using TaskMgmt.UI.Converters;
 
-namespace TaskMgmt.UI.UnitTests
+namespace TaskMgmt.UnitTests
 {
     [TestFixture]
-    public class BoolVisibilityConverterTests
+    public class UIBoolVisibilityConverterTests
     {
         [TestCase(false, Visibility.Collapsed)]
         [TestCase(true, Visibility.Visible)]

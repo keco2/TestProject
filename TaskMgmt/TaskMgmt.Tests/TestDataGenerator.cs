@@ -1,16 +1,10 @@
-﻿using Effort.Provider;
-using NSubstitute;
+﻿using NSubstitute;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TaskMgmt.DAL;
-using TaskMgmt.DAL.UnitTests;
 
 namespace TaskMgmt.Tests
 {

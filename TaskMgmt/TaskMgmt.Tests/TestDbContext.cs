@@ -1,7 +1,8 @@
 ﻿using System.Data.Common;
+using TaskMgmt.DAL;
 using TaskMgmt.DAL.Interface;
 
-namespace TaskMgmt.DAL.UnitTests
+namespace TaskMgmt.Tests
 {
     public class TestDbContext : TaskMgmtDbContext, ITaskMgmtDbContext
     {

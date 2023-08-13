@@ -8,10 +8,10 @@ using TaskMgmt.Model;
 using TaskMgmt.DAL;
 using AutoMapper;
 
-namespace TaskMgmt.WcfService.UnitTests
+namespace TaskMgmt.UnitTests
 {
     [TestFixture]
-    public class MapperConfigTests
+    public class WcfServiceMapperConfigTests
     {
         [Test]
         public void TaskMapperConfig_MapTaskToTaskEntity_ShouldbeEqual()

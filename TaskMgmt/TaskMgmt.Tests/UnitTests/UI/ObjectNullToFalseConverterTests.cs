@@ -1,10 +1,10 @@
 ﻿using NUnit.Framework;
 using TaskMgmt.UI.Converters;
 
-namespace TaskMgmt.UI.UnitTests
+namespace TaskMgmt.UnitTests
 {
     [TestFixture]
-    public class ObjectNullToFalseConverterTests
+    public class UIObjectNullToFalseConverterTests
     {
 
         [Test]
