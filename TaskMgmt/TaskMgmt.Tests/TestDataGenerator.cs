@@ -73,9 +73,9 @@ namespace TaskMgmt.Tests
             return mockSet;
         }
 
-        internal static TestContext CreateDbContextMockWithTestData<T>(EffortConnection connection, IEnumerable<T> testData) where T : class
+        internal static TestDbContext CreateDbContextMockWithTestData<T>(IEnumerable<T> testData) where T : class
         {
-            var dbContextMock = new TestContext(connection);
+            var dbContextMock = new TestDbContext();
             var dbset = dbContextMock.Set<T>();
             dbset.AddRange(testData);
             dbContextMock.SaveChanges();

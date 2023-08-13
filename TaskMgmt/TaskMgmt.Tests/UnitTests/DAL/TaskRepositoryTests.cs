@@ -124,15 +124,15 @@ namespace TaskMgmt.DAL.UnitTests
         [Test]
         public void UpdateItem_ChangedItem_UpdatesItemWithThatId()
         {
+            // Setup
+
             int anyNumber = 3;
             string expectedValue = "Changed";
 
-            using (var connection = Effort.DbConnectionFactory.CreateTransient())
-            {
-                // Setup
+            var testData = TestDataGenerator.GenerateListOfT<TaskEntity>(anyNumber);
 
-                var testData = TestDataGenerator.GenerateListOfT<TaskEntity>(anyNumber);
-                var dbContextMock = TestDataGenerator.CreateDbContextMockWithTestData<TaskEntity>(connection, testData);
+            using (var dbContextMock = TestDataGenerator.CreateDbContextMockWithTestData<TaskEntity>(testData))
+            {
                 var loggerMock = Substitute.For<ILogger>();
 
                 var taskRepository = new TaskRepository(dbContextMock, loggerMock);
