@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using TaskMgmt.DAL.Repositories;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using TaskMgmt.DAL.Interface;
@@ -8,7 +7,6 @@ using NSubstitute;
 using NLog;
 using System.Data.Entity;
 using TaskMgmt.Tests;
-using System.Data.Entity.Infrastructure;
 
 namespace TaskMgmt.DAL.UnitTests
 {

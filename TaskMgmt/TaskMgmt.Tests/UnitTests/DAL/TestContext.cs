@@ -1,5 +1,4 @@
-﻿using TaskMgmt.DAL.Interface;
-using System.Data.Common;
+﻿using System.Data.Common;
 
 namespace TaskMgmt.DAL.UnitTests
 {

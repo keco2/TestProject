@@ -83,8 +83,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DAL\TaskRepositoryTests.cs" />
-    <Compile Include="DAL\TestContext.cs" />
+    <Compile Include="UnitTests\DAL\TaskRepositoryTests.cs" />
+    <Compile Include="UnitTests\DAL\TestContext.cs" />
     <Compile Include="TestDataGenerator.cs" />
     <Compile Include="UnitTests\UI\ObjectNullToFalseConverterTests.cs" />
     <Compile Include="UnitTests\WcfService\MapperConfigTests.cs" />
