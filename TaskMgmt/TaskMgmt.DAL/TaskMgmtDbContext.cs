@@ -16,6 +16,11 @@ namespace TaskMgmt.DAL
             MigrateDatabaseToLatest();
         }
 
+        public TaskMgmtDbContext(System.Data.Common.DbConnection connection, bool contextOwnsConnection) : base(connection, contextOwnsConnection)
+        {
+            //
+        }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

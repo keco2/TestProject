@@ -3,8 +3,6 @@ using TaskMgmt.DAL.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TaskMgmt.DAL.Interface;
 using NSubstitute;
 using NLog;
@@ -125,49 +123,43 @@ namespace TaskMgmt.DAL.UnitTests
             loggerMock.Received(1).Info("All");
         }
 
-        [Ignore("Mocking not possible for DbEntityEntry")]
         [Test]
         public void UpdateItem_ChangedItem_UpdatesItemWithThatId()
         {
-            // Setup
-
             int anyNumber = 3;
-            var dbQueryMockWithTestData = TestDataGenerator.GenerateDbQueryMockWithTestData<TaskEntity>(anyNumber);
-            var dbsetMock = Substitute.For<DbSet<TaskEntity>>();
-            var dbContextMock = Substitute.For<ITaskMgmtDbContext>();
-            var loggerMock = Substitute.For<ILogger>();
+            string expectedValue = "Changed";
 
-            dbsetMock.AsNoTracking().Returns(dbQueryMockWithTestData);
-            dbContextMock.Set<TaskEntity>().Returns(dbsetMock);
+            using (var connection = Effort.DbConnectionFactory.CreateTransient())
+            {
+                // Setup
 
-            dbsetMock.ClearReceivedCalls();
-            dbContextMock.ClearReceivedCalls();
-            loggerMock.ClearReceivedCalls();
+                var testData = TestDataGenerator.GenerateListOfT<TaskEntity>(anyNumber);
+                var dbContextMock = TestDataGenerator.CreateDbContextMockWithTestData<TaskEntity>(connection, testData);
+                var loggerMock = Substitute.For<ILogger>();
 
-            var taskRepository = new TaskRepository(dbContextMock, loggerMock);
+                var taskRepository = new TaskRepository(dbContextMock, loggerMock);
 
-            var anyItemRecreated = new TaskEntity();
-            anyItemRecreated.ID = dbQueryMockWithTestData.Last().ID;
-            anyItemRecreated.Name = "Changed";
+                var anyItemRecreated = new TaskEntity();
+                anyItemRecreated.ID = testData.Last().ID;
+                anyItemRecreated.Name = expectedValue;
 
-            // Act
+                // Act
 
-            taskRepository.UpdateItem(anyItemRecreated);
-            //   A) NullReferenceException     -> When setting context.Entry(task).State
-            //   B) If mocking DbEntityEntry<> -> Mock-Exception:Parent has no default constructor
+                taskRepository.UpdateItem(anyItemRecreated);
 
-            // Assert
+                // Assert
 
-            Assert.AreSame(anyItemRecreated.Name, dbsetMock.Where(e => e.ID == anyItemRecreated.ID).Single().Name);
+                var dbsetMock = dbContextMock.Set<TaskEntity>();
+                var nameInDb = dbsetMock.AsNoTracking().Where(t => t.ID == anyItemRecreated.ID).Single().Name;
+                var nameInDbSet = dbsetMock.Where(e => e.ID == anyItemRecreated.ID).Single().Name;
 
-            dbsetMock.ReceivedWithAnyArgs(1);
-            dbsetMock.Attach(anyItemRecreated).Received(1);
-            dbContextMock.ReceivedWithAnyArgs(1);
-            dbContextMock.Entry(anyItemRecreated).Received(1);
-            dbContextMock.DidNotReceive().SaveChanges();
+                Assert.AreNotSame(expectedValue, nameInDb, "Update should not be saved yet.");
+                Assert.AreSame(expectedValue, nameInDbSet);
+                Assert.AreEqual(EntityState.Modified, dbContextMock.Entry(anyItemRecreated).State);
 
-            loggerMock.ReceivedWithAnyArgs(1);
-            loggerMock.Received(1).Info(anyItemRecreated.ID.ToString());
+                loggerMock.ReceivedWithAnyArgs(1);
+                loggerMock.Received(1).Info(anyItemRecreated.ID.ToString());
+            }
         }
     }
 }
