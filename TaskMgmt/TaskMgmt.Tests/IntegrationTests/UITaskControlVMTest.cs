@@ -15,6 +15,7 @@ using TaskMgmt.UI.ViewModel;
 using TaskMgmt.WcfService;
 using Unity;
 using Unity.Lifetime;
+using Async = System.Threading.Tasks;
 
 namespace TaskMgmt.IntegrationTests
 {
@@ -68,6 +69,36 @@ namespace TaskMgmt.IntegrationTests
             }
         }
 
+        [Test]
+        public async Async.Task AddTaskCmd_Execute_ShouldInsertDataIntoDb()
+        {
+            //Setup
+            using (IUnityContainer iocServer = ResolveTestServerDependencies())
+            using (IUnityContainer iocClient = ResolveTestClientDependencies())
+            using (UnityServiceHost taskServiceHost = new UnityServiceHost(iocServer, typeof(TaskService)))
+            {
+                taskServiceHost.Open();
+
+                var dbStub = iocServer.Resolve<ITaskMgmtDbContext>();
+                int countBefore = dbStub.Set<TaskEntity>().AsNoTracking().Count();
+                var taskControlViewModel = iocClient.Resolve<TaskControlVM>();
+
+                //Act
+                taskControlViewModel.NewTaskCmd.Execute(null);
+                taskControlViewModel.SelectedTask.Name = "Required field";
+                await taskControlViewModel.AddTaskCmd.ExecuteAsync(null);
+
+                //Assert
+                var dbQuery = dbStub.Set<TaskEntity>().AsNoTracking();
+                int countAfter = dbQuery.Count();
+                Assert.AreEqual(0, countBefore);
+                Assert.AreEqual(1, countAfter);
+                Assert.AreEqual(1, dbQuery.Where(t => t.ID == taskControlViewModel.SelectedTask.ID).Count());
+
+                taskServiceHost.Close();
+            }
+        }
+
         private static IUnityContainer ResolveTestServerDependencies()
         {
             IUnityContainer container = new UnityContainer();
@@ -92,11 +123,6 @@ namespace TaskMgmt.IntegrationTests
             IUnityContainer container = new UnityContainer();
             container
                 .RegisterType<ITaskVM, TaskControlVM>()
-                //.RegisterType<IMainVM, MainView>()
-                //.RegisterType<IMainVM, MainVM>()
-                //.RegisterType<ITaskVM, TaskControl>()
-                //.RegisterType<IUsageVM, UsageControl>()
-                //.RegisterType<IUsageVM, UsageControlVM>()
                 .RegisterType<IProxy, Proxy>();
 
             return container;

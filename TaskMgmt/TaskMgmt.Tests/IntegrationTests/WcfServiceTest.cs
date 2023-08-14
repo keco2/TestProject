@@ -13,6 +13,7 @@ using TaskMgmt.Tests;
 using TaskMgmt.WcfService;
 using Unity;
 using Unity.Lifetime;
+using Async = System.Threading.Tasks;
 
 namespace TaskMgmt.IntegrationTests
 {
@@ -20,7 +21,7 @@ namespace TaskMgmt.IntegrationTests
     public class WcfServiceTaskServiceTest
     {
         [Test]
-        public void AddTask_DataAddedByTaskService_ShouldBeReturnedByTaskRepo()
+        public async Async.Task AddTask_DataAddedByTaskService_ShouldBeReturnedByTaskRepo()
         {
             //Setup
             using (IUnityContainer ioc = ResolveTestDependencies())
@@ -32,13 +33,36 @@ namespace TaskMgmt.IntegrationTests
                 var repoItemsBefore = repo.GetItems().ToList();
 
                 //Act
-                taskService.AddTask(taskStub);
+                await taskService.AddTaskAsync(taskStub);
 
                 //Assert
                 var repoItemsAfter = repo.GetItems().ToList();
                 Assert.AreEqual(0, repoItemsBefore.Count());
                 Assert.AreEqual(1, repoItemsAfter.Count());
                 Assert.AreEqual(1, repoItemsAfter.Where(t => t.ID == taskStub.ID).Count());
+            }
+        }
+
+        [Test]
+        public async Async.Task AddMaterial_DataAddedByMaterialService_ShouldBeReturnedByMaterialRepo()
+        {
+            //Setup
+            using (IUnityContainer ioc = ResolveTestDependencies())
+            {
+                var materialService = ioc.Resolve<MaterialService>();
+                var materialStub = TestDataGenerator.GenerateT<Material>();
+
+                var repo = ioc.Resolve<MaterialRepository>();
+                var repoItemsBefore = repo.GetItems().ToList();
+
+                //Act
+                await materialService.AddMaterialAsync(materialStub);
+
+                //Assert
+                var repoItemsAfter = repo.GetItems().ToList();
+                Assert.AreEqual(0, repoItemsBefore.Count());
+                Assert.AreEqual(1, repoItemsAfter.Count());
+                Assert.AreEqual(1, repoItemsAfter.Where(t => t.ID == materialStub.ID).Count());
             }
         }
 
