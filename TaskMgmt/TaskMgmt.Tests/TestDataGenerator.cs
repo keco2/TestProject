@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using TaskMgmt.DAL.Interface;
+using TaskMgmt.Model;
 
 namespace TaskMgmt.Tests
 {
@@ -51,6 +52,12 @@ namespace TaskMgmt.Tests
                         break;
                     case TypeCode.String:
                         p.SetValue(obj, withId.ToString());
+                        break;
+                    case TypeCode.Object:
+                        if (p.PropertyType == typeof(Unit))
+                        {
+                            p.SetValue(obj, new Unit(withId.ToString()));
+                        }
                         break;
                     default:
                         break;

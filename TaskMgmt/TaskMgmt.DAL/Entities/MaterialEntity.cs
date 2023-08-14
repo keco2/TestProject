@@ -10,10 +10,13 @@ namespace TaskMgmt.DAL
 
         public string Partnumber { get; set; }
 
+        [Required]
         public int ManufacturerCode { get; set; }
 
+        [Required]
         public int Price { get; set; }
 
+        [Required]
         public string UnitOfIssue { get; set; }
 
     }
