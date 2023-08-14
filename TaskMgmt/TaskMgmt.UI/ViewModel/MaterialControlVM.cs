@@ -15,7 +15,7 @@ using TaskMgmt.BLL;
 
 namespace TaskMgmt.UI.ViewModel
 {
-    class MaterialControlVM : ViewModelBase
+    public class MaterialControlVM : ViewModelBase
     {
         private readonly Proxy _proxy;
 

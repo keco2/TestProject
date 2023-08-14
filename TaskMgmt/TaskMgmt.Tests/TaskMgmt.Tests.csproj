@@ -92,6 +92,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IntegrationTests\UITaskControlVMTest.cs" />
     <Compile Include="IntegrationTests\WcfServiceTest.cs" />
     <Compile Include="UnitTests\DAL\TaskRepositoryTests.cs" />
     <Compile Include="TestDbContext.cs" />

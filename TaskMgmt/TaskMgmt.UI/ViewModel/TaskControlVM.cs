@@ -15,7 +15,7 @@ using TaskMgmt.BLL;
 
 namespace TaskMgmt.UI.ViewModel
 {
-    class TaskControlVM : ViewModelBase, ITaskVM, ILoadble
+    public class TaskControlVM : ViewModelBase, ITaskVM, ILoadble
     {
         private readonly IProxy _proxy;
 

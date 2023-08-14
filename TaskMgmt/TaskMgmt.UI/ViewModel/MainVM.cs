@@ -3,7 +3,7 @@ using Unity;
 
 namespace TaskMgmt.UI.ViewModel
 {
-    class MainVM : ViewModelBase, IMainVM
+    public class MainVM : ViewModelBase, IMainVM
     {
         private int selectedTabIndex;
 

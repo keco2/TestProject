@@ -8,7 +8,7 @@ namespace TaskMgmt.UI.ViewModel
     /// <summary>
     /// Makes possible binding to WPF Element
     /// </summary>
-    abstract class ViewModelBase : INotifyPropertyChanged
+    public abstract class ViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

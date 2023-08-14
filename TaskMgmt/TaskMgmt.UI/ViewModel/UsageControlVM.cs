@@ -8,7 +8,7 @@ using TaskMgmt.Model;
 
 namespace TaskMgmt.UI.ViewModel
 {
-    class UsageControlVM : ViewModelBase, IUsageVM, ILoadble
+    public class UsageControlVM : ViewModelBase, IUsageVM, ILoadble
     {
         private readonly IProxy _proxy;
 
