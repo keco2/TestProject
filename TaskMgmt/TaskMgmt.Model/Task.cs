@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using System.ComponentModel.DataAnnotations;
 
 namespace TaskMgmt.Model
 {
@@ -11,9 +12,11 @@ namespace TaskMgmt.Model
             ID = Guid.NewGuid();
         }
 
+        [Required]
         [DataMember]
         public string Name { get; set; }
 
+        [Required]
         [DataMember]
         public Guid ID { get; set; }
 
