@@ -22,7 +22,25 @@ namespace TaskMgmt.IntegrationTests
     public class UITaskControlVMTest
     {
         [Test]
-        public void TaskList_UiInit_ShouldLoadTaskListFromDb()
+        public void LoadTasks_WhenHostNotOpened_ShouldReturnUserFriendlyMsg()
+        {
+            //Setup
+            using (IUnityContainer iocServer = ResolveTestServerDependencies())
+            using (IUnityContainer iocClient = ResolveTestClientDependencies())
+            {
+                string expectedMessage = "ERROR: EndpointNotFoundException";
+
+                //Act
+                var taskControlViewModel = iocClient.Resolve<TaskControlVM>();
+
+                //Assert
+                Assert.AreEqual(expectedMessage, taskControlViewModel.Message, $"After {nameof(TaskControlVM)} initialized");
+                Assert.DoesNotThrow(taskControlViewModel.LoadTasks);
+            }
+        }
+
+        [Test]
+        public void TaskList_VmInit_ShouldLoadDataFromDb()
         {
             //Setup
             using (IUnityContainer iocServer = ResolveTestServerDependencies())

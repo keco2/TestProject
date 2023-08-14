@@ -85,7 +85,11 @@ namespace TaskMgmt.UI.ViewModel
             }
             catch (EndpointNotFoundException)
             {
-                Message = "ERROR: EndpointNotFoundException";
+                Message = $"ERROR: {nameof(EndpointNotFoundException)}";
+            }
+            catch (CommunicationObjectFaultedException)
+            {
+                Message = $"ERROR: {nameof(CommunicationObjectFaultedException)}";
             }
         }
 
