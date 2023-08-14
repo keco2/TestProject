@@ -48,8 +48,9 @@ namespace TaskMgmt.UI
                 .RegisterType<ITaskVM, TaskControlVM>()
                 .RegisterType<IUsageVM, UsageControl>()
                 .RegisterType<IUsageVM, UsageControlVM>()
+                .RegisterType<IMaterialVM, MaterialControl>()
+                .RegisterType<IMaterialVM, MaterialControlVM>()
                 .RegisterType<IProxy, Proxy>();
-
             return ioc.Resolve<MainView>();
         }
 

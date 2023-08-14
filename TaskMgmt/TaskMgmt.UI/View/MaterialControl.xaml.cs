@@ -19,16 +19,11 @@ namespace TaskMgmt.UI.View
     /// <summary>
     /// Interaction logic for MaterialControl.xaml
     /// </summary>
-    public partial class MaterialControl : UserControl
+    public partial class MaterialControl : UserControl, IMaterialVM
     {
         public MaterialControl()
         {
             InitializeComponent();
-        }
-
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            (DataContext as MaterialControlVM).LoadMaterials();
         }
     }
 }

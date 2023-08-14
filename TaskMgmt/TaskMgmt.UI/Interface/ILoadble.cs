@@ -2,6 +2,6 @@
 {
     internal interface ILoadble
     {
-        void LoadTasks();
+        void InitLoad();
     }
 }

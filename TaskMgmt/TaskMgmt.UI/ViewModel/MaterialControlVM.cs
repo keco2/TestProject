@@ -16,14 +16,14 @@ using Async = System.Threading.Tasks;
 
 namespace TaskMgmt.UI.ViewModel
 {
-    public class MaterialControlVM : ViewModelBase
+    public class MaterialControlVM : ViewModelBase, IMaterialVM, ILoadble
     {
-        private readonly Proxy _proxy;
+        private readonly IProxy _proxy;
 
-        public MaterialControlVM()
+        public MaterialControlVM(IProxy proxy)
         {
+            _proxy = proxy;
             HookUpUICommands();
-            _proxy = new Proxy();
             LoadMaterials();
         }
 
@@ -97,6 +97,11 @@ namespace TaskMgmt.UI.ViewModel
         public IAsyncCommand DeleteMaterialCmd { get; private set; }
         public ICommand RecordChangedCmd { get; private set; }
 
+        public void InitLoad()
+        {
+            LoadMaterials();
+        }
+
         public void LoadMaterials()
         {
             try
@@ -119,7 +124,7 @@ namespace TaskMgmt.UI.ViewModel
             RecordChangedCmd = new DelegateCommand(_ => IsRecordChanged = !IsRecordNew);
         }
 
-        private async Async.Task InvokeOnSelectedRecordAsync(Func<Proxy, Async.Task> actionAsync)
+        private async Async.Task InvokeOnSelectedRecordAsync(Func<IProxy, Async.Task> actionAsync)
         {
             if (SelectedMaterial != null)
             {
@@ -149,7 +154,7 @@ namespace TaskMgmt.UI.ViewModel
             IsRecordNew = true;
         }
 
-        private async Async.Task AddRecord(Proxy proxy)
+        private async Async.Task AddRecord(IProxy proxy)
         {
             if (IsRecordNew && SelectedMaterial != null && !MaterialList.Contains(SelectedMaterial) && GetDataValidation())
             {
@@ -176,7 +181,7 @@ namespace TaskMgmt.UI.ViewModel
             }
         }
 
-        private async Async.Task UpdateRecord(Proxy proxy)
+        private async Async.Task UpdateRecord(IProxy proxy)
         {
             if (IsRecordChanged && GetDataValidation())
             {
@@ -192,7 +197,7 @@ namespace TaskMgmt.UI.ViewModel
             }
         }
 
-        private async Async.Task DeleteRecord(Proxy proxy)
+        private async Async.Task DeleteRecord(IProxy proxy)
         {
             var materialName = SelectedMaterial.Partnumber;
             await proxy.DeleteMaterialAsync(SelectedMaterial.ID);

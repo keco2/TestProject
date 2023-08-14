@@ -139,6 +139,11 @@ namespace TaskMgmt.UI.ViewModel
         public IAsyncCommand UpdateUsageCmd { get; private set; }
         public IAsyncCommand DeleteUsageCmd { get; private set; }
 
+        public void InitLoad()
+        {
+            LoadTasks();
+        }
+
         public void LoadTasks()
         {
             try

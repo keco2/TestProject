@@ -74,6 +74,11 @@ namespace TaskMgmt.UI.ViewModel
         public IAsyncCommand DeleteTaskCmd { get; private set; }
         public ICommand RecordChangedCmd { get; private set; }
 
+        public void InitLoad()
+        {
+            LoadTasks();
+        }
+
         public void LoadTasks()
         {
             try
@@ -170,6 +175,5 @@ namespace TaskMgmt.UI.ViewModel
             LoadTasks();
             Message = taskName + " deleted (related material-usages deleted)";
         }
-
     }
 }

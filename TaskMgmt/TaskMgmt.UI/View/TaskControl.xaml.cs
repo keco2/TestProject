@@ -21,9 +21,6 @@ namespace TaskMgmt.UI.View
     /// </summary>
     public partial class TaskControl : UserControl, ITaskVM
     {
-        /// <summary>
-        /// Required for VS Designer
-        /// </summary>
         public TaskControl()
         {
             InitializeComponent();

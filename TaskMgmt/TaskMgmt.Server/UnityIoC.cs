@@ -19,7 +19,6 @@ namespace TaskMgmt.Server
                 .RegisterType<IGenericRepository<MaterialEntity>, MaterialRepository>(new ContainerControlledLifetimeManager())
                 .RegisterType<IGenericRepository<TaskEntity>, TaskRepository>(new ContainerControlledLifetimeManager())
                 .RegisterType<ITaskMgmtDbContext, TaskMgmtDbContext>(new ContainerControlledLifetimeManager())
-                .RegisterType<ITaskMgmtDbContext, TaskMgmtDbContext>(new ContainerControlledLifetimeManager())
                 .RegisterType<IUnitOfWork, UnitOfWorkRepository>(new ContainerControlledLifetimeManager())
                 .RegisterType<ITaskService, TaskService>(new ContainerControlledLifetimeManager())
                 .RegisterType<IMaterialService, MaterialService>(new ContainerControlledLifetimeManager())

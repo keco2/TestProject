@@ -11,7 +11,7 @@
             <local:TaskControl DataContext="{Binding TaskDataContext}" />
         </TabItem>
         <TabItem Header="Materials">
-            <local:MaterialControl />
+            <local:MaterialControl DataContext="{Binding MaterialDataContext}"/>
         </TabItem>
         <TabItem Header="Usages">
             <local:UsageControl DataContext="{Binding UsageDataContext}" />
