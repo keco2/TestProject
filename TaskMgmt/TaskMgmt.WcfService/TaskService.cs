@@ -7,6 +7,7 @@ using System.Linq;
 using TaskMgmt.WcfService.MappersConfigs;
 using Unity;
 using TaskMgmt.DAL.Interface;
+using Async = System.Threading.Tasks;
 
 namespace TaskMgmt.WcfService
 {
@@ -35,23 +36,23 @@ namespace TaskMgmt.WcfService
             return mapper.Map<Task>(task);
         }
 
-        public void AddTask(Task task)
+        public async Async.Task AddTaskAsync(Task task)
         {
             UnitOfWorkRepo.TaskRepository.InsertItem(mapper.Map<TaskEntity>(task));
-            UnitOfWorkRepo.SaveChanges();
+            await UnitOfWorkRepo.SaveChangesAsync().ConfigureAwait(false);
         }
 
-        public void UpdateTask(string id, Task task)
+        public async Async.Task UpdateTaskAsync(string id, Task task)
         {
             UnitOfWorkRepo.TaskRepository.UpdateItem(mapper.Map<TaskEntity>(task));
-            UnitOfWorkRepo.SaveChanges();
+            await UnitOfWorkRepo.SaveChangesAsync().ConfigureAwait(false);
         }
 
-        public void DeleteTask(string id)
+        public async Async.Task DeleteTaskAsync(string id)
         {
             Guid taskGuid = Guid.Parse(id);
             UnitOfWorkRepo.TaskRepository.DeleteItem(taskGuid);
-            UnitOfWorkRepo.SaveChanges();
+            await UnitOfWorkRepo.SaveChangesAsync().ConfigureAwait(false);
         }
     }
 }

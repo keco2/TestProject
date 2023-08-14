@@ -7,6 +7,7 @@ using TaskMgmt.DAL.Interface;
 using TaskMgmt.Model;
 using TaskMgmt.WcfService.MappersConfigs;
 using Unity;
+using Async = System.Threading.Tasks;
 
 namespace TaskMgmt.WcfService
 {
@@ -35,26 +36,26 @@ namespace TaskMgmt.WcfService
             return mapper.Map<Material>(task);
         }
 
-        public void AddMaterial(Material material)
+        public async Async.Task AddMaterialAsync(Material material)
         {
             var materialEntity = mapper.Map<MaterialEntity>(material);
             UnitOfWorkRepo.MaterialRepository.InsertItem(materialEntity);
-            UnitOfWorkRepo.SaveChanges();
+            await UnitOfWorkRepo.SaveChangesAsync().ConfigureAwait(false);
         }
 
-        public void UpdateMaterial(string id, Material material)
+        public async Async.Task UpdateMaterialAsync(string id, Material material)
         {
             Guid materialGuid = Guid.Parse(id);
             var materialEntity = mapper.Map<MaterialEntity>(material);
             UnitOfWorkRepo.MaterialRepository.UpdateItem(materialEntity);
-            UnitOfWorkRepo.SaveChanges();
+            await UnitOfWorkRepo.SaveChangesAsync().ConfigureAwait(false);
         }
 
-        public void DeleteMaterial(string id)
+        public async Async.Task DeleteMaterialAsync(string id)
         {
             Guid materialId = Guid.Parse(id);
             UnitOfWorkRepo.MaterialRepository.DeleteItem(materialId);
-            UnitOfWorkRepo.SaveChanges();
+            await UnitOfWorkRepo.SaveChangesAsync().ConfigureAwait(false);
         }
     }
 }

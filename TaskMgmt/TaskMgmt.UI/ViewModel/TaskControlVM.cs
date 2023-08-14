@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using TaskMgmt.UI.ViewHelper;
 using TaskMgmt.BLL;
+using Async = System.Threading.Tasks;
 
 namespace TaskMgmt.UI.ViewModel
 {
@@ -68,13 +69,10 @@ namespace TaskMgmt.UI.ViewModel
         }
 
         public ICommand NewTaskCmd { get; private set; }
-        public ICommand AddTaskCmd { get; private set; }
-        public ICommand UpdateTaskCmd { get; private set; }
-        public ICommand DeleteTaskCmd { get; private set; }
+        public IAsyncCommand AddTaskCmd { get; private set; }
+        public IAsyncCommand UpdateTaskCmd { get; private set; }
+        public IAsyncCommand DeleteTaskCmd { get; private set; }
         public ICommand RecordChangedCmd { get; private set; }
-        public ICommand NewUsageCmd { get; private set; }
-        public ICommand AddUsageCmd { get; private set; }
-        public ICommand UpdateUsageCmd { get; private set; }
 
         public void LoadTasks()
         {
@@ -96,19 +94,19 @@ namespace TaskMgmt.UI.ViewModel
         private void HookUpUICommands()
         {
             NewTaskCmd = new DelegateCommand(_ => PrepareNewRecord());
-            AddTaskCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(AddRecord));
-            UpdateTaskCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(UpdateRecord));
-            DeleteTaskCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(DeleteRecord));
+            AddTaskCmd = new AsyncCommand(async () => await InvokeOnSelectedRecordAsync(AddRecord));
+            UpdateTaskCmd = new AsyncCommand(async () => await InvokeOnSelectedRecordAsync(UpdateRecord));
+            DeleteTaskCmd = new AsyncCommand(async () => await InvokeOnSelectedRecordAsync(DeleteRecord));
             RecordChangedCmd = new DelegateCommand(_ => IsRecordChanged = !IsRecordNew);
         }
 
-        private void InvokeOnSelectedRecord(Action<IProxy> action)
+        private async Async.Task InvokeOnSelectedRecordAsync(Func<IProxy, Async.Task> actionASync)
         {
             if (SelectedTask != null)
             {
                 try
                 {
-                    action.Invoke(_proxy);
+                    await actionASync.Invoke(_proxy);
                 }
                 catch (InvalidCastException)
                 {
@@ -131,13 +129,13 @@ namespace TaskMgmt.UI.ViewModel
             IsRecordNew = true;
         }
 
-        private void AddRecord(IProxy proxy)
+        private async Async.Task AddRecord(IProxy proxy)
         {
             if (IsRecordNew && SelectedTask != null && !TaskList.Contains(SelectedTask))
             {
                 ValidateData(SelectedTask);
                 var newtaskId = SelectedTask.ID;
-                proxy.AddTask(SelectedTask);
+                await proxy.AddTaskAsync(SelectedTask);
                 LoadTasks();
                 SelectedTask = TaskList.Single(t => t.ID == newtaskId);
                 Message = "Task " + SelectedTask.Name + " added";
@@ -151,12 +149,12 @@ namespace TaskMgmt.UI.ViewModel
             // throw new InvalidCastException();
         }
 
-        private void UpdateRecord(IProxy proxy)
+        private async Async.Task UpdateRecord(IProxy proxy)
         {
             if (IsRecordChanged)
             {
                 ValidateData(SelectedTask);
-                proxy.UpdateTask(SelectedTask.ID, SelectedTask);
+                await proxy.UpdateTaskAsync(SelectedTask.ID, SelectedTask);
                 Message = SelectedTask.Name + " updated";
             }
             else
@@ -165,10 +163,10 @@ namespace TaskMgmt.UI.ViewModel
             }
         }
 
-        private void DeleteRecord(IProxy proxy)
+        private async Async.Task DeleteRecord(IProxy proxy)
         {
             var taskName = SelectedTask.Name;
-            proxy.DeleteTask(SelectedTask.ID);
+            await proxy.DeleteTaskAsync(SelectedTask.ID);
             LoadTasks();
             Message = taskName + " deleted (related material-usages deleted)";
         }

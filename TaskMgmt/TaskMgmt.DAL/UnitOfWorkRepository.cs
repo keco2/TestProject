@@ -45,9 +45,9 @@ namespace TaskMgmt.DAL
             get => TaskMaterialUsageRepositoryLazy.Value;
         }
 
-        public void SaveChanges()
+        public async System.Threading.Tasks.Task SaveChangesAsync()
         {
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync().ConfigureAwait(false);
             DetachAll();
         }
 

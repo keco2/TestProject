@@ -8,6 +8,6 @@
 
         IGenericRepository<TaskEntity> TaskRepository { get; }
 
-        void SaveChanges();
+        System.Threading.Tasks.Task SaveChangesAsync();
     }
 }

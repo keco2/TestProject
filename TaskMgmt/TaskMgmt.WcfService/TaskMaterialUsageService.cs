@@ -6,6 +6,7 @@ using TaskMgmt.DAL.Interface;
 using TaskMgmt.Model;
 using TaskMgmt.WcfService.MappersConfigs;
 using Unity;
+using Async = System.Threading.Tasks;
 
 namespace TaskMgmt.WcfService
 {
@@ -34,26 +35,26 @@ namespace TaskMgmt.WcfService
             return mapper.Map<IEnumerable<TaskMaterialUsage>>(taskEntites);
         }
 
-        public void AddTaskMaterialUsage(TaskMaterialUsage usage)
+        public async Async.Task AddTaskMaterialUsageAsync(TaskMaterialUsage usage)
         {
             var usageEntity = mapper.Map<TaskMaterialUsageEntity>(usage);
             UnitOfWorkRepo.TaskMaterialUsageRepository.InsertItem(usageEntity);
-            UnitOfWorkRepo.SaveChanges();
+            await UnitOfWorkRepo.SaveChangesAsync().ConfigureAwait(false);
         }
 
-        public void UpdateTaskMaterialUsage(TaskMaterialUsage usage)
+        public async Async.Task UpdateTaskMaterialUsageAsync(TaskMaterialUsage usage)
         {
             var usageEntity = mapper.Map<TaskMaterialUsageEntity>(usage);
             UnitOfWorkRepo.TaskMaterialUsageRepository.UpdateItem(usageEntity);
-            UnitOfWorkRepo.SaveChanges();
+            await UnitOfWorkRepo.SaveChangesAsync().ConfigureAwait(false);
         }
 
-        public void DeleteTaskMaterialUsage(string taskId, string materialId)
+        public async Async.Task DeleteTaskMaterialUsageAsync(string taskId, string materialId)
         {
             Guid taskGuid = Guid.Parse(taskId);
             Guid materialGuid = Guid.Parse(materialId);
             UnitOfWorkRepo.TaskMaterialUsageRepository.DeleteItem(taskGuid, materialGuid);
-            UnitOfWorkRepo.SaveChanges();
+            await UnitOfWorkRepo.SaveChangesAsync().ConfigureAwait(false);
         }
     }
 }

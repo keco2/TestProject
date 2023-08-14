@@ -5,6 +5,7 @@ using TaskMgmt.UI.MaterialServiceRef;
 using TaskMgmt.UI.TaskMaterialUsageServiceRef;
 using TaskMgmt.Model;
 using System.Collections.Generic;
+using Async = System.Threading.Tasks;
 
 namespace TaskMgmt.UI.ViewModel
 {
@@ -29,32 +30,32 @@ namespace TaskMgmt.UI.ViewModel
 
         public Material GetMaterialById(Guid id) => _materialService.GetMaterialById(id.ToString());
 
-        public void AddMaterial(Material material) => _materialService.AddMaterial(material);
+        public async Async.Task AddMaterialAsync(Material material) => await _materialService.AddMaterialAsync(material);
 
-        public void UpdateMaterial(Guid id, Material material) => _materialService.UpdateMaterial(id.ToString(), material);
+        public async Async.Task UpdateMaterialAsync(Guid id, Material material) => await _materialService.UpdateMaterialAsync(id.ToString(), material);
 
-        public void DeleteMaterial(Guid id) => _materialService.DeleteMaterial(id.ToString());
+        public async Async.Task DeleteMaterialAsync(Guid id) => await _materialService.DeleteMaterialAsync(id.ToString());
 
 
         public IEnumerable<TaskMaterialUsage> GetUsages() => _taskMaterialUsageService.GetTaskMaterialUsages();
 
         public IEnumerable<TaskMaterialUsage> GetUsagesByTaskId(Guid taskId) => _taskMaterialUsageService.GetTaskMaterialUsagesByTaskId(taskId.ToString());
 
-        public void AddUsage(TaskMaterialUsage usage) => _taskMaterialUsageService.AddTaskMaterialUsage(usage);
+        public async Async.Task AddUsageAsync(TaskMaterialUsage usage) => await _taskMaterialUsageService.AddTaskMaterialUsageAsync(usage);
 
-        public void UpdateUsage(TaskMaterialUsage usage) => _taskMaterialUsageService.UpdateTaskMaterialUsage(usage);
+        public async Async.Task UpdateUsageAsync(TaskMaterialUsage usage) => await _taskMaterialUsageService.UpdateTaskMaterialUsageAsync(usage);
 
-        public void DeleteUsage(Guid taskId, Guid materialId) => _taskMaterialUsageService.DeleteTaskMaterialUsage(taskId.ToString(), materialId.ToString());
+        public async Async.Task DeleteUsageAsync(Guid taskId, Guid materialId) => await _taskMaterialUsageService.DeleteTaskMaterialUsageAsync(taskId.ToString(), materialId.ToString());
 
 
         public IEnumerable<Task> GetTasks() => _taskService.GetTasks();
 
         public Task GetTaskById(Guid id) => _taskService.GetTaskById(id.ToString());
 
-        public void AddTask(Task task) => _taskService.AddTask(task);
+        public async Async.Task AddTaskAsync(Task task) => await _taskService.AddTaskAsync(task);
 
-        public void UpdateTask(Guid id, Task task) => _taskService.UpdateTask(id.ToString(), task);
+        public async Async.Task UpdateTaskAsync(Guid id, Task task) => await _taskService.UpdateTaskAsync(id.ToString(), task);
 
-        public void DeleteTask(Guid id) => _taskService.DeleteTask(id.ToString());
+        public async Async.Task DeleteTaskAsync(Guid id) => await _taskService.DeleteTaskAsync(id.ToString());
     }
 }

@@ -5,6 +5,8 @@ using System.ServiceModel;
 using System.Windows.Input;
 using TaskMgmt.BLL;
 using TaskMgmt.Model;
+using TaskMgmt.UI.ViewHelper;
+using Async = System.Threading.Tasks;
 
 namespace TaskMgmt.UI.ViewModel
 {
@@ -133,9 +135,9 @@ namespace TaskMgmt.UI.ViewModel
 
         public ICommand RecordChangedCmd { get; private set; }
         public ICommand NewUsageCmd { get; private set; }
-        public ICommand AddUsageCmd { get; private set; }
-        public ICommand UpdateUsageCmd { get; private set; }
-        public ICommand DeleteUsageCmd { get; private set; }
+        public IAsyncCommand AddUsageCmd { get; private set; }
+        public IAsyncCommand UpdateUsageCmd { get; private set; }
+        public IAsyncCommand DeleteUsageCmd { get; private set; }
 
         public void LoadTasks()
         {
@@ -157,19 +159,19 @@ namespace TaskMgmt.UI.ViewModel
         private void HookUpUICommands()
         {
             RecordChangedCmd = new DelegateCommand(_ => IsRecordChanged = !IsRecordNew);
-            NewUsageCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(PrepareNewUsage));
-            AddUsageCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(AddUsage));
-            UpdateUsageCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(UpdateUsage));
-            DeleteUsageCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(DeleteUsage));
+            NewUsageCmd = new DelegateCommand(async _ => await InvokeOnSelectedRecordAsync(PrepareNewUsage));
+            AddUsageCmd = new AsyncCommand(async () => await InvokeOnSelectedRecordAsync(AddUsage));
+            UpdateUsageCmd = new AsyncCommand(async () => await InvokeOnSelectedRecordAsync(UpdateUsage));
+            DeleteUsageCmd = new AsyncCommand(async () => await InvokeOnSelectedRecordAsync(DeleteUsage));
         }
 
-        private void InvokeOnSelectedRecord(Action<IProxy> action)
+        private async Async.Task InvokeOnSelectedRecordAsync(Func<IProxy, Async.Task> actionAsync)
         {
             if (SelectedTask != null)
             {
                 try
                 {
-                    action.Invoke(_proxy);
+                    await actionAsync.Invoke(_proxy);
                 }
                 catch (InvalidCastException)
                 {
@@ -192,7 +194,7 @@ namespace TaskMgmt.UI.ViewModel
             // throw new InvalidCastException();
         }
 
-        private void PrepareNewUsage(IProxy proxy)
+        private async Async.Task PrepareNewUsage(IProxy proxy)
         {
             LoadMaterial();
             SelectedTaskMaterialUsage = new TaskMaterialUsage();
@@ -200,7 +202,7 @@ namespace TaskMgmt.UI.ViewModel
             IsRecordNew = true;
         }
 
-        private void AddUsage(IProxy proxy)
+        private async Async.Task AddUsage(IProxy proxy)
         {
             if (IsRecordNew && !TaskMaterialUsageList.Contains(SelectedTaskMaterialUsage))
             {
@@ -220,7 +222,7 @@ namespace TaskMgmt.UI.ViewModel
                     SelectedTaskMaterialUsage.Material = SelectedMaterial;
                     var taskId = SelectedTaskMaterialUsage.Task.ID;
                     var materialId = SelectedTaskMaterialUsage.Material.ID;
-                    proxy.AddUsage(SelectedTaskMaterialUsage);
+                    await proxy.AddUsageAsync(SelectedTaskMaterialUsage);
                     LoadUsages();
                     SelectedTaskMaterialUsage = TaskMaterialUsageList.Single(u => u.Task.ID == taskId && u.Material.ID == materialId);
                     Message = "Material " + SelectedTaskMaterialUsage.Material.ManufacturerCode + " assigned to task " + SelectedTaskMaterialUsage.Task.Name;
@@ -230,13 +232,13 @@ namespace TaskMgmt.UI.ViewModel
             }
         }
 
-        private void UpdateUsage(IProxy proxy)
+        private async Async.Task UpdateUsage(IProxy proxy)
         {
             if (IsRecordChanged)
             {
                 ValidateData(SelectedTaskMaterialUsage);
                 SelectedTaskMaterialUsage.UnitOfMeasurement.Value = SelectedUnit;
-                proxy.UpdateUsage(SelectedTaskMaterialUsage);
+                await proxy.UpdateUsageAsync(SelectedTaskMaterialUsage);
                 LoadUsages();
                 Message = "Usage on " + SelectedTask.Name + " updated";
             }
@@ -246,10 +248,10 @@ namespace TaskMgmt.UI.ViewModel
             }
         }
 
-        private void DeleteUsage(IProxy proxy)
+        private async Async.Task DeleteUsage(IProxy proxy)
         {
             var taskName = SelectedTask.Name;
-            proxy.DeleteUsage(SelectedTaskMaterialUsage.Task.ID, SelectedTaskMaterialUsage.Material.ID);
+            await proxy.DeleteUsageAsync(SelectedTaskMaterialUsage.Task.ID, SelectedTaskMaterialUsage.Material.ID);
             LoadUsages();
             var count = TaskMaterialUsageList.Count();
             Message = "Usage from task " + taskName + " deleted / DB.count = " + count;

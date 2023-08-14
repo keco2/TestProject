@@ -6,6 +6,7 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using TaskMgmt.Model;
 using System.Text;
+using Async = System.Threading.Tasks;
 
 namespace TaskMgmt.WcfService
 {
@@ -22,14 +23,14 @@ namespace TaskMgmt.WcfService
 
         [OperationContract]
         [WebInvoke(Method = "POST", UriTemplate = "materials", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        void AddMaterial(Material material);
+        Async.Task AddMaterialAsync(Material material);
 
         [OperationContract]
         [WebInvoke(Method = "PUT", UriTemplate = "materials/{id}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        void UpdateMaterial(string id, Material material);
+        Async.Task UpdateMaterialAsync(string id, Material material);
 
         [OperationContract]
         [WebInvoke(Method = "DELETE", UriTemplate = "materials/{id}")]
-        void DeleteMaterial(string id);
+        Async.Task DeleteMaterialAsync(string id);
     }
 }

@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using TaskMgmt.UI.ViewHelper;
 using TaskMgmt.BLL;
+using Async = System.Threading.Tasks;
 
 namespace TaskMgmt.UI.ViewModel
 {
@@ -91,9 +92,9 @@ namespace TaskMgmt.UI.ViewModel
         }
 
         public ICommand NewMaterialCmd { get; private set; }
-        public ICommand AddMaterialCmd { get; private set; }
-        public ICommand UpdateMaterialCmd { get; private set; }
-        public ICommand DeleteMaterialCmd { get; private set; }
+        public IAsyncCommand AddMaterialCmd { get; private set; }
+        public IAsyncCommand UpdateMaterialCmd { get; private set; }
+        public IAsyncCommand DeleteMaterialCmd { get; private set; }
         public ICommand RecordChangedCmd { get; private set; }
 
         public void LoadMaterials()
@@ -112,19 +113,19 @@ namespace TaskMgmt.UI.ViewModel
         private void HookUpUICommands()
         {
             NewMaterialCmd = new DelegateCommand(_ => PrepareNewRecord());
-            AddMaterialCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(AddRecord));
-            UpdateMaterialCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(UpdateRecord));
-            DeleteMaterialCmd = new DelegateCommand(_ => InvokeOnSelectedRecord(DeleteRecord));
+            AddMaterialCmd = new AsyncCommand(async () => await InvokeOnSelectedRecordAsync(AddRecord));
+            UpdateMaterialCmd = new AsyncCommand(async () => await InvokeOnSelectedRecordAsync(UpdateRecord));
+            DeleteMaterialCmd = new AsyncCommand(async () => await InvokeOnSelectedRecordAsync(DeleteRecord));
             RecordChangedCmd = new DelegateCommand(_ => IsRecordChanged = !IsRecordNew);
         }
 
-        private void InvokeOnSelectedRecord(Action<Proxy> action)
+        private async Async.Task InvokeOnSelectedRecordAsync(Func<Proxy, Async.Task> actionAsync)
         {
             if (SelectedMaterial != null)
             {
                 try
                 {
-                    action.Invoke(_proxy);
+                    await actionAsync.Invoke(_proxy);
                 }
                 catch (InvalidCastException)
                 {
@@ -148,13 +149,13 @@ namespace TaskMgmt.UI.ViewModel
             IsRecordNew = true;
         }
 
-        private void AddRecord(Proxy proxy)
+        private async Async.Task AddRecord(Proxy proxy)
         {
             if (IsRecordNew && SelectedMaterial != null && !MaterialList.Contains(SelectedMaterial) && GetDataValidation())
             {
                 var newMaterialId = SelectedMaterial.ID;
                 SelectedMaterial.UnitOfIssue = new Unit(SelectedUnit);
-                proxy.AddMaterial(SelectedMaterial);
+                await proxy.AddMaterialAsync(SelectedMaterial);
                 LoadMaterials();
                 SelectedMaterial = MaterialList.Single(t => t.ID == newMaterialId);
                 Message = "Material " + SelectedMaterial.Partnumber + " added";
@@ -175,13 +176,13 @@ namespace TaskMgmt.UI.ViewModel
             }
         }
 
-        private void UpdateRecord(Proxy proxy)
+        private async Async.Task UpdateRecord(Proxy proxy)
         {
             if (IsRecordChanged && GetDataValidation())
             {
                 SelectedMaterial.UnitOfIssue.Value = SelectedUnit;
                 var partnumber = SelectedMaterial.Partnumber;
-                proxy.UpdateMaterial(SelectedMaterial.ID, SelectedMaterial);
+                await proxy.UpdateMaterialAsync(SelectedMaterial.ID, SelectedMaterial);
                 //LoadMaterials();
                 Message = SelectedMaterial.Partnumber + " updated";
             }
@@ -191,10 +192,10 @@ namespace TaskMgmt.UI.ViewModel
             }
         }
 
-        private void DeleteRecord(Proxy proxy)
+        private async Async.Task DeleteRecord(Proxy proxy)
         {
             var materialName = SelectedMaterial.Partnumber;
-            proxy.DeleteMaterial(SelectedMaterial.ID);
+            await proxy.DeleteMaterialAsync(SelectedMaterial.ID);
             LoadMaterials();
             Message = materialName + " deleted (related task-usages deleted)";
         }
