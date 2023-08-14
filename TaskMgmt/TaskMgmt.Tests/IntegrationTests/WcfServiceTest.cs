@@ -20,14 +20,13 @@ namespace TaskMgmt.IntegrationTests
     public class WcfServiceTaskServiceTest
     {
         [Test]
-        public void AddTask_UsingService_ShouldBeFoundInRepo()
+        public void AddTask_DataAddedByTaskService_ShouldBeReturnedByTaskRepo()
         {
-            // Setup
+            //Setup
             using (IUnityContainer ioc = ResolveTestDependencies())
             {
                 var taskService = ioc.Resolve<TaskService>();
-                var taskStub = Substitute.For<Task>();
-                taskStub.Name = "required field";
+                var taskStub = TestDataGenerator.GenerateT<Task>();
 
                 var repo = ioc.Resolve<TaskRepository>();
                 var repoItemsBefore = repo.GetItems().ToList();
@@ -40,6 +39,28 @@ namespace TaskMgmt.IntegrationTests
                 Assert.AreEqual(0, repoItemsBefore.Count());
                 Assert.AreEqual(1, repoItemsAfter.Count());
                 Assert.AreEqual(1, repoItemsAfter.Where(t => t.ID == taskStub.ID).Count());
+            }
+        }
+
+        [Test]
+        public void GetTasks_DataInDb_ShouldBeReturnedByTaskService()
+        {
+            //Setup
+            using (IUnityContainer ioc = ResolveTestDependencies())
+            {
+                var taskService = ioc.Resolve<TaskService>();
+                var dbStub = ioc.Resolve<ITaskMgmtDbContext>();
+                int anyNumber = 2;
+                var dataStub = TestDataGenerator.GenerateListOfT<TaskEntity>(anyNumber);
+                dbStub.AddData(dataStub);
+
+                //Act
+                var tasksResult = taskService.GetTasks();
+
+                //Assert
+                var anyTaskIdToCheck = dataStub.First().ID;
+                Assert.AreEqual(anyNumber, tasksResult.Count());
+                Assert.AreEqual(1, tasksResult.Where(t => t.ID == anyTaskIdToCheck).Count());
             }
         }
 

@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using TaskMgmt.DAL.Interface;
 
 namespace TaskMgmt.Tests
 {
@@ -20,6 +21,11 @@ namespace TaskMgmt.Tests
             }
 
             return data;
+        }
+
+        public static T GenerateT<T>()
+        {
+            return GenerateT<T>(0);
         }
 
         public static T GenerateT<T>(int withId)
@@ -66,7 +72,10 @@ namespace TaskMgmt.Tests
 
             return mockSet;
         }
+    }
 
+    public static class TestDbUtils
+    {
         internal static TestDbContext CreateDbContextMockWithTestData<T>(IEnumerable<T> testData) where T : class
         {
             var dbContextMock = new TestDbContext();
@@ -74,17 +83,27 @@ namespace TaskMgmt.Tests
             dbset.AddRange(testData);
             dbContextMock.SaveChanges();
 
-            DetachAll(dbContextMock.ChangeTracker.Entries());
+            TestDbUtils.DetachAll(dbContextMock.ChangeTracker.Entries());
 
             return dbContextMock;
         }
 
-        private static void DetachAll(IEnumerable<DbEntityEntry> changeTrackerEntries)
+        public static void AddData<T>(this ITaskMgmtDbContext dbContext, IEnumerable<T> data) where T : class
+        {
+            var dbset = dbContext.Set<T>();
+            dbset.AddRange(data);
+            dbContext.SaveChanges();
+
+            DetachAll(dbContext.ChangeTracker.Entries());
+        }
+
+        public static void DetachAll(IEnumerable<DbEntityEntry> changeTrackerEntries)
         {
             foreach (DbEntityEntry e in changeTrackerEntries.ToList())
             {
                 e.State = EntityState.Detached;
             }
         }
+
     }
 }

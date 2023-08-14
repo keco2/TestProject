@@ -132,7 +132,7 @@ namespace TaskMgmt.UnitTests
 
             var testData = TestDataGenerator.GenerateListOfT<TaskEntity>(anyNumber);
 
-            using (var dbContextMock = TestDataGenerator.CreateDbContextMockWithTestData<TaskEntity>(testData))
+            using (var dbContextMock = TestDbUtils.CreateDbContextMockWithTestData(testData))
             {
                 var loggerMock = Substitute.For<ILogger>();
 
