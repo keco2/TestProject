@@ -92,6 +92,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IntegrationTests\UIMaterialControlVMTest.cs" />
     <Compile Include="IntegrationTests\UnityServiceHostTest.cs" />
     <Compile Include="IntegrationTests\UITaskControlVMTest.cs" />
     <Compile Include="IntegrationTests\WcfServiceTest.cs" />
